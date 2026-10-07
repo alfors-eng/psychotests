@@ -97,7 +97,7 @@ export default function Runner({ test }: { test: TestDef }) {
   const pct = Math.round((answeredCount / total) * 100);
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8">
+    <div className={`cat-${test.category} mx-auto max-w-2xl space-y-8`}>
       <h1 className="sr-only">{test.title}</h1>
       <div className="space-y-2">
         <div className="flex items-center justify-between text-sm text-muted">
@@ -123,8 +123,11 @@ export default function Runner({ test }: { test: TestDef }) {
       {index === 0 && <p className="text-[15px] text-muted">{test.instructions}</p>}
 
       <fieldset className="space-y-6">
-        <legend className="text-2xl font-semibold leading-snug" id="qtext">
-          {q.text}
+        <legend className="flex items-start gap-4 text-2xl font-semibold leading-snug" id="qtext">
+          <span aria-hidden="true" className="cat-bubble mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-lg">
+            {index + 1}
+          </span>
+          <span>{q.text}</span>
         </legend>
         <div role="radiogroup" aria-labelledby="qtext" className="grid gap-3">
           {options.map((o, i) => {

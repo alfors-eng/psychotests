@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next';
 import Link from 'next/link';
 import './globals.css';
+import Logo from '@/components/Logo';
 import ThemeToggle from '@/components/ThemeToggle';
 
 export const metadata: Metadata = {
@@ -36,16 +37,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-screen">
+        <div aria-hidden="true" className="bg-decor pointer-events-none fixed inset-0 -z-10 print:hidden" />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-fg"
         >
           К содержимому
         </a>
-        <header className="border-b border-line print:hidden">
+        <header className="border-b border-line bg-bg/70 backdrop-blur print:hidden">
           <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-4 py-3">
             <Link href="/" className="text-lg font-semibold tracking-tight">
-              <span aria-hidden="true">◐ </span>Психотесты
+              <span className="inline-flex items-center gap-2">
+                <Logo />
+                Психотесты
+              </span>
             </Link>
             <nav aria-label="Основная навигация" className="flex items-center gap-1 text-[15px]">
               {[

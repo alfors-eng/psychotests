@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import CategoryIcon from '@/components/CategoryIcon';
 import StartButtons from '@/components/StartButtons';
 import { categoryTitle } from '@/lib/categories';
 import { getAllTests, getTest, isReady } from '@/lib/tests';
@@ -29,17 +30,24 @@ export default async function TestPage({ params }: Props) {
   ];
 
   return (
-    <article className="mx-auto max-w-2xl space-y-8">
+    <article className={`cat-${t.category} mx-auto max-w-2xl space-y-8`}>
       <Link href="/" className="text-sm text-accent underline-offset-4 hover:underline">
         ← Все тесты
       </Link>
-      <header className="space-y-3">
-        <p className="text-sm font-medium text-accent">{categoryTitle(t.category)}</p>
-        <h1 className="text-3xl font-semibold tracking-tight">{t.title}</h1>
-        <p className="text-lg text-muted">{t.shortDescription}</p>
+      <header className="relative overflow-hidden rounded-xl2 border border-line bg-[rgb(var(--cat)/0.10)] p-6 sm:p-8">
+        <span aria-hidden="true" className="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-[rgb(var(--cat)/0.16)]" />
+        <span aria-hidden="true" className="absolute -bottom-12 right-16 h-28 w-28 rounded-full bg-[rgb(var(--cat)/0.10)]" />
+        <div className="relative space-y-4">
+          <span className="cat-bubble inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-surface">
+            <CategoryIcon id={t.category} className="h-8 w-8" />
+          </span>
+          <p className="text-sm font-medium">{categoryTitle(t.category)}</p>
+          <h1 className="text-3xl font-semibold tracking-tight">{t.title}</h1>
+          <p className="text-lg text-muted">{t.shortDescription}</p>
+        </div>
       </header>
 
-      <dl className="grid grid-cols-2 gap-4 rounded-xl2 border border-line bg-surface p-5 text-sm sm:grid-cols-4">
+      <dl className="grid grid-cols-2 gap-4 rounded-xl2 border border-line bg-surface p-5 text-sm sm:grid-cols-4 dots">
         {facts.map(([k, v]) => (
           <div key={k}>
             <dt className="text-muted">{k}</dt>

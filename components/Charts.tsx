@@ -77,3 +77,37 @@ export function ScaleBar({ s }: { s: ScaleResult }) {
     </div>
   );
 }
+
+/** Кольцо с баллом для тестов с одной шкалой. */
+export function ScoreRing({ s }: { s: ScaleResult }) {
+  const r = 52;
+  const c = 2 * Math.PI * r;
+  const dash = (s.percent / 100) * c;
+  return (
+    <svg
+      viewBox="0 0 140 140"
+      role="img"
+      aria-label={`${s.title}: ${formatValue(s.value)} из ${formatValue(s.max)}`}
+      className="mx-auto h-40 w-40"
+    >
+      <circle cx="70" cy="70" r={r} fill="none" strokeWidth="12" className="stroke-accent-soft" />
+      <circle
+        cx="70"
+        cy="70"
+        r={r}
+        fill="none"
+        strokeWidth="12"
+        strokeLinecap="round"
+        strokeDasharray={`${dash} ${c}`}
+        transform="rotate(-90 70 70)"
+        className="stroke-accent"
+      />
+      <text x="70" y="68" textAnchor="middle" className="fill-ink text-[30px] font-semibold">
+        {formatValue(s.value)}
+      </text>
+      <text x="70" y="90" textAnchor="middle" className="fill-muted text-[13px]">
+        из {formatValue(s.max)}
+      </text>
+    </svg>
+  );
+}

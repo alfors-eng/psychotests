@@ -69,6 +69,13 @@ export default function HistoryList() {
   if (!items.length)
     return (
       <div className="space-y-4">
+        <svg viewBox="0 0 160 110" className="h-28 w-40" fill="none" aria-hidden="true" focusable="false">
+          <rect x="22" y="14" width="116" height="82" rx="14" className="fill-accent-soft" />
+          <rect x="38" y="34" width="52" height="8" rx="4" className="fill-accent" opacity="0.6" />
+          <rect x="38" y="52" width="84" height="8" rx="4" className="fill-accent" opacity="0.3" />
+          <rect x="38" y="70" width="64" height="8" rx="4" className="fill-accent" opacity="0.3" />
+          <circle cx="132" cy="22" r="10" className="fill-bg stroke-accent" strokeWidth="3" />
+        </svg>
         <p className="text-muted">Пока нет сохранённых результатов.</p>
         <Link href="/" className="btn btn-primary">
           Выбрать тест

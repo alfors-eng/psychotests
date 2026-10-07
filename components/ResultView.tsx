@@ -2,7 +2,8 @@
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
-import { RadarChart, ScaleBar } from '@/components/Charts';
+import CategoryIcon from '@/components/CategoryIcon';
+import { RadarChart, ScaleBar, ScoreRing } from '@/components/Charts';
 import PlaneChart from '@/components/PlaneChart';
 import HelpBlock from '@/components/HelpBlock';
 import { evaluateSafety, scoreTest } from '@/lib/engine';
@@ -53,10 +54,18 @@ export default function ResultView({ test }: { test: TestDef }) {
   const dominant = ranked.slice(0, 3);
 
   return (
-    <div className="mx-auto max-w-2xl space-y-8">
-      <header className="space-y-2">
-        <p className="text-sm text-muted">{date}</p>
-        <h1 className="text-3xl font-semibold tracking-tight">{test.title}</h1>
+    <div className={`cat-${test.category} mx-auto max-w-2xl space-y-8`}>
+      <header className="relative overflow-hidden rounded-xl2 border border-line bg-[rgb(var(--cat)/0.10)] p-6">
+        <span aria-hidden="true" className="absolute -right-8 -top-8 h-36 w-36 rounded-full bg-[rgb(var(--cat)/0.16)]" />
+        <div className="relative flex items-start gap-4">
+          <span className="cat-bubble inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-surface">
+            <CategoryIcon id={test.category} className="h-7 w-7" />
+          </span>
+          <div className="space-y-1">
+            <p className="text-sm text-muted">{date}</p>
+            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{test.title}</h1>
+          </div>
+        </div>
       </header>
 
       {/* Дисклеймер — обязательно на каждой странице результата. */}
@@ -88,6 +97,7 @@ export default function ResultView({ test }: { test: TestDef }) {
           Ваши баллы
         </h2>
         {multi && <RadarChart scales={result.scales} />}
+        {result.scales.length === 1 && <ScoreRing s={result.scales[0]} />}
         <div className="space-y-5">
           {result.scales.map((s) => (
             <ScaleBar key={s.id} s={s} />
@@ -100,7 +110,7 @@ export default function ResultView({ test }: { test: TestDef }) {
           Что это значит
         </h2>
         {result.scales.map((s) => (
-          <article key={s.id} className="card">
+          <article key={s.id} className="card border-l-4 border-l-[rgb(var(--cat)/0.8)]">
             {result.scales.length > 1 && <p className="text-sm text-muted">{s.title}</p>}
             <h3 className="text-lg font-semibold">{s.range?.title ?? 'Без интерпретации'}</h3>
             {s.range && <p className="mt-1 text-[15px]">{s.range.description}</p>}
