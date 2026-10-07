@@ -94,3 +94,9 @@ export function importHistory(raw: unknown): number {
   );
   return fresh.length;
 }
+
+// ---- Профиль: какие характеристики показывать на диаграмме ----
+const PROFILE_OVERRIDES = 'pt:profile-overrides';
+export type ProfileOverrides = Record<string, boolean>;
+export const loadProfileOverrides = () => read<ProfileOverrides>(PROFILE_OVERRIDES, {});
+export const saveProfileOverrides = (o: ProfileOverrides) => write(PROFILE_OVERRIDES, o);

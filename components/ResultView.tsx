@@ -129,6 +129,9 @@ export default function ResultView({ test }: { test: TestDef }) {
         <button type="button" className="btn btn-ghost" onClick={() => window.print()}>
           Скачать PDF
         </button>
+        <Link href="/profile" className="btn btn-ghost">
+          Мой профиль
+        </Link>
         <Link href="/results" className="btn btn-ghost">
           Мои результаты
         </Link>

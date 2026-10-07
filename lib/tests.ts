@@ -32,3 +32,17 @@ export function toSummary(t: TestDef): TestSummary {
 export function isReady(t: { status?: string }) {
   return t.status !== 'draft';
 }
+
+/** Облегчённое описание для подсчёта в браузере: без текстов вопросов и описаний. */
+export function toScoringDef(t: TestDef): TestDef {
+  return {
+    ...t,
+    fullDescription: '',
+    shortDescription: '',
+    instructions: '',
+    translationNote: undefined,
+    license: '',
+    todo: undefined,
+    questions: t.questions.map((q) => ({ ...q, text: '' })),
+  };
+}

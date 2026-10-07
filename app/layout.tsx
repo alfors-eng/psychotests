@@ -55,6 +55,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <nav aria-label="Основная навигация" className="flex items-center gap-1 text-[15px]">
               {[
                 ['/', 'Тесты'],
+                ['/profile', 'Профиль'],
                 ['/results', 'Мои результаты'],
                 ['/about', 'О проекте'],
               ].map(([href, label]) => (

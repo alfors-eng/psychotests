@@ -12,3 +12,15 @@ export const CATEGORIES: { id: CategoryId; title: string }[] = [
 ];
 
 export const categoryTitle = (id: CategoryId) => CATEGORIES.find((c) => c.id === id)?.title ?? id;
+
+/** Короткие названия для подписей на диаграммах. */
+export const CATEGORY_SHORT: Record<CategoryId, string> = {
+  personality: 'Личность',
+  emotional: 'Эмоции',
+  wellbeing: 'Благополучие',
+  relationships: 'Отношения',
+  eq: 'Эмо. интеллект',
+  career: 'Профориентация',
+  neurodiversity: 'Нейроразнообразие',
+  values: 'Ценности',
+};
