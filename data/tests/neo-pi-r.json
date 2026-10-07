@@ -1,0 +1,48 @@
+{
+  "status": "reference",
+  "tags": [
+    "большая пятёрка",
+    "грани",
+    "эталонный тест"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "fullDescription": "NEO PI-R (Costa и McCrae, 1992) — «золотой стандарт» измерения Большой пятёрки с оценкой 30 граней. Открытые аналоги строятся на банке IPIP: они проверены научно и не требуют лицензии.",
+  "id": "neo-pi-r",
+  "title": "NEO-PI-R — личностный опросник NEO",
+  "category": "personality",
+  "shortDescription": "Эталонный тест Большой пятёрки: 240 пунктов, пять доменов и 30 граней.",
+  "duration": 40,
+  "questionCount": 240,
+  "author": "Paul T. Costa Jr., Robert R. McCrae",
+  "year": 1992,
+  "source": "https://www.parinc.com/",
+  "officialUrl": "https://www.parinc.com/",
+  "license": "Проприетарная методика (PAR Inc.).",
+  "restriction": "Платная лицензия, ключи не публикуются. Вместо него на сайте можно пройти открытые тесты IPIP, измеряющие те же пять доменов.",
+  "analogs": [
+    "ipip-big5-50",
+    "mini-ipip",
+    "hexaco-60"
+  ]
+}

@@ -122,7 +122,7 @@ export default function Runner({ test }: { test: TestDef }) {
 
       {index === 0 && <p className="text-[15px] text-muted">{test.instructions}</p>}
 
-      <fieldset className="space-y-6">
+      <fieldset key={q.id} className="anim-question space-y-6">
         <legend className="flex items-start gap-4 text-2xl font-semibold leading-snug" id="qtext">
           <span aria-hidden="true" className="cat-bubble mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-lg">
             {index + 1}

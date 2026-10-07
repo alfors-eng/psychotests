@@ -2,48 +2,61 @@
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
 import CategoryIcon from '@/components/CategoryIcon';
+import Reveal from '@/components/Reveal';
 import { CATEGORIES, categoryTitle } from '@/lib/categories';
 import { plural } from '@/lib/format';
 import type { CategoryId, TestSummary } from '@/lib/types';
 
-function TestCard({ t, featured = false }: { t: TestSummary; featured?: boolean }) {
+function TestCard({ t, featured = false, index = 0 }: { t: TestSummary; featured?: boolean; index?: number }) {
   const draft = t.status === 'draft';
+  const ref = t.status === 'reference';
   return (
     <li className={`cat-${t.category}`}>
-      <Link
-        href={`/tests/${t.id}`}
-        className={`card cat-card flex h-full flex-col gap-3 hover:border-accent ${featured ? 'p-6' : ''} ${draft ? 'opacity-80' : ''}`}
-      >
-        <div className="flex items-start justify-between gap-3">
-          <span className={`cat-bubble inline-flex items-center justify-center rounded-2xl ${featured ? 'h-14 w-14' : 'h-11 w-11'}`}>
-            <CategoryIcon id={t.category} className={featured ? 'h-8 w-8' : 'h-6 w-6'} />
-          </span>
-          <div className="flex flex-wrap justify-end gap-1.5 text-xs">
-            {draft && <span className="rounded-full bg-warm-soft px-2.5 py-1 font-medium text-warm">Скоро</span>}
-            {!draft && t.mode === 'external' && (
-              <span className="rounded-full bg-warm-soft px-2.5 py-1 font-medium text-warm">Ввод ответов</span>
-            )}
-            {t.isClinical && !draft && (
-              <span className="rounded-full border border-line px-2.5 py-1 text-muted">Скрининг</span>
-            )}
+      <Reveal delay={Math.min(index, 8) * 55} className="h-full">
+        <Link
+          href={`/tests/${t.id}`}
+          className={`card cat-card flex h-full flex-col gap-3 hover:border-accent ${featured ? 'p-6' : ''} ${ref ? 'border-dashed' : ''}`}
+        >
+          <div className="flex items-start justify-between gap-3">
+            <span className={`cat-bubble inline-flex items-center justify-center rounded-2xl ${featured ? 'h-14 w-14' : 'h-11 w-11'}`}>
+              <CategoryIcon id={t.category} className={featured ? 'h-8 w-8' : 'h-6 w-6'} />
+            </span>
+            <div className="flex flex-wrap justify-end gap-1.5 text-xs">
+              {draft && <span className="rounded-full bg-warm-soft px-2.5 py-1 font-medium text-warm">Скоро</span>}
+              {ref && <span className="rounded-full border border-line px-2.5 py-1 font-medium text-muted">Ссылка</span>}
+              {!draft && !ref && t.mode === 'external' && (
+                <span className="rounded-full bg-warm-soft px-2.5 py-1 font-medium text-warm">Ввод ответов</span>
+              )}
+              {t.isClinical && !draft && !ref && (
+                <span className="rounded-full border border-line px-2.5 py-1 text-muted">Скрининг</span>
+              )}
+            </div>
           </div>
-        </div>
-        <h3 className={`font-semibold leading-snug ${featured ? 'text-xl' : 'text-lg'}`}>{t.title}</h3>
-        <p className="text-[15px] text-muted">{t.shortDescription}</p>
-        <p className="mt-auto flex items-center gap-3 pt-1 text-sm text-muted">
-          <span className="inline-flex items-center gap-1">
-            <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true" focusable="false">
-              <circle cx="12" cy="12" r="8.5" />
-              <path d="M12 7.5V12l3 2" />
-            </svg>
-            ≈ {t.duration} мин
-          </span>
-          <span aria-hidden="true">·</span>
-          <span>
-            {t.questionCount} {plural(t.questionCount)}
-          </span>
-        </p>
-      </Link>
+          <h3 className={`font-semibold leading-snug ${featured ? 'text-xl' : 'text-lg'}`}>{t.title}</h3>
+          <p className="text-[15px] text-muted">{t.shortDescription}</p>
+          {ref ? (
+            <p className="mt-auto pt-1 text-sm text-muted">
+              {t.analogs && t.analogs.length
+                ? `Открытых аналогов на сайте: ${t.analogs.length}`
+                : 'Открытого аналога на сайте пока нет'}
+            </p>
+          ) : (
+            <p className="mt-auto flex items-center gap-3 pt-1 text-sm text-muted">
+              <span className="inline-flex items-center gap-1">
+                <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true" focusable="false">
+                  <circle cx="12" cy="12" r="8.5" />
+                  <path d="M12 7.5V12l3 2" />
+                </svg>
+                ≈ {t.duration} мин
+              </span>
+              <span aria-hidden="true">·</span>
+              <span>
+                {t.questionCount} {plural(t.questionCount)}
+              </span>
+            </p>
+          )}
+        </Link>
+      </Reveal>
     </li>
   );
 }
@@ -65,17 +78,20 @@ export default function Catalog({ tests }: { tests: TestSummary[] }) {
     );
   }, [tests, q, cat]);
 
+  const isRef = (t: TestSummary) => t.status === 'reference';
+  const available = filtered.filter((t) => !isRef(t));
+  const references = filtered.filter(isRef);
+  const readyAll = tests.filter((t) => !isRef(t));
+
   const filtering = q.trim() !== '' || cat !== 'all';
-  const popular = tests.filter((t) => t.popular && t.status !== 'draft');
+  const popular = readyAll.filter((t) => t.popular && t.status !== 'draft');
   const counts = useMemo(() => {
     const m: Record<string, number> = {};
-    for (const t of tests) m[t.category] = (m[t.category] ?? 0) + 1;
+    for (const t of tests) if (t.status !== 'reference') m[t.category] = (m[t.category] ?? 0) + 1;
     return m;
   }, [tests]);
 
-  const grouped = CATEGORIES.map((c) => ({ c, items: filtered.filter((t) => t.category === c.id) })).filter(
-    (g) => g.items.length,
-  );
+  const grouped = CATEGORIES.map((c) => ({ c, items: available.filter((t) => t.category === c.id) })).filter((g) => g.items.length);
 
   return (
     <div className="space-y-12">
@@ -94,7 +110,7 @@ export default function Catalog({ tests }: { tests: TestSummary[] }) {
             value={q}
             onChange={(e) => setQ(e.target.value)}
             placeholder="Найти тест: тревога, личность, самооценка…"
-            className="min-h-[52px] w-full rounded-full border border-line bg-surface pl-12 pr-5 text-base shadow-sm placeholder:text-muted"
+            className="min-h-[52px] w-full rounded-full border border-line bg-surface pl-12 pr-5 text-base shadow-sm transition-shadow placeholder:text-muted focus:shadow-md"
           />
         </div>
         <div role="group" aria-label="Категории" className="flex flex-wrap gap-2">
@@ -106,7 +122,7 @@ export default function Catalog({ tests }: { tests: TestSummary[] }) {
               cat === 'all' ? 'border-accent bg-accent text-accent-fg' : 'border-line bg-surface hover:bg-accent-soft'
             }`}
           >
-            Все ({tests.length})
+            Все ({readyAll.length})
           </button>
           {CATEGORIES.map((c) => (
             <button
@@ -134,8 +150,8 @@ export default function Catalog({ tests }: { tests: TestSummary[] }) {
             Популярные
           </h2>
           <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {popular.map((t) => (
-              <TestCard key={t.id} t={t} featured />
+            {popular.map((t, i) => (
+              <TestCard key={t.id} t={t} featured index={i} />
             ))}
           </ul>
         </section>
@@ -146,7 +162,7 @@ export default function Catalog({ tests }: { tests: TestSummary[] }) {
           <span aria-hidden="true" className="inline-block h-5 w-1.5 rounded-full bg-accent" />
           {filtering ? 'Найдено' : 'Все тесты'}{' '}
           <span className="text-base font-normal text-muted" aria-live="polite">
-            ({filtered.length})
+            ({available.length})
           </span>
         </h2>
         {grouped.length ? (
@@ -159,13 +175,13 @@ export default function Catalog({ tests }: { tests: TestSummary[] }) {
                 {c.title}
               </h3>
               <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {items.map((t) => (
-                  <TestCard key={t.id} t={t} />
+                {items.map((t, i) => (
+                  <TestCard key={t.id} t={t} index={i} />
                 ))}
               </ul>
             </div>
           ))
-        ) : (
+        ) : references.length === 0 ? (
           <div className="card flex flex-col items-center gap-3 py-10 text-center">
             <svg viewBox="0 0 64 64" className="h-14 w-14 text-muted" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true" focusable="false">
               <circle cx="28" cy="28" r="14" />
@@ -173,8 +189,29 @@ export default function Catalog({ tests }: { tests: TestSummary[] }) {
             </svg>
             <p className="text-muted">Ничего не нашлось. Попробуйте другой запрос или категорию.</p>
           </div>
-        )}
+        ) : null}
       </section>
+
+      {references.length > 0 && (
+        <section aria-labelledby="refs" className="space-y-4">
+          <div>
+            <h2 id="refs" className="flex items-center gap-2 text-xl font-semibold">
+              <span aria-hidden="true" className="inline-block h-5 w-1.5 rounded-full bg-[rgb(var(--warm))]" />
+              Известные методики: ссылки и открытые аналоги{' '}
+              <span className="text-base font-normal text-muted">({references.length})</span>
+            </h2>
+            <p className="mt-1 max-w-2xl text-[15px] text-muted">
+              Эти методики защищены лицензией, поэтому вопросов здесь нет. В карточке — официальный источник и
+              открытые тесты на сайте, которые можно пройти вместо них.
+            </p>
+          </div>
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {references.map((t, i) => (
+              <TestCard key={t.id} t={t} index={i} />
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   );
 }

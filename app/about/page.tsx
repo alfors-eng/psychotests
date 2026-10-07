@@ -77,7 +77,7 @@ export default function AboutPage() {
               <a href={t.source} target="_blank" rel="noopener noreferrer" className="text-muted underline underline-offset-4">
                 оригинал
               </a>
-              {!isReady(t) && <span className="text-muted"> (в подготовке)</span>}
+              {!isReady(t) && <span className="text-muted"> ({t.status === 'reference' ? 'справочная карточка' : 'в подготовке'})</span>}
             </li>
           ))}
         </ul>

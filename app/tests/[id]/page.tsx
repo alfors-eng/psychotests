@@ -4,7 +4,7 @@ import { notFound } from 'next/navigation';
 import CategoryIcon from '@/components/CategoryIcon';
 import StartButtons from '@/components/StartButtons';
 import { categoryTitle } from '@/lib/categories';
-import { getAllTests, getTest, isReady } from '@/lib/tests';
+import { getAllTests, getTest, isReady, isReference } from '@/lib/tests';
 
 type Props = { params: Promise<{ id: string }> };
 
@@ -21,13 +21,24 @@ export default async function TestPage({ params }: Props) {
   const t = getTest((await params).id);
   if (!t) notFound();
   const ready = isReady(t);
+  const ref = isReference(t);
+  const analogs = (t.analogs ?? [])
+    .map((id) => getTest(id))
+    .filter((x): x is NonNullable<typeof x> => !!x && isReady(x));
 
-  const facts: [string, string][] = [
-    ['Время', `≈ ${t.duration} мин`],
-    ['Вопросов', `${t.questionCount}`],
-    ['Автор', t.author],
-    ['Год', `${t.year}`],
-  ];
+  const facts: [string, string][] = ref
+    ? [
+        ['Пунктов в оригинале', `${t.questionCount}`],
+        ['Автор', t.author],
+        ['Год', `${t.year}`],
+        ['Доступ', 'по лицензии'],
+      ]
+    : [
+        ['Время', `≈ ${t.duration} мин`],
+        ['Вопросов', `${t.questionCount}`],
+        ['Автор', t.author],
+        ['Год', `${t.year}`],
+      ];
 
   return (
     <article className={`cat-${t.category} mx-auto max-w-2xl space-y-8`}>
@@ -76,6 +87,16 @@ export default async function TestPage({ params }: Props) {
         </section>
       ) : ready ? (
         <StartButtons testId={t.id} />
+      ) : ref ? (
+        <section className="card space-y-4 border-warm bg-warm-soft" aria-labelledby="ref-title">
+          <h2 id="ref-title" className="text-lg font-semibold">
+            Справочная карточка: методика недоступна для прохождения на сайте
+          </h2>
+          <p className="text-[15px]">{t.restriction}</p>
+          <a href={t.officialUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
+            Официальный источник ↗
+          </a>
+        </section>
       ) : (
         <div className="card border-warm bg-warm-soft" role="note">
           <p className="font-medium">Этот тест ещё в подготовке</p>
@@ -86,7 +107,35 @@ export default async function TestPage({ params }: Props) {
         </div>
       )}
 
-      {t.isClinical && (
+      {analogs.length > 0 && (
+        <section className="space-y-3" aria-labelledby="analogs-title">
+          <h2 id="analogs-title" className="text-xl font-semibold">
+            {ref ? 'Открытые аналоги на сайте' : 'Другие открытые тесты по теме'}
+          </h2>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {analogs.map((a) => (
+              <li key={a.id} className={`cat-${a.category}`}>
+                <Link href={`/tests/${a.id}`} className="card cat-card flex h-full flex-col gap-1 p-4 hover:border-accent">
+                  <span className="font-semibold">{a.title}</span>
+                  <span className="text-sm text-muted">{a.shortDescription}</span>
+                  <span className="mt-1 text-xs text-muted">
+                    ≈ {a.duration} мин · {a.questionCount} {a.mode === 'external' ? 'пунктов (ввод ответов)' : 'вопросов'}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      {ref && analogs.length === 0 && (
+        <p className="rounded-xl2 bg-accent-soft p-4 text-[15px]">
+          Открытого аналога на сайте пока нет. Для такой методики лучше обратиться к специалисту, который имеет
+          право её проводить.
+        </p>
+      )}
+
+      {t.isClinical && !ref && (
         <p className="rounded-xl2 bg-accent-soft p-4 text-[15px]">
           Это скрининговый опросник. Он не ставит диагноз и не заменяет консультацию специалиста.
         </p>

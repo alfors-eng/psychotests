@@ -72,7 +72,7 @@ export function ScaleBar({ s }: { s: ScaleResult }) {
         aria-valuenow={s.value}
         className="h-3 overflow-hidden rounded-full bg-accent-soft"
       >
-        <div className="h-full rounded-full bg-accent" style={{ width: `${s.percent}%` }} />
+        <div className="anim-bar h-full rounded-full bg-accent" style={{ width: `${s.percent}%` }} />
       </div>
     </div>
   );
@@ -100,7 +100,7 @@ export function ScoreRing({ s }: { s: ScaleResult }) {
         strokeLinecap="round"
         strokeDasharray={`${dash} ${c}`}
         transform="rotate(-90 70 70)"
-        className="stroke-accent"
+        className="anim-ring stroke-accent"
       />
       <text x="70" y="68" textAnchor="middle" className="fill-ink text-[30px] font-semibold">
         {formatValue(s.value)}

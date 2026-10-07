@@ -1,0 +1,48 @@
+{
+  "status": "reference",
+  "tags": [
+    "депрессия",
+    "Бек",
+    "клиническая практика"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "BDI-II (Beck, Steer и Brown, 1996) — стандартный инструмент оценки тяжести депрессии в клинической практике и исследованиях. Пользоваться им и интерпретировать результат должен специалист.",
+  "id": "bdi-ii",
+  "title": "BDI-II — шкала депрессии Бека",
+  "category": "emotional",
+  "shortDescription": "Один из самых используемых опросников депрессии: 21 пункт, оценка тяжести симптомов.",
+  "duration": 10,
+  "questionCount": 21,
+  "author": "Aaron T. Beck, Robert A. Steer, Gregory K. Brown",
+  "year": 1996,
+  "source": "https://www.pearsonassessments.com/",
+  "officialUrl": "https://www.pearsonassessments.com/",
+  "license": "Проприетарная методика (Pearson).",
+  "restriction": "Платная методика Pearson, воспроизводить и распространять нельзя. Открытые аналоги — CES-D, PHQ-9 и шкала депрессии DASS-21.",
+  "analogs": [
+    "cesd",
+    "phq-9",
+    "dass-21"
+  ]
+}

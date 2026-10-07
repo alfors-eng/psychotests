@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
+import { settle } from './helpers';
 
 // Тесты, измеряющие одни и те же черты: Big Five (50), Mini-IPIP, TIPI, плюс эмоциональные и ресурсные шкалы.
 const seed = () => {
@@ -114,6 +115,7 @@ for (const theme of ['light', 'dark'] as const) {
       await page.goto('/profile');
       await page.getByRole('button', { name: 'Выбрать всё' }).click();
       await page.getByRole('tab', { name: tab }).click();
+      await settle(page);
       const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
       expect(res.violations.map((v) => `${v.id}: ${v.nodes[0].target}`)).toEqual([]);
     });

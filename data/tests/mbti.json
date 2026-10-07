@@ -1,0 +1,48 @@
+{
+  "status": "reference",
+  "tags": [
+    "типология",
+    "Юнг",
+    "карьера"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "fullDescription": "MBTI — самый распространённый в корпоративной среде тест типов личности. В научной психологии его критикуют за низкую надёжность и дихотомическое деление непрерывных черт; для описания личности чаще используют модель «Большой пятёрки».",
+  "id": "mbti",
+  "title": "MBTI — индикатор типов Майерс—Бриггс",
+  "category": "personality",
+  "shortDescription": "Популярная типология из 16 типов по четырём дихотомиям, основанная на идеях Юнга.",
+  "duration": 25,
+  "questionCount": 93,
+  "author": "Isabel Briggs Myers, Katharine C. Briggs",
+  "year": 1943,
+  "source": "https://www.themyersbriggs.com/",
+  "officialUrl": "https://www.themyersbriggs.com/",
+  "license": "Проприетарная методика (The Myers-Briggs Company).",
+  "restriction": "Платная лицензия, официальная версия доступна только через сертифицированных специалистов. На сайте нет её копий; открытая альтернатива типологии — OEJTS (см. ссылку), а надёжнее — тесты Большой пятёрки.",
+  "analogs": [
+    "ipip-big5-50",
+    "mini-ipip",
+    "tipi"
+  ]
+}

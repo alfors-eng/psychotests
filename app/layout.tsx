@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import Link from 'next/link';
 import './globals.css';
 import Logo from '@/components/Logo';
+import MotionToggle from '@/components/MotionToggle';
 import ThemeToggle from '@/components/ThemeToggle';
 
 export const metadata: Metadata = {
@@ -9,11 +10,11 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'ru_RU',
-    siteName: 'Психотесты',
-    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Психотесты' }],
+    siteName: 'Психотесты NoNinaaao',
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Психотесты NoNinaaao' }],
   },
   twitter: { card: 'summary_large_image', images: ['/og.png'] },
-  title: { default: 'Психотесты — каталог тестов онлайн', template: '%s · Психотесты' },
+  title: { default: 'Психотесты NoNinaaao — каталог тестов онлайн', template: '%s · Психотесты NoNinaaao' },
   description:
     'Каталог психологических тестов с открытыми методиками. Без регистрации: результаты считаются в вашем браузере и никуда не отправляются.',
 };
@@ -28,7 +29,7 @@ export const viewport: Viewport = {
 };
 
 // Выставляем тему до отрисовки, чтобы не было вспышки.
-const themeScript = `(function(){try{var t=localStorage.getItem('pt:theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark')}catch(e){}})()`;
+const themeScript = `(function(){try{var t=localStorage.getItem('pt:theme');var d=t?t==='dark':window.matchMedia('(prefers-color-scheme: dark)').matches;if(d)document.documentElement.classList.add('dark');if(localStorage.getItem('pt:motion')==='off')document.documentElement.classList.add('no-anim')}catch(e){}})()`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -49,7 +50,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Link href="/" className="text-lg font-semibold tracking-tight">
               <span className="inline-flex items-center gap-2">
                 <Logo />
-                Психотесты
+                Психотесты NoNinaaao
               </span>
             </Link>
             <nav aria-label="Основная навигация" className="flex items-center gap-1 text-[15px]">
@@ -63,6 +64,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   {label}
                 </Link>
               ))}
+              <MotionToggle />
               <ThemeToggle />
             </nav>
           </div>

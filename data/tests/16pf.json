@@ -1,0 +1,46 @@
+{
+  "status": "reference",
+  "tags": [
+    "профотбор",
+    "факторы личности"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "fullDescription": "16PF создан Раймондом Кеттеллом на основе факторного анализа лексики личности. Пятое издание содержит 185 пунктов. В России известна по адаптациям, но официальные версии платные.",
+  "id": "16pf",
+  "title": "16PF — шестнадцатифакторный личностный опросник Кеттелла",
+  "category": "personality",
+  "shortDescription": "Классический тест по 16 первичным факторам и пяти глобальным; часто применяется в профотборе.",
+  "duration": 40,
+  "questionCount": 185,
+  "author": "Raymond B. Cattell, Herbert W. Eber, Maurice M. Tatsuoka",
+  "year": 1949,
+  "source": "https://www.hogrefe.com/",
+  "officialUrl": "https://www.hogrefe.com/",
+  "license": "Проприетарная методика (IPAT / Hogrefe).",
+  "restriction": "Платная методика с закрытым ключом. Открытые аналоги — тесты Большой пятёрки и HEXACO (шкалы близки к глобальным факторам 16PF).",
+  "analogs": [
+    "ipip-big5-50",
+    "hexaco-60"
+  ]
+}

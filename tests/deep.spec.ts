@@ -10,7 +10,7 @@ const allTests: TestDef[] = fs
   .readdirSync(dir)
   .filter((f) => f.endsWith('.json'))
   .map((f) => JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')) as TestDef)
-  .filter((t) => t.status !== 'draft');
+  .filter((t) => t.status !== 'draft' && t.status !== 'reference');
 const byId = (id: string) => allTests.find((t) => t.id === id)!;
 
 const entry = (testId: string, answers: Record<string, number>): HistoryEntry => ({

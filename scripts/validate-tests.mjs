@@ -10,7 +10,7 @@ let drafts = 0;
 for (const file of fs.readdirSync(dir).filter((f) => f.endsWith('.json'))) {
   const t = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
   errors = errors.concat(validateTest(t, file));
-  t.status === 'draft' ? drafts++ : ready++;
+  (t.status === 'draft' || t.status === 'reference') ? drafts++ : ready++;
 }
 if (errors.length) {
   console.error(errors.join('\n'));
@@ -37,7 +37,7 @@ for (const c of cons.constructs) {
   for (const s of c.sources) {
     const t = tests[s.test];
     if (!t) { cerrs.push(`constructs ${c.id}: нет теста ${s.test}`); continue; }
-    if (t.status === 'draft') cerrs.push(`constructs ${c.id}: тест ${s.test} — заготовка`);
+    if ((t.status === 'draft' || t.status === 'reference')) cerrs.push(`constructs ${c.id}: тест ${s.test} — заготовка`);
     const scaleIds = t.scoring.method === 'sum' || t.scoring.method === 'average' ? ['total'] : (t.scoring.subscales ?? []).map((x) => x.id);
     if (!scaleIds.includes(s.scale)) cerrs.push(`constructs ${c.id}: у теста ${s.test} нет шкалы ${s.scale}`);
     if (!(s.weight > 0 && s.weight <= 1)) cerrs.push(`constructs ${c.id}: вес ${s.weight} вне (0; 1]`);
@@ -55,7 +55,7 @@ const derrs = [];
 const groupIds = new Set(model.groups.map((g) => g.id));
 const refIds = new Set(model.references.map((r) => r.id));
 const dimIds = new Set();
-const readyTests = Object.values(tests).filter((t) => t.status !== 'draft');
+const readyTests = Object.values(tests).filter((t) => (t.status !== 'draft' && t.status !== 'reference'));
 const scaleKeys = (t) => (t.scoring.method === 'sum' || t.scoring.method === 'average' ? ['total'] : (t.scoring.subscales ?? []).map((x) => x.id));
 const covered = new Set();
 for (const d of model.dimensions) {
@@ -67,7 +67,7 @@ for (const d of model.dimensions) {
   for (const x of d.loadings) {
     const t = tests[x.t];
     if (!t) { derrs.push(`dimensions ${d.id}: нет теста ${x.t}`); continue; }
-    if (t.status === 'draft') derrs.push(`dimensions ${d.id}: тест ${x.t} — заготовка`);
+    if ((t.status === 'draft' || t.status === 'reference')) derrs.push(`dimensions ${d.id}: тест ${x.t} — заготовка`);
     if (!scaleKeys(t).includes(x.s)) derrs.push(`dimensions ${d.id}: у теста ${x.t} нет шкалы ${x.s}`);
     if (!(Math.abs(x.l) > 0 && Math.abs(x.l) <= 1)) derrs.push(`dimensions ${d.id}: нагрузка ${x.l} вне (0; 1]`);
     if (!['def', 'lit', 'cnt'].includes(x.b)) derrs.push(`dimensions ${d.id}: неизвестное основание ${x.b}`);

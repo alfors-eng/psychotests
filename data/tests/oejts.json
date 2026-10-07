@@ -1,6 +1,6 @@
 {
   "id": "oejts",
-  "status": "draft",
+  "status": "reference",
   "title": "OEJTS — открытая типология Юнга",
   "shortDescription": "Открытая альтернатива MBTI: четыре дихотомии, оценка по непрерывным шкалам.",
   "fullDescription": "Open Extended Jungian Type Scales — открытая шкала из 32 пунктов с биполярными парами утверждений. Не является MBTI и не связана с ним.",
@@ -37,10 +37,10 @@
   "interpretation": {},
   "disclaimer": "Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
   "isClinical": false,
-  "todo": [
-    "Подсчёт: нужна формульная схема (сумма ± константа по каждой дихотомии) — в текущей схеме не выражается, потребуется расширение scoring",
-    "Взять 32 пары утверждений и формулы подсчёта с openpsychometrics.org.",
-    "Добавить в движок метод подсчёта по формулам (например, scoring.method = \"formula\").",
-    "Не называть результат «MBTI-типом» в интерфейсе."
+  "officialUrl": "https://openpsychometrics.org/tests/OEJTS/",
+  "restriction": "Открытая альтернатива MBTI (лицензия CC BY-NC-SA 4.0) доступна для прохождения на сайте Open-Source Psychometrics Project; формулы подсчёта на нашем сайте пока не реализованы.",
+  "analogs": [
+    "ipip-big5-50",
+    "mini-ipip"
   ]
 }

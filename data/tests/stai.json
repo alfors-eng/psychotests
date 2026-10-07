@@ -1,0 +1,49 @@
+{
+  "status": "reference",
+  "tags": [
+    "тревога",
+    "Спилбергер",
+    "Ханин"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "STAI (Spielberger, 1983, форма Y) — один из самых цитируемых опросников тревоги. Различает «тревогу здесь и сейчас» и склонность к тревожности как черте.",
+  "id": "stai",
+  "title": "STAI — шкала тревоги Спилбергера (реактивная и личностная)",
+  "category": "emotional",
+  "shortDescription": "Измеряет тревогу как состояние и как устойчивую черту, 40 пунктов (в России — адаптация Ханина).",
+  "duration": 10,
+  "questionCount": 40,
+  "author": "Charles D. Spielberger и др.",
+  "year": 1983,
+  "source": "https://www.mindgarden.com/",
+  "officialUrl": "https://www.mindgarden.com/",
+  "license": "Проприетарная методика (Mind Garden).",
+  "restriction": "Платная методика Mind Garden. Для оценки тревоги как состояния подойдут GAD-7 и DASS-21, как черты — шкала нейротизма Большой пятёрки.",
+  "analogs": [
+    "gad-7",
+    "dass-21",
+    "phq-4",
+    "ipip-big5-50"
+  ]
+}

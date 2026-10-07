@@ -30,8 +30,10 @@ export function toSummary(t: TestDef): TestSummary {
 }
 
 export function isReady(t: { status?: string }) {
-  return t.status !== 'draft';
+  return t.status !== 'draft' && t.status !== 'reference';
 }
+
+export const isReference = (t: { status?: string }) => t.status === 'reference';
 
 /** Облегчённое описание для подсчёта в браузере: без текстов вопросов и описаний. */
 export function toScoringDef(t: TestDef, keepQuestionText = false): TestDef {

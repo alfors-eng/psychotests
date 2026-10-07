@@ -1,0 +1,46 @@
+{
+  "status": "reference",
+  "tags": [
+    "выгорание",
+    "работа",
+    "Маслач"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "Maslach Burnout Inventory (Maslach и Jackson, 1981) — самый распространённый инструмент измерения выгорания. В России применяется адаптация Н. Е. Водопьяновой.",
+  "id": "mbi",
+  "title": "MBI — опросник профессионального выгорания Маслач",
+  "category": "emotional",
+  "shortDescription": "Классический опросник выгорания: эмоциональное истощение, деперсонализация и редукция достижений.",
+  "duration": 10,
+  "questionCount": 22,
+  "author": "Christina Maslach, Susan E. Jackson",
+  "year": 1981,
+  "source": "https://www.mindgarden.com/",
+  "officialUrl": "https://www.mindgarden.com/",
+  "license": "Проприетарная методика (Mind Garden).",
+  "restriction": "Платная лицензия Mind Garden. Открытая современная альтернатива — BAT-12 (ввод ответов с сайта авторов).",
+  "analogs": [
+    "bat-12"
+  ]
+}

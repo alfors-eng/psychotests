@@ -76,8 +76,17 @@ export interface Safety {
 
 export interface TestDef {
   id: string;
-  /** ready — можно проходить; draft — заготовка с метаданными. */
-  status?: 'ready' | 'draft';
+  /**
+   * ready — можно проходить; draft — заготовка; reference — справочная карточка известной методики,
+   * которую нельзя воспроизводить: ссылка на официальный источник и открытые аналоги на сайте.
+   */
+  status?: 'ready' | 'draft' | 'reference';
+  /** Для reference: официальный сайт методики. */
+  officialUrl?: string;
+  /** Для reference: кто и на каких условиях распространяет методику. */
+  restriction?: string;
+  /** Для reference: id открытых тестов на сайте, которые можно пройти вместо неё. */
+  analogs?: string[];
   title: string;
   shortDescription: string;
   fullDescription: string;

@@ -1,0 +1,48 @@
+{
+  "status": "reference",
+  "tags": [
+    "Айзенк",
+    "нейротизм",
+    "экстраверсия"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "fullDescription": "Опросник Ганса и Сибиллы Айзенков (EPQ-R, 100 пунктов) распространён в клинической и образовательной практике. Экстраверсия и нейротизм хорошо соответствуют двум чертам Большой пятёрки.",
+  "id": "epq-r",
+  "title": "EPQ-R — личностный опросник Айзенка",
+  "category": "personality",
+  "shortDescription": "Три фактора личности по Айзенку: экстраверсия, нейротизм, психотизм (плюс шкала лжи).",
+  "duration": 15,
+  "questionCount": 100,
+  "author": "Hans J. Eysenck, Sybil B. G. Eysenck",
+  "year": 1991,
+  "source": "https://www.hogrefe.com/",
+  "officialUrl": "https://www.hogrefe.com/",
+  "license": "Проприетарная методика (правообладатель — издатель опросника).",
+  "restriction": "Лицензируемая методика; бесплатной публичной версии с ключами нет. Для измерения экстраверсии и нейротизма можно пройти открытые тесты Большой пятёрки.",
+  "analogs": [
+    "ipip-big5-50",
+    "mini-ipip",
+    "sd3"
+  ]
+}

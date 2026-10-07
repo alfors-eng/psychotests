@@ -17,7 +17,7 @@ function Distribution({ bins }: { bins: ReturnType<typeof analyzeAnswers>['distr
             {b.count} · {Math.round(b.percent)} %
           </span>
           <div aria-hidden="true" className="col-span-2 h-3 overflow-hidden rounded-full bg-[rgb(var(--cat)/0.14)]">
-            <div className="h-full rounded-full bg-[rgb(var(--cat))]" style={{ width: `${(b.count / max) * 100}%`, minWidth: b.count ? 6 : 0 }} />
+            <div className="anim-bar h-full rounded-full bg-[rgb(var(--cat))]" style={{ width: `${(b.count / max) * 100}%`, minWidth: b.count ? 6 : 0 }} />
           </div>
         </li>
       ))}

@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
+import { settle } from './helpers';
 
 const DISCLAIMER = 'Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.';
 
@@ -58,6 +59,7 @@ test('длинный тест (RIASEC): матрица вклада пункто
   const matrix = page.getByRole('list', { name: /Вклад каждого пункта/ });
   await expect(matrix.first()).toBeVisible();
   await expect(matrix.first().getByRole('listitem')).toHaveCount(10);
+  await settle(page);
   const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
   expect(res.violations.map((v) => `${v.id}: ${v.nodes[0].target}`)).toEqual([]);
 });
@@ -80,7 +82,7 @@ const ready = fs
   .readdirSync(dir)
   .filter((f) => f.endsWith('.json'))
   .map((f) => JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')))
-  .filter((t) => t.status !== 'draft');
+  .filter((t) => t.status !== 'draft' && t.status !== 'reference');
 
 for (const t of ready) {
   test(`аналитика на результате: ${t.id}`, async ({ page }) => {

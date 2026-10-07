@@ -122,6 +122,31 @@
       "id": "dersimonian1986",
       "cite": "DerSimonian, R., & Laird, N. (1986). Meta-analysis in clinical trials. Controlled Clinical Trials, 7(3), 177–188.",
       "use": "Модель случайных эффектов для объединения оценок из разных тестов."
+    },
+    {
+      "id": "radloff1977",
+      "cite": "Radloff, L. S. (1977). The CES-D scale: A self-report depression scale for research in the general population. Applied Psychological Measurement, 1, 385–401.",
+      "use": "Шкала CES-D: симптомы депрессии, включая положительные пункты (обратный ключ)."
+    },
+    {
+      "id": "kroenke2009",
+      "cite": "Kroenke, K., Spitzer, R. L., Williams, J. B. W., & Löwe, B. (2009). An ultra-brief screening scale for anxiety and depression: The PHQ-4. Psychosomatics, 50, 613–621.",
+      "use": "PHQ-4: два пункта тревоги и два — депрессии, общая основа дистресса."
+    },
+    {
+      "id": "schaufeli2020",
+      "cite": "Schaufeli, W. B., Desart, S., & De Witte, H. (2020). Burnout Assessment Tool (BAT)—Development, validity, and reliability. International Journal of Environmental Research and Public Health, 17(24), 9495. https://doi.org/10.3390/ijerph17249495",
+      "use": "Выгорание как состояние истощения, психологической дистанции и эмоционального и когнитивного сбоя."
+    },
+    {
+      "id": "carver1997",
+      "cite": "Carver, C. S. (1997). You want to measure coping but your protocol's too long: Consider the Brief COPE. International Journal of Behavioral Medicine, 4(1), 92–100. https://doi.org/10.1207/s15327558ijbm0401_6",
+      "use": "14 стратегий совладания; здесь сгруппированы в проблемно-ориентированные, эмоционально-ориентированные и избегающие."
+    },
+    {
+      "id": "raes2011",
+      "cite": "Raes, F., Pommier, E., Neff, K. D., & Van Gucht, D. (2011). Construction and factorial validation of a short form of the Self-Compassion Scale. Clinical Psychology & Psychotherapy, 18, 250–255. https://doi.org/10.1002/cpp.702",
+      "use": "Самосострадание связано с меньшей тревогой и депрессией и большим благополучием."
     }
   ],
   "dimensions": [
@@ -294,6 +319,18 @@
           "s": "total",
           "l": -0.3,
           "b": "lit"
+        },
+        {
+          "t": "brief-cope",
+          "s": "ac",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "brief-cope",
+          "s": "pl",
+          "l": 0.3,
+          "b": "lit"
         }
       ]
     },
@@ -410,6 +447,24 @@
           "s": "total",
           "l": 0.3,
           "b": "lit"
+        },
+        {
+          "t": "cesd",
+          "s": "total",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "phq-4",
+          "s": "anx",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "phq-4",
+          "s": "dep",
+          "l": -0.3,
+          "b": "lit"
         }
       ]
     },
@@ -506,7 +561,10 @@
       "refs": [
         "watson1991",
         "kotov2017",
-        "caspi2014"
+        "caspi2014",
+        "radloff1977",
+        "kroenke2009",
+        "schaufeli2020"
       ],
       "loadings": [
         {
@@ -610,6 +668,36 @@
           "s": "total",
           "l": 0.2,
           "b": "lit"
+        },
+        {
+          "t": "cesd",
+          "s": "total",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "phq-4",
+          "s": "anx",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "phq-4",
+          "s": "dep",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "bat-12",
+          "s": "total",
+          "l": 0.7,
+          "b": "lit"
+        },
+        {
+          "t": "scs-sf",
+          "s": "total",
+          "l": -0.5,
+          "b": "lit"
         }
       ]
     },
@@ -621,7 +709,8 @@
       "high": "мало интереса, энергии и удовольствия",
       "refs": [
         "watson1991",
-        "kotov2010"
+        "kotov2010",
+        "radloff1977"
       ],
       "loadings": [
         {
@@ -677,6 +766,18 @@
           "s": "X",
           "l": -0.4,
           "b": "lit"
+        },
+        {
+          "t": "cesd",
+          "s": "total",
+          "l": 0.7,
+          "b": "def"
+        },
+        {
+          "t": "phq-4",
+          "s": "dep",
+          "l": 0.8,
+          "b": "def"
         }
       ]
     },
@@ -731,6 +832,18 @@
           "s": "total",
           "l": 0.3,
           "b": "cnt"
+        },
+        {
+          "t": "phq-4",
+          "s": "anx",
+          "l": 0.8,
+          "b": "def"
+        },
+        {
+          "t": "bat-12",
+          "s": "total",
+          "l": 0.4,
+          "b": "lit"
         }
       ]
     },
@@ -808,6 +921,18 @@
           "t": "hexaco-60",
           "s": "E",
           "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "scs-sf",
+          "s": "total",
+          "l": 0.6,
+          "b": "lit"
+        },
+        {
+          "t": "brief-cope",
+          "s": "sb",
+          "l": -0.4,
           "b": "lit"
         }
       ]
@@ -911,6 +1036,24 @@
           "s": "S",
           "l": 0.4,
           "b": "lit"
+        },
+        {
+          "t": "cesd",
+          "s": "total",
+          "l": -0.4,
+          "b": "lit"
+        },
+        {
+          "t": "bat-12",
+          "s": "total",
+          "l": -0.4,
+          "b": "lit"
+        },
+        {
+          "t": "scs-sf",
+          "s": "total",
+          "l": 0.5,
+          "b": "lit"
         }
       ]
     },
@@ -953,6 +1096,30 @@
           "s": "cr",
           "l": 0.3,
           "b": "lit"
+        },
+        {
+          "t": "scs-sf",
+          "s": "total",
+          "l": 0.4,
+          "b": "lit"
+        },
+        {
+          "t": "brief-cope",
+          "s": "pr",
+          "l": 0.5,
+          "b": "lit"
+        },
+        {
+          "t": "brief-cope",
+          "s": "ap",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "brief-cope",
+          "s": "hu",
+          "l": 0.3,
+          "b": "cnt"
         }
       ]
     },
@@ -1025,6 +1192,18 @@
           "s": "A",
           "l": 0.3,
           "b": "lit"
+        },
+        {
+          "t": "brief-cope",
+          "s": "es",
+          "l": 0.4,
+          "b": "cnt"
+        },
+        {
+          "t": "brief-cope",
+          "s": "is",
+          "l": 0.4,
+          "b": "cnt"
         }
       ]
     },
@@ -1278,6 +1457,12 @@
           "s": "total",
           "l": 0.3,
           "b": "cnt"
+        },
+        {
+          "t": "scs-sf",
+          "s": "total",
+          "l": 0.3,
+          "b": "cnt"
         }
       ]
     },
@@ -1461,6 +1646,150 @@
           "b": "lit"
         }
       ]
+    },
+    {
+      "id": "SC",
+      "group": "self",
+      "title": "Самосострадание",
+      "low": "самокритика, чувство изоляции и застревание на неудаче",
+      "high": "доброта к себе, чувство общности с другими людьми, взвешенное отношение к переживаниям",
+      "refs": [
+        "raes2011"
+      ],
+      "loadings": [
+        {
+          "t": "scs-sf",
+          "s": "total",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "rosenberg-self-esteem",
+          "s": "total",
+          "l": 0.3,
+          "b": "lit"
+        }
+      ]
+    },
+    {
+      "id": "COPE_PF",
+      "group": "regulation",
+      "title": "Совладание: решение проблемы (активное, планирование, помощь)",
+      "low": "реже действует и планирует при стрессе",
+      "high": "активно действует, планирует и ищет практическую помощь",
+      "refs": [
+        "carver1997"
+      ],
+      "loadings": [
+        {
+          "t": "brief-cope",
+          "s": "ac",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "brief-cope",
+          "s": "pl",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "brief-cope",
+          "s": "is",
+          "l": 1,
+          "b": "def"
+        }
+      ]
+    },
+    {
+      "id": "COPE_EF",
+      "group": "regulation",
+      "title": "Совладание: работа с переживаниями (поддержка, переоценка, принятие)",
+      "low": "реже опирается на поддержку, переоценку и принятие",
+      "high": "опирается на поддержку, переоценку, принятие, юмор и веру",
+      "refs": [
+        "carver1997"
+      ],
+      "loadings": [
+        {
+          "t": "brief-cope",
+          "s": "es",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "brief-cope",
+          "s": "pr",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "brief-cope",
+          "s": "ap",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "brief-cope",
+          "s": "hu",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "brief-cope",
+          "s": "rl",
+          "l": 1,
+          "b": "def"
+        }
+      ]
+    },
+    {
+      "id": "COPE_AV",
+      "group": "regulation",
+      "title": "Совладание: избегание (отрицание, отвлечение, самообвинение)",
+      "low": "избегание в стрессе применяется редко",
+      "high": "в стрессе чаще избегает, отвлекается, отрицает или обвиняет себя",
+      "refs": [
+        "carver1997"
+      ],
+      "loadings": [
+        {
+          "t": "brief-cope",
+          "s": "dn",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "brief-cope",
+          "s": "bd",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "brief-cope",
+          "s": "su",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "brief-cope",
+          "s": "sd",
+          "l": 0.7,
+          "b": "def"
+        },
+        {
+          "t": "brief-cope",
+          "s": "ve",
+          "l": 0.6,
+          "b": "def"
+        },
+        {
+          "t": "brief-cope",
+          "s": "sb",
+          "l": 0.6,
+          "b": "def"
+        }
+      ]
     }
   ],
   "itemLoadings": [
@@ -1591,6 +1920,78 @@
       "l": -0.4,
       "b": "cnt",
       "why": "Самообвинение."
+    },
+    {
+      "t": "cesd",
+      "i": "q4",
+      "d": "LOWPA",
+      "l": 1,
+      "b": "cnt",
+      "why": "Положительные пункты CES-D (с обратным ключом) — сниженная позитивность."
+    },
+    {
+      "t": "cesd",
+      "i": "q8",
+      "d": "LOWPA",
+      "l": 1,
+      "b": "cnt",
+      "why": "Надежда на будущее — позитивное переживание (обратный пункт)."
+    },
+    {
+      "t": "cesd",
+      "i": "q12",
+      "d": "LOWPA",
+      "l": 1,
+      "b": "cnt",
+      "why": "Ощущение счастья — позитивное переживание (обратный пункт)."
+    },
+    {
+      "t": "cesd",
+      "i": "q16",
+      "d": "LOWPA",
+      "l": 1,
+      "b": "cnt",
+      "why": "Удовольствие от жизни — позитивное переживание (обратный пункт)."
+    },
+    {
+      "t": "cesd",
+      "i": "q14",
+      "d": "CONN",
+      "l": -0.7,
+      "b": "cnt",
+      "why": "Чувство одиночества."
+    },
+    {
+      "t": "cesd",
+      "i": "q15",
+      "d": "CONN",
+      "l": -0.4,
+      "b": "cnt",
+      "why": "Люди воспринимаются как недружелюбные."
+    },
+    {
+      "t": "cesd",
+      "i": "q19",
+      "d": "CONN",
+      "l": -0.5,
+      "b": "cnt",
+      "why": "Ощущение, что не нравишься людям."
+    },
+    {
+      "t": "cesd",
+      "i": "q9",
+      "d": "CSE",
+      "l": -0.5,
+      "b": "cnt",
+      "why": "Мысли, что жизнь не удалась — самооценка."
+    },
+    {
+      "t": "cesd",
+      "i": "q10",
+      "d": "AROUSAL",
+      "l": 0.6,
+      "b": "cnt",
+      "why": "Страх — тревожное возбуждение."
     }
   ]
 }

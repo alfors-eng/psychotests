@@ -68,5 +68,6 @@ test('тёмная тема переключается и запоминаетс
 test('заготовка теста не запускается', async ({ page }) => {
   await page.goto('/tests/teique-sf/run');
   await expect(page).toHaveURL(/\/tests\/teique-sf$/);
-  await expect(page.getByText('Этот тест ещё в подготовке')).toBeVisible();
+  await expect(page.getByRole('heading', { name: /Справочная карточка/ })).toBeVisible();
+  await expect(page.getByRole('link', { name: /Официальный источник/ })).toBeVisible();
 });

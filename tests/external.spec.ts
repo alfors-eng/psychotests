@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
+import { settle } from './helpers';
 
 const DISCLAIMER = 'Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.';
 
@@ -57,6 +58,7 @@ test('ручной выбор по пунктам (ASRS, часть A)', async (
 
 test('axe: страница ввода ответов', async ({ page }) => {
   await page.goto('/tests/hexaco-60/run');
+  await settle(page);
   const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
   expect(res.violations.map((v) => `${v.id}: ${v.nodes[0].target}`)).toEqual([]);
 });

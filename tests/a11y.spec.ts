@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
+import { settle } from './helpers';
 
 const pages = ['/', '/tests/phq-9', '/tests/hexaco-60', '/about', '/contribute', '/results'];
 
@@ -9,6 +10,7 @@ for (const theme of ['light', 'dark'] as const) {
       await page.addInitScript((t) => localStorage.setItem('pt:theme', t), theme);
       await page.goto(path);
       await expect(page.locator('html')).toHaveClass(theme === 'dark' ? /dark/ : /^(?!.*dark)/);
+      await settle(page);
       const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
       expect(res.violations.map((v) => `${v.id}: ${v.nodes[0].target}`)).toEqual([]);
     });
@@ -18,6 +20,7 @@ for (const theme of ['light', 'dark'] as const) {
 test('axe: прохождение и результат (тёмная тема)', async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('pt:theme', 'dark'));
   await page.goto('/tests/phq-9/run');
+  await settle(page);
   let res = await new AxeBuilder({ page }).analyze();
   expect(res.violations.map((v) => `${v.id}: ${v.nodes[0].target}`)).toEqual([]);
   await expect(page.getByText('Вопрос 1 из 9')).toBeVisible();
@@ -25,6 +28,7 @@ test('axe: прохождение и результат (тёмная тема)'
   await page.keyboard.press('2');
   await page.getByRole('button', { name: 'Показать результат' }).click();
   await expect(page.getByRole('heading', { name: /не нужно справляться/ })).toBeVisible();
+  await settle(page);
   res = await new AxeBuilder({ page }).analyze();
   expect(res.violations.map((v) => `${v.id}: ${v.nodes[0].target}`)).toEqual([]);
 });

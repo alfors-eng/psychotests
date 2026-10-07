@@ -7,6 +7,11 @@ export function validateTest(t: TestDef, file: string): string[] {
   if (t.id + '.json' !== file) e(`id «${t.id}» должен совпадать с именем файла`);
   for (const k of ['title', 'shortDescription', 'category', 'author', 'source', 'license'] as const)
     if (!t[k]) e(`нет поля ${k}`);
+  if (t.status === 'reference') {
+    if (!t.officialUrl) e('reference: нужен officialUrl');
+    if (!t.restriction) e('reference: нужно описание ограничения (restriction)');
+    return errs;
+  }
   if (t.status === 'draft') return errs;
 
   const ids = new Set<string>();

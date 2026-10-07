@@ -1,145 +1,396 @@
 {
   "_comment": "Какие шкалы из разных тестов измеряют одну и ту же психологическую характеристику (конструкт). weight 1 — прямое соответствие, меньше 1 — родственная шкала с пониженным весом. invert: true — шкала измеряет противоположный полюс (например, нейротизм → эмоциональная устойчивость). Проценты — положение на шкале теста, не нормы; соответствия ориентировочные.",
   "domains": [
-    { "id": "personality", "title": "Личностные черты", "category": "personality" },
-    { "id": "emotional", "title": "Эмоциональное состояние", "category": "emotional" },
-    { "id": "resources", "title": "Ресурсы и благополучие", "category": "wellbeing" }
+    {
+      "id": "personality",
+      "title": "Личностные черты",
+      "category": "personality"
+    },
+    {
+      "id": "emotional",
+      "title": "Эмоциональное состояние",
+      "category": "emotional"
+    },
+    {
+      "id": "resources",
+      "title": "Ресурсы и благополучие",
+      "category": "wellbeing"
+    }
   ],
   "constructs": [
     {
-      "id": "extraversion", "domain": "personality", "title": "Экстраверсия",
+      "id": "extraversion",
+      "domain": "personality",
+      "title": "Экстраверсия",
       "low": "сдержанность, предпочтение уединения и небольшого круга общения",
       "high": "энергичность в общении, общительность, жизнерадостность",
       "sources": [
-        { "test": "ipip-big5-50", "scale": "E", "weight": 1 },
-        { "test": "mini-ipip", "scale": "E", "weight": 1 },
-        { "test": "tipi", "scale": "E", "weight": 1 },
-        { "test": "hexaco-60", "scale": "X", "weight": 1 }
+        {
+          "test": "ipip-big5-50",
+          "scale": "E",
+          "weight": 1
+        },
+        {
+          "test": "mini-ipip",
+          "scale": "E",
+          "weight": 1
+        },
+        {
+          "test": "tipi",
+          "scale": "E",
+          "weight": 1
+        },
+        {
+          "test": "hexaco-60",
+          "scale": "X",
+          "weight": 1
+        }
       ]
     },
     {
-      "id": "agreeableness", "domain": "personality", "title": "Доброжелательность",
+      "id": "agreeableness",
+      "domain": "personality",
+      "title": "Доброжелательность",
       "low": "прямолинейность, критичность, умение отстаивать свою позицию",
       "high": "отзывчивость, терпимость, склонность к сотрудничеству",
       "sources": [
-        { "test": "ipip-big5-50", "scale": "A", "weight": 1 },
-        { "test": "mini-ipip", "scale": "A", "weight": 1 },
-        { "test": "tipi", "scale": "A", "weight": 1 },
-        { "test": "hexaco-60", "scale": "A", "weight": 0.7 }
+        {
+          "test": "ipip-big5-50",
+          "scale": "A",
+          "weight": 1
+        },
+        {
+          "test": "mini-ipip",
+          "scale": "A",
+          "weight": 1
+        },
+        {
+          "test": "tipi",
+          "scale": "A",
+          "weight": 1
+        },
+        {
+          "test": "hexaco-60",
+          "scale": "A",
+          "weight": 0.7
+        }
       ]
     },
     {
-      "id": "conscientiousness", "domain": "personality", "title": "Добросовестность",
+      "id": "conscientiousness",
+      "domain": "personality",
+      "title": "Добросовестность",
       "low": "гибкость и спонтанность, меньше склонности к планированию",
       "high": "организованность, ответственность, упорство",
       "sources": [
-        { "test": "ipip-big5-50", "scale": "C", "weight": 1 },
-        { "test": "mini-ipip", "scale": "C", "weight": 1 },
-        { "test": "tipi", "scale": "C", "weight": 1 },
-        { "test": "hexaco-60", "scale": "C", "weight": 1 },
-        { "test": "grit-s", "scale": "pe", "weight": 0.5 },
-        { "test": "grit-s", "scale": "ci", "weight": 0.5 }
+        {
+          "test": "ipip-big5-50",
+          "scale": "C",
+          "weight": 1
+        },
+        {
+          "test": "mini-ipip",
+          "scale": "C",
+          "weight": 1
+        },
+        {
+          "test": "tipi",
+          "scale": "C",
+          "weight": 1
+        },
+        {
+          "test": "hexaco-60",
+          "scale": "C",
+          "weight": 1
+        },
+        {
+          "test": "grit-s",
+          "scale": "pe",
+          "weight": 0.5
+        },
+        {
+          "test": "grit-s",
+          "scale": "ci",
+          "weight": 0.5
+        }
       ]
     },
     {
-      "id": "emotional_stability", "domain": "personality", "title": "Эмоциональная устойчивость",
+      "id": "emotional_stability",
+      "domain": "personality",
+      "title": "Эмоциональная устойчивость",
       "low": "острая реакция на стресс, склонность к тревоге и перепадам настроения",
       "high": "спокойствие, выдержка в стрессовых ситуациях",
       "sources": [
-        { "test": "ipip-big5-50", "scale": "N", "invert": true, "weight": 1 },
-        { "test": "mini-ipip", "scale": "N", "invert": true, "weight": 1 },
-        { "test": "tipi", "scale": "S", "weight": 1 },
-        { "test": "hexaco-60", "scale": "E", "invert": true, "weight": 0.5 }
+        {
+          "test": "ipip-big5-50",
+          "scale": "N",
+          "invert": true,
+          "weight": 1
+        },
+        {
+          "test": "mini-ipip",
+          "scale": "N",
+          "invert": true,
+          "weight": 1
+        },
+        {
+          "test": "tipi",
+          "scale": "S",
+          "weight": 1
+        },
+        {
+          "test": "hexaco-60",
+          "scale": "E",
+          "invert": true,
+          "weight": 0.5
+        }
       ]
     },
     {
-      "id": "openness", "domain": "personality", "title": "Открытость опыту",
+      "id": "openness",
+      "domain": "personality",
+      "title": "Открытость опыту",
       "low": "практичность, приверженность привычному и проверенному",
       "high": "любознательность, воображение, интерес к новому",
       "sources": [
-        { "test": "ipip-big5-50", "scale": "O", "weight": 1 },
-        { "test": "mini-ipip", "scale": "O", "weight": 1 },
-        { "test": "tipi", "scale": "O", "weight": 1 },
-        { "test": "hexaco-60", "scale": "O", "weight": 1 }
+        {
+          "test": "ipip-big5-50",
+          "scale": "O",
+          "weight": 1
+        },
+        {
+          "test": "mini-ipip",
+          "scale": "O",
+          "weight": 1
+        },
+        {
+          "test": "tipi",
+          "scale": "O",
+          "weight": 1
+        },
+        {
+          "test": "hexaco-60",
+          "scale": "O",
+          "weight": 1
+        }
       ]
     },
     {
-      "id": "honesty_humility", "domain": "personality", "title": "Честность–скромность",
+      "id": "honesty_humility",
+      "domain": "personality",
+      "title": "Честность–скромность",
       "low": "расчётливость, стремление к выгоде и статусу",
       "high": "честность, скромность, нежелание манипулировать",
       "sources": [
-        { "test": "hexaco-60", "scale": "H", "weight": 1 },
-        { "test": "sd3", "scale": "m", "invert": true, "weight": 0.5 },
-        { "test": "sd3", "scale": "p", "invert": true, "weight": 0.5 }
+        {
+          "test": "hexaco-60",
+          "scale": "H",
+          "weight": 1
+        },
+        {
+          "test": "sd3",
+          "scale": "m",
+          "invert": true,
+          "weight": 0.5
+        },
+        {
+          "test": "sd3",
+          "scale": "p",
+          "invert": true,
+          "weight": 0.5
+        }
       ]
     },
     {
-      "id": "depression", "domain": "emotional", "title": "Сниженное настроение (депрессивные симптомы)",
+      "id": "depression",
+      "domain": "emotional",
+      "title": "Сниженное настроение (депрессивные симптомы)",
       "low": "выраженных симптомов сниженного настроения нет",
       "high": "заметно выражены симптомы сниженного настроения",
       "sources": [
-        { "test": "phq-9", "scale": "total", "weight": 1 },
-        { "test": "dass-21", "scale": "d", "weight": 1 },
-        { "test": "k6", "scale": "total", "weight": 0.5 },
-        { "test": "who-5", "scale": "total", "invert": true, "weight": 0.5 }
+        {
+          "test": "phq-9",
+          "scale": "total",
+          "weight": 1
+        },
+        {
+          "test": "dass-21",
+          "scale": "d",
+          "weight": 1
+        },
+        {
+          "test": "k6",
+          "scale": "total",
+          "weight": 0.5
+        },
+        {
+          "test": "who-5",
+          "scale": "total",
+          "invert": true,
+          "weight": 0.5
+        },
+        {
+          "test": "cesd",
+          "scale": "total",
+          "weight": 1
+        },
+        {
+          "test": "phq-4",
+          "scale": "dep",
+          "weight": 1
+        }
       ]
     },
     {
-      "id": "anxiety", "domain": "emotional", "title": "Тревога",
+      "id": "anxiety",
+      "domain": "emotional",
+      "title": "Тревога",
       "low": "выраженной тревоги нет",
       "high": "заметно выражены симптомы тревоги",
       "sources": [
-        { "test": "gad-7", "scale": "total", "weight": 1 },
-        { "test": "dass-21", "scale": "a", "weight": 1 },
-        { "test": "k6", "scale": "total", "weight": 0.5 }
+        {
+          "test": "gad-7",
+          "scale": "total",
+          "weight": 1
+        },
+        {
+          "test": "dass-21",
+          "scale": "a",
+          "weight": 1
+        },
+        {
+          "test": "k6",
+          "scale": "total",
+          "weight": 0.5
+        },
+        {
+          "test": "phq-4",
+          "scale": "anx",
+          "weight": 1
+        }
       ]
     },
     {
-      "id": "stress", "domain": "emotional", "title": "Стресс и напряжение",
+      "id": "stress",
+      "domain": "emotional",
+      "title": "Стресс и напряжение",
       "low": "нагрузка воспринимается как посильная",
       "high": "ощущение перегрузки и трудностей с расслаблением",
       "sources": [
-        { "test": "dass-21", "scale": "s", "weight": 1 },
-        { "test": "pss-10", "scale": "total", "weight": 1 },
-        { "test": "k6", "scale": "total", "weight": 0.5 }
+        {
+          "test": "dass-21",
+          "scale": "s",
+          "weight": 1
+        },
+        {
+          "test": "pss-10",
+          "scale": "total",
+          "weight": 1
+        },
+        {
+          "test": "k6",
+          "scale": "total",
+          "weight": 0.5
+        },
+        {
+          "test": "bat-12",
+          "scale": "total",
+          "weight": 0.7
+        }
       ]
     },
     {
-      "id": "wellbeing", "domain": "resources", "title": "Благополучие",
+      "id": "wellbeing",
+      "domain": "resources",
+      "title": "Благополучие",
       "low": "самочувствие и удовлетворённость жизнью снижены",
       "high": "хорошее самочувствие, ощущение смысла и удовлетворённости",
       "sources": [
-        { "test": "who-5", "scale": "total", "weight": 1 },
-        { "test": "flourishing", "scale": "total", "weight": 1 },
-        { "test": "swls", "scale": "total", "weight": 1 }
+        {
+          "test": "who-5",
+          "scale": "total",
+          "weight": 1
+        },
+        {
+          "test": "flourishing",
+          "scale": "total",
+          "weight": 1
+        },
+        {
+          "test": "swls",
+          "scale": "total",
+          "weight": 1
+        }
       ]
     },
     {
-      "id": "coping", "domain": "resources", "title": "Ресурсы совладания",
+      "id": "coping",
+      "domain": "resources",
+      "title": "Ресурсы совладания",
       "low": "труднее восстанавливаться и верить в свои силы при трудностях",
       "high": "устойчивость, вера в свои силы, оптимизм",
       "sources": [
-        { "test": "brs", "scale": "total", "weight": 1 },
-        { "test": "gse", "scale": "total", "weight": 1 },
-        { "test": "lot-r", "scale": "total", "weight": 1 },
-        { "test": "grit-s", "scale": "pe", "weight": 0.5 }
+        {
+          "test": "brs",
+          "scale": "total",
+          "weight": 1
+        },
+        {
+          "test": "gse",
+          "scale": "total",
+          "weight": 1
+        },
+        {
+          "test": "lot-r",
+          "scale": "total",
+          "weight": 1
+        },
+        {
+          "test": "grit-s",
+          "scale": "pe",
+          "weight": 0.5
+        },
+        {
+          "test": "scs-sf",
+          "scale": "total",
+          "weight": 0.6
+        }
       ]
     },
     {
-      "id": "self_esteem", "domain": "resources", "title": "Самооценка",
+      "id": "self_esteem",
+      "domain": "resources",
+      "title": "Самооценка",
       "low": "критичное отношение к себе",
       "high": "принятие и уважение к себе",
       "sources": [
-        { "test": "rosenberg-self-esteem", "scale": "total", "weight": 1 }
+        {
+          "test": "rosenberg-self-esteem",
+          "scale": "total",
+          "weight": 1
+        }
       ]
     },
     {
-      "id": "social_connection", "domain": "resources", "title": "Социальные связи",
+      "id": "social_connection",
+      "domain": "resources",
+      "title": "Социальные связи",
       "low": "нехватка общения и близости, дистанция в отношениях",
       "high": "ощущение близости и поддержки",
       "sources": [
-        { "test": "ucla-3", "scale": "total", "invert": true, "weight": 1 },
-        { "test": "ecr-r", "scale": "avo", "invert": true, "weight": 0.5 }
+        {
+          "test": "ucla-3",
+          "scale": "total",
+          "invert": true,
+          "weight": 1
+        },
+        {
+          "test": "ecr-r",
+          "scale": "avo",
+          "invert": true,
+          "weight": 0.5
+        }
       ]
     }
   ]

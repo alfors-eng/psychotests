@@ -111,3 +111,23 @@ eq(hx.questions.filter((x) => x.subscale === 'H').length + hx.questions.filter((
 const aq10 = load('aq-10');
 eq(aq10.mode, 'external', 'AQ-10 в режиме ввода ответов');
 eq(aq10.questions.every((x) => /^Пункт \d+$/.test(x.text)), true, 'AQ-10: тексты вопросов не воспроизводятся');
+
+// --- Раунд 6: CES-D, PHQ-4, BAT-12, Brief COPE, SCS-SF ---
+const cesd = load('cesd');
+const cesdWorst = Object.fromEntries(cesd.questions.map((q) => [q.id, q.reversed ? 0 : 3]));
+eq(scoreTest(cesd, cesdWorst).scales[0].value, 60, 'CES-D максимум = 60 (обратные пункты 4, 8, 12, 16)');
+eq(cesd.questions.filter((q) => q.reversed).map((q) => q.id).join(','), 'q4,q8,q12,q16', 'CES-D: обратные пункты 4, 8, 12, 16');
+eq(scoreTest(cesd, all(cesd, 3)).scales[0].value, 48, 'CES-D: все «3» → 16×3 + 4×0 = 48');
+eq(help(cesd, 3) && !help(cesd, 0), true, 'CES-D: помощь при ≥16');
+const p4 = load('phq-4');
+eq(scoreTest(p4, all(p4, 3)).scales.map((x) => x.value).join(','), '6,6', 'PHQ-4: 6 и 6 при максимуме');
+eq(help(p4, 2) && !help(p4, 1), true, 'PHQ-4: помощь при ≥3 на любой шкале (2+2=4 ≥ 3; 1+1=2 < 3)');
+const sc = load('scs-sf');
+eq(scoreTest(sc, all(sc, 5)).scales[0].value, 3, 'SCS-SF: все «5» → 3 (6 обратных пунктов)');
+const bat = load('bat-12');
+eq(scoreTest(bat, all(bat, 5)).scales[0].value, 5, 'BAT-12 максимум = 5');
+eq(scoreTest(bat, all(bat, 3)).scales[0].range.title, 'Высокий риск выгорания', 'BAT-12: среднее 3 → высокий риск (≥ 2,96)');
+eq(scoreTest(bat, all(bat, 2)).scales[0].range.title, 'Низкий риск выгорания', 'BAT-12: среднее 2 → низкий риск (≤ 2,53)');
+const cope = load('brief-cope');
+eq(scoreTest(cope, all(cope, 4)).scales.every((x) => x.value === 8), true, 'Brief COPE: все «4» → по 8 в каждой из 14 стратегий');
+eq(scoreTest(cope, all(cope, 4)).scales.length, 14, 'Brief COPE: 14 стратегий');

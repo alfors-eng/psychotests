@@ -1,0 +1,44 @@
+{
+  "status": "reference",
+  "tags": [
+    "интеллект",
+    "IQ",
+    "Векслер"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "fullDescription": "Шкалы Векслера — самые используемые инструменты оценки интеллекта. Проводятся и интерпретируются только обученными психологами в очном формате; онлайн-тесты «на IQ» не равноценны этому обследованию.",
+  "id": "wais-iv",
+  "title": "WAIS-IV — шкала интеллекта Векслера для взрослых",
+  "category": "personality",
+  "shortDescription": "Эталонный тест интеллекта: 15 субтестов, общий IQ и четыре индекса.",
+  "duration": 90,
+  "questionCount": 15,
+  "author": "David Wechsler",
+  "year": 2008,
+  "source": "https://www.pearsonassessments.com/",
+  "officialUrl": "https://www.pearsonassessments.com/",
+  "license": "Проприетарная методика (Pearson).",
+  "restriction": "Закрытая методика, доступна только квалифицированным специалистам.",
+  "analogs": []
+}

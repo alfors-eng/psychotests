@@ -1,5 +1,6 @@
 import AxeBuilder from '@axe-core/playwright';
 import { expect, test } from '@playwright/test';
+import { settle } from './helpers';
 
 const seed = () => {
   const mk = (id: string, testId: string, answers: Record<string, number>) => ({
@@ -84,6 +85,7 @@ for (const theme of ['light', 'dark'] as const) {
     await page.getByRole('tab', { name: 'Глубинный анализ' }).click();
     const openers = page.getByRole('button', { name: /Подробности и пункты/ });
     while ((await openers.count()) > 0) await openers.first().click();
+    await settle(page);
     const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
     expect(res.violations.map((v) => `${v.id}: ${v.nodes[0].target}`)).toEqual([]);
   });

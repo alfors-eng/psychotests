@@ -1,0 +1,48 @@
+{
+  "status": "reference",
+  "tags": [
+    "клиническая диагностика",
+    "личность",
+    "психопатология"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "fullDescription": "MMPI создан в 1940-х годах (Hathaway и McKinley), MMPI-2 вышел в 1989 году. Он широко применяется в клинической, судебной и профессиональной диагностике. Результат интерпретирует обученный специалист: онлайн-версия без профессионала не заменяет обследование.",
+  "id": "mmpi-2",
+  "title": "MMPI-2 — Миннесотский многоаспектный личностный опросник",
+  "category": "personality",
+  "shortDescription": "Самый известный клинический опросник личности: 567 утверждений, десять клинических шкал и шкалы достоверности.",
+  "duration": 90,
+  "questionCount": 567,
+  "author": "S. R. Hathaway, J. C. McKinley; J. N. Butcher и др.",
+  "year": 1989,
+  "source": "https://upress.umn.edu/test-division/mmpi-2",
+  "officialUrl": "https://upress.umn.edu/test-division/mmpi-2",
+  "license": "Проприетарная методика (University of Minnesota Press; распространяется через правообладателей).",
+  "restriction": "Закрытая методика: продаётся и применяется только квалифицированными специалистами. Тексты вопросов и ключи на нашем сайте не воспроизводятся.",
+  "analogs": [
+    "ipip-big5-50",
+    "dass-21",
+    "sd3"
+  ]
+}

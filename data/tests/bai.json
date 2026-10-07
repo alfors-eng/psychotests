@@ -1,0 +1,48 @@
+{
+  "status": "reference",
+  "tags": [
+    "тревога",
+    "Бек",
+    "клиническая практика"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "BAI (Beck и др., 1988) — один из самых распространённых клинических опросников тревоги.",
+  "id": "bai",
+  "title": "BAI — шкала тревоги Бека",
+  "category": "emotional",
+  "shortDescription": "Опросник из 21 симптома тревоги: физиологические и когнитивные проявления за последнюю неделю.",
+  "duration": 10,
+  "questionCount": 21,
+  "author": "Aaron T. Beck, Norman Epstein, Gary Brown, Robert A. Steer",
+  "year": 1988,
+  "source": "https://www.pearsonassessments.com/",
+  "officialUrl": "https://www.pearsonassessments.com/",
+  "license": "Проприетарная методика (Pearson).",
+  "restriction": "Платная методика Pearson. Открытые аналоги — GAD-7, PHQ-4 и шкала тревоги DASS-21.",
+  "analogs": [
+    "gad-7",
+    "phq-4",
+    "dass-21"
+  ]
+}

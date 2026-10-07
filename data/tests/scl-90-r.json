@@ -1,0 +1,48 @@
+{
+  "status": "reference",
+  "tags": [
+    "симптомы",
+    "Derogatis",
+    "скрининг"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "SCL-90-R (Derogatis) широко используется для скрининга общего психологического неблагополучия и динамики лечения. В России известен благодаря адаптации Н. В. Тарабриной.",
+  "id": "scl-90-r",
+  "title": "SCL-90-R — опросник выраженности психопатологической симптоматики",
+  "category": "emotional",
+  "shortDescription": "90 вопросов о симптомах за последнюю неделю по девяти шкалам — от соматизации до психотизма.",
+  "duration": 15,
+  "questionCount": 90,
+  "author": "Leonard R. Derogatis",
+  "year": 1977,
+  "source": "https://www.pearsonassessments.com/",
+  "officialUrl": "https://www.pearsonassessments.com/",
+  "license": "Проприетарная методика (Pearson).",
+  "restriction": "Платная методика Pearson. Открытые аналоги для общего дистресса — K6, DASS-21 и PHQ-4.",
+  "analogs": [
+    "k6",
+    "dass-21",
+    "phq-4"
+  ]
+}
