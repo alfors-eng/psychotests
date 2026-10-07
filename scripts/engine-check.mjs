@@ -95,3 +95,19 @@ eq(scoreTest(erq, all(erq, 7)).scales.map((x) => x.value).join(','), '7,7', 'ERQ
 const oci = load('oci-r');
 eq(scoreTest(oci, all(oci, 4)).scales[0].value, 72, 'OCI-R максимум = 72');
 eq(help(oci, 4) && !help(oci, 0), true, 'OCI-R: помощь при ≥21');
+
+// --- Режим «ввод ответов» (ключи без текста вопросов) ---
+const asrs = load('asrs-v1-1');
+eq(scoreTest(asrs, all(asrs, 4)).scales[0].value, 6, 'ASRS: все «очень часто» → 6');
+eq(scoreTest(asrs, all(asrs, 2)).scales[0].value, 3, 'ASRS: везде «иногда» → 3 (засчитываются только пункты 1–3)');
+eq(scoreTest(asrs, all(asrs, 3)).scales[0].value, 6, 'ASRS: везде «часто» → 6');
+eq(scoreTest(asrs, all(asrs, 1)).scales[0].value, 0, 'ASRS: везде «редко» → 0');
+const pss = load('pss-10');
+eq(scoreTest(pss, all(pss, 0)).scales[0].value, 16, 'PSS-10: все 0 → 16 (4 обратных пункта)');
+eq(scoreTest(pss, all(pss, 4)).scales[0].value, 24, 'PSS-10: все 4 → 24');
+const hx = load('hexaco-60');
+eq(scoreTest(hx, all(hx, 5)).scales.map((x) => x.value.toFixed(2)).join(','), '2.60,3.40,3.40,3.40,2.60,3.00', 'HEXACO-60: все «5» → 2.60,3.40,3.40,3.40,2.60,3.00');
+eq(hx.questions.filter((x) => x.subscale === 'H').length + hx.questions.filter((x) => x.subscale === 'O').length, 20, 'HEXACO-60: по 10 пунктов на фактор');
+const aq10 = load('aq-10');
+eq(aq10.mode, 'external', 'AQ-10 в режиме ввода ответов');
+eq(aq10.questions.every((x) => /^Пункт \d+$/.test(x.text)), true, 'AQ-10: тексты вопросов не воспроизводятся');

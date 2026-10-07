@@ -34,6 +34,7 @@ export function validateTest(t: TestDef, file: string): string[] {
       if (r.min === undefined && r.max === undefined) e('safety: у правила нужен min или max');
     }
   }
+  if (t.mode === 'external' && (!t.external?.url || !t.external.note)) e('external: нужны url и note');
   if (t.plane) {
     for (const id of [t.plane.x, t.plane.y]) if (!scaleIds.includes(id)) e(`plane: неизвестная шкала «${id}»`);
     if (t.plane.quadrants.length !== 4) e('plane: нужно ровно 4 квадранта');

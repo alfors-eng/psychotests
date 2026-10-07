@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
+import ExternalEntry from '@/components/ExternalEntry';
 import Runner from '@/components/Runner';
 import { getAllTests, getTest, isReady } from '@/lib/tests';
 
@@ -19,5 +20,5 @@ export default async function RunPage({ params }: Props) {
   const t = getTest(id);
   if (!t) notFound();
   if (!isReady(t)) redirect(`/tests/${id}`);
-  return <Runner test={t} />;
+  return t.mode === 'external' ? <ExternalEntry test={t} /> : <Runner test={t} />;
 }

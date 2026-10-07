@@ -101,6 +101,12 @@ export interface TestDef {
   disclaimer?: string;
   isClinical: boolean;
   safety?: Safety;
+  /**
+   * interactive (по умолчанию) — вопросы проходятся на сайте. external — вопросы не воспроизводятся:
+   * пользователь проходит тест на сайте оригинала и вводит номера ответов, а сайт считает результат.
+   */
+  mode?: 'interactive' | 'external';
+  external?: ExternalInfo;
   /** Двумерная плоскость из двух шкал (например, ECR-R): точка и четыре квадранта. */
   plane?: Plane;
   /** Что осталось проверить/дописать перед публикацией. */
@@ -163,4 +169,11 @@ export interface HelpRule {
   scale: string;
   min?: number;
   max?: number;
+}
+
+export interface ExternalInfo {
+  url: string;
+  urlLabel: string;
+  /** Пояснение, как пройти тест на сайте оригинала. */
+  note: string;
 }

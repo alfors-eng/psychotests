@@ -66,7 +66,7 @@ test('тёмная тема переключается и запоминаетс
 });
 
 test('заготовка теста не запускается', async ({ page }) => {
-  await page.goto('/tests/hexaco-60/run');
-  await expect(page).toHaveURL(/\/tests\/hexaco-60$/);
+  await page.goto('/tests/teique-sf/run');
+  await expect(page).toHaveURL(/\/tests\/teique-sf$/);
   await expect(page.getByText('Этот тест ещё в подготовке')).toBeVisible();
 });

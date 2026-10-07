@@ -54,7 +54,19 @@ export default async function TestPage({ params }: Props) {
         {ready && <p className="text-muted">{t.instructions}</p>}
       </section>
 
-      {ready ? (
+      {ready && t.mode === 'external' ? (
+        <section className="card space-y-3">
+          <h2 className="text-lg font-semibold">Как это работает</h2>
+          <ol className="list-decimal space-y-1 pl-5 text-[15px]">
+            <li>Пройдите тест на сайте оригинала (мы не воспроизводим его вопросы).</li>
+            <li>Вернитесь и введите номера своих ответов.</li>
+            <li>Получите баллы и объяснение: подсчёт идёт в вашем браузере.</li>
+          </ol>
+          <Link href={`/tests/${t.id}/run`} className="btn btn-primary">
+            Ввести ответы
+          </Link>
+        </section>
+      ) : ready ? (
         <StartButtons testId={t.id} />
       ) : (
         <div className="card border-warm bg-warm-soft" role="note">

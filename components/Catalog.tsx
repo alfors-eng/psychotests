@@ -17,6 +17,9 @@ function TestCard({ t }: { t: TestSummary }) {
           <span className="rounded-full bg-accent-soft px-2.5 py-1 font-medium text-accent">
             {categoryTitle(t.category)}
           </span>
+          {!draft && t.mode === 'external' && (
+            <span className="rounded-full bg-warm-soft px-2.5 py-1 font-medium text-warm">Ввод ответов</span>
+          )}
           {draft && <span className="rounded-full bg-warm-soft px-2.5 py-1 font-medium text-warm">Скоро</span>}
         </div>
         <h3 className="text-lg font-semibold leading-snug">{t.title}</h3>
