@@ -1,0 +1,46 @@
+{
+  "id": "ipip-neo-120",
+  "status": "draft",
+  "title": "IPIP-NEO-120 (Большая пятёрка, 30 граней)",
+  "shortDescription": "Подробный тест Большой пятёрки: 5 черт и 30 граней, по 4 вопроса на грань.",
+  "fullDescription": "Открытая версия длинного теста личности на основе банка IPIP, измеряющая пять черт и 30 их граней.",
+  "category": "personality",
+  "tags": [
+    "большая пятёрка",
+    "грани",
+    "IPIP"
+  ],
+  "duration": 15,
+  "questionCount": 120,
+  "author": "John A. Johnson (по банку IPIP, L. R. Goldberg)",
+  "year": 2014,
+  "source": "https://ipip.ori.org/30FacetNEO-PI-RItems.htm",
+  "license": "Public domain (IPIP)",
+  "instructions": "TODO",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "TODO"
+      },
+      {
+        "value": 1,
+        "label": "TODO"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "todo": [
+    "Подсчёт: subscales (30 граней × 4 пункта, затем агрегация в 5 черт)",
+    "Взять 120 пунктов и ключи с ipip.ori.org / из статьи Johnson (2014) — по памяти не воспроизводить.",
+    "Подобрать валидированный русский перевод.",
+    "Решить: 5 черт или 30 граней в результатах (радар на 30 осей нечитаем)."
+  ]
+}

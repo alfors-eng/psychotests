@@ -1,0 +1,45 @@
+{
+  "id": "aq-10",
+  "status": "draft",
+  "title": "AQ-10 — скрининг аутистического спектра",
+  "shortDescription": "Краткий скрининг аутистических черт у взрослых.",
+  "fullDescription": "Сокращённый опросник Autism-Spectrum Quotient. Порог 6 баллов из 10 используется как повод для дальнейшего обследования. Это не диагностика.",
+  "category": "neurodiversity",
+  "tags": [
+    "аутизм",
+    "скрининг",
+    "нейроразнообразие"
+  ],
+  "duration": 2,
+  "questionCount": 10,
+  "author": "Carrie Allison, Bonnie Auyeung, Simon Baron-Cohen",
+  "year": 2012,
+  "source": "https://doi.org/10.1016/j.jaac.2012.05.005",
+  "license": "Свободно для использования (Autism Research Centre; TODO: подтвердить)",
+  "instructions": "TODO",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "TODO"
+      },
+      {
+        "value": 1,
+        "label": "TODO"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "todo": [
+    "Подсчёт: sum 0–10 по дихотомическому ключу (согласен/не согласен → 0/1), порог ≥ 6",
+    "Взять пункты и ключ (какие ответы дают балл) из публикации.",
+    "Рассмотреть валидированный перевод."
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "pss-10",
+  "status": "draft",
+  "title": "Шкала воспринимаемого стресса (PSS-10)",
+  "shortDescription": "Насколько непредсказуемой и неподконтрольной вы воспринимали свою жизнь за последний месяц.",
+  "fullDescription": "PSS-10 измеряет субъективное ощущение стресса, а не количество событий. Скрининговый инструмент.",
+  "category": "emotional",
+  "tags": [
+    "стресс",
+    "скрининг"
+  ],
+  "duration": 3,
+  "questionCount": 10,
+  "author": "Sheldon Cohen, Tom Kamarck, Robin Mermelstein",
+  "year": 1983,
+  "source": "https://www.mindgarden.com/documents/PerceivedStressScale.pdf",
+  "license": "TODO: Cohen разрешает некоммерческое использование; подтвердить условия и порядок атрибуции",
+  "instructions": "TODO",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "TODO"
+      },
+      {
+        "value": 1,
+        "label": "TODO"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "todo": [
+    "Подсчёт: sum 0–40, пункты 4, 5, 7, 8 — обратные; границы интерпретации в литературе неоднозначны",
+    "Взять формулировки и ключи из оригинала, перевод — только валидированный (Ababkov и др.).",
+    "Определить пороги интерпретации по публикации с нормами; не придумывать."
+  ]
+}

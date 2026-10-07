@@ -1,0 +1,44 @@
+{
+  "id": "sd3",
+  "status": "draft",
+  "title": "Short Dark Triad (SD3)",
+  "shortDescription": "Три «тёмные» черты в субклинической норме: макиавеллизм, нарциссизм, психопатия.",
+  "fullDescription": "SD3 — 27 утверждений, по 9 на каждую из трёх черт. Описывает черты личности в пределах нормы, а не диагнозы.",
+  "category": "personality",
+  "tags": [
+    "тёмная триада",
+    "макиавеллизм",
+    "нарциссизм"
+  ],
+  "duration": 4,
+  "questionCount": 27,
+  "author": "Daniel N. Jones, Delroy L. Paulhus",
+  "year": 2014,
+  "source": "https://doi.org/10.1177/1073191113514105",
+  "license": "Свободно для исследовательских целей (TODO: подтвердить условия на сайте авторов)",
+  "instructions": "TODO",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "TODO"
+      },
+      {
+        "value": 1,
+        "label": "TODO"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "todo": [
+    "Подсчёт: subscales (3 × 9, среднее, 5-балльная шкала, часть пунктов обратные)",
+    "Взять пункты и ключи из публикации Jones & Paulhus (2014), перевод — только валидированный."
+  ]
+}

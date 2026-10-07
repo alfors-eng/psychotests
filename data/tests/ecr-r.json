@@ -1,0 +1,45 @@
+{
+  "id": "ecr-r",
+  "status": "draft",
+  "title": "ECR-R — стиль привязанности в отношениях",
+  "shortDescription": "Тревожность и избегание в близких отношениях.",
+  "fullDescription": "Опросник «Experiences in Close Relationships — Revised» измеряет два измерения привязанности: тревожность и избегание близости.",
+  "category": "relationships",
+  "tags": [
+    "привязанность",
+    "отношения"
+  ],
+  "duration": 8,
+  "questionCount": 36,
+  "author": "R. Chris Fraley, Niels G. Waller, Kelly A. Brennan",
+  "year": 2000,
+  "source": "https://labs.psychology.illinois.edu/~rcfraley/measures/ecrr.htm",
+  "license": "Свободно для исследовательского использования (TODO: уточнить)",
+  "instructions": "TODO",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "TODO"
+      },
+      {
+        "value": 1,
+        "label": "TODO"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "todo": [
+    "Подсчёт: subscales (тревожность 18, избегание 18), среднее по 7-балльной шкале, часть пунктов обратные; 4 квадранта по пересечению",
+    "Взять 36 пунктов и ключи с сайта Fraley.",
+    "Найти валидированную русскую адаптацию (Кубарев и др.? — проверить, не утверждать).",
+    "Придумать отображение результата в виде 2D-плоскости."
+  ]
+}

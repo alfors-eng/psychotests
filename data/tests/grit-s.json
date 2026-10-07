@@ -1,0 +1,45 @@
+{
+  "id": "grit-s",
+  "status": "draft",
+  "title": "Шкала упорства Grit-S",
+  "shortDescription": "Упорство и постоянство интересов в достижении долгосрочных целей.",
+  "fullDescription": "Короткая версия шкалы Grit: две подшкалы — постоянство интересов и настойчивость усилий.",
+  "category": "wellbeing",
+  "tags": [
+    "упорство",
+    "цели",
+    "мотивация"
+  ],
+  "duration": 3,
+  "questionCount": 8,
+  "author": "Angela L. Duckworth, Patrick D. Quinn",
+  "year": 2009,
+  "source": "https://doi.org/10.1080/00223890802634290",
+  "license": "Свободно для некоммерческого использования (TODO: уточнить на сайте автора)",
+  "instructions": "TODO",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "TODO"
+      },
+      {
+        "value": 1,
+        "label": "TODO"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "todo": [
+    "Подсчёт: average 1–5, часть пунктов обратные; две подшкалы",
+    "Взять 8 пунктов и ключи из публикации Duckworth & Quinn (2009).",
+    "Найти валидированный перевод."
+  ]
+}

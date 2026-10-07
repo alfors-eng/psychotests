@@ -1,0 +1,44 @@
+{
+  "id": "hexaco-60",
+  "status": "draft",
+  "title": "HEXACO-60",
+  "shortDescription": "Шестифакторная модель личности: добавляет «Честность–скромность» к Большой пятёрке.",
+  "fullDescription": "HEXACO-PI-R в сокращённой версии на 60 вопросов: честность–скромность, эмоциональность, экстраверсия, доброжелательность, добросовестность, открытость.",
+  "category": "personality",
+  "tags": [
+    "HEXACO",
+    "честность",
+    "личность"
+  ],
+  "duration": 10,
+  "questionCount": 60,
+  "author": "Michael C. Ashton, Kibeom Lee",
+  "year": 2009,
+  "source": "https://hexaco.org/hexaco-inventory",
+  "license": "Бесплатно для исследований и некоммерческого использования (TODO: уточнить условия на hexaco.org)",
+  "instructions": "TODO",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "TODO"
+      },
+      {
+        "value": 1,
+        "label": "TODO"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "todo": [
+    "Подсчёт: subscales (6 факторов × 10 пунктов, 5-балльная шкала, обратные ключи)",
+    "Взять пункты и ключи с hexaco.org (там есть русская версия) — после проверки условий лицензии."
+  ]
+}

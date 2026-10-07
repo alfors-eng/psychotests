@@ -1,0 +1,45 @@
+{
+  "id": "schwartz-pvq",
+  "status": "draft",
+  "title": "Ценности Шварца (PVQ-21)",
+  "shortDescription": "Профиль базовых человеческих ценностей по Ш. Шварцу.",
+  "fullDescription": "Portrait Values Questionnaire: 21 «портрет» человека, с которым нужно сравнить себя. Результат — иерархия десяти базовых ценностей.",
+  "category": "values",
+  "tags": [
+    "ценности",
+    "Шварц"
+  ],
+  "duration": 6,
+  "questionCount": 21,
+  "author": "Shalom H. Schwartz",
+  "year": 2003,
+  "source": "https://www.europeansocialsurvey.org/methodology/ess_methodology/source_questionnaire/",
+  "license": "TODO: бесплатно для академического использования по запросу к автору — проверить допустимость публикации",
+  "instructions": "TODO",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "TODO"
+      },
+      {
+        "value": 1,
+        "label": "TODO"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "todo": [
+    "Подсчёт: subscales (10 ценностей), нужна поправка на индивидуальный стиль ответа (центрирование по среднему) — отдельный шаг подсчёта",
+    "Проверить лицензию.",
+    "Пункты — из европейского социального исследования (ESS), русская версия существует.",
+    "Добавить центрирование средним в движок."
+  ]
+}

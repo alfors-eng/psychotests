@@ -1,0 +1,139 @@
+export type CategoryId =
+  | 'personality'
+  | 'emotional'
+  | 'wellbeing'
+  | 'relationships'
+  | 'eq'
+  | 'career'
+  | 'neurodiversity'
+  | 'values';
+
+export interface ScaleOption {
+  value: number;
+  label: string;
+}
+
+/** Варианты ответа, общие для всех вопросов теста. */
+export interface ScaleDef {
+  type: 'likert' | 'binary' | 'choice';
+  options: ScaleOption[];
+}
+
+export interface Question {
+  id: string;
+  text: string;
+  /** Обратный ключ: значение инвертируется как (min + max - value). */
+  reversed?: boolean;
+  /** id подшкалы из scoring.subscales. */
+  subscale?: string;
+}
+
+export interface Subscale {
+  id: string;
+  title: string;
+  description?: string;
+}
+
+export type ScoringMethod =
+  | 'sum' // одна шкала «total», сумма
+  | 'average' // одна шкала «total», среднее
+  | 'subscales' // по подшкалам (aggregate: sum | average)
+  | 'typeMax'; // как subscales + определяется доминирующий тип (максимум)
+
+export interface Scoring {
+  method: ScoringMethod;
+  /** Для subscales/typeMax: как агрегировать внутри подшкалы. По умолчанию sum. */
+  aggregate?: 'sum' | 'average';
+  subscales?: Subscale[];
+  /** Название итоговой шкалы для sum/average. */
+  totalTitle?: string;
+}
+
+export type Level = 'low' | 'mid' | 'high' | 'severe';
+
+/** Диапазон: выбирается последний, у которого min <= значение (max — справочный). */
+export interface InterpretationRange {
+  min: number;
+  max: number;
+  title: string;
+  description: string;
+  level?: Level;
+}
+
+export interface Safety {
+  /** Показать мягкий блок помощи при значении шкалы >= min. */
+  helpAboveScore?: { scale: string; min: number };
+  /** Показать блок экстренной помощи, если ответ на вопрос > value (сырой ответ). */
+  crisisQuestions?: { questionId: string; above: number }[];
+}
+
+export interface TestDef {
+  id: string;
+  /** ready — можно проходить; draft — заготовка с метаданными. */
+  status?: 'ready' | 'draft';
+  title: string;
+  shortDescription: string;
+  fullDescription: string;
+  category: CategoryId;
+  tags: string[];
+  duration: number;
+  questionCount: number;
+  author: string;
+  year: number;
+  source: string;
+  license: string;
+  popular?: boolean;
+  /** Сведения о переводе (например, «рабочий перевод, не валидирован»). */
+  translationNote?: string;
+  instructions: string;
+  scale: ScaleDef;
+  questions: Question[];
+  scoring: Scoring;
+  /** ключ — id подшкалы или «total». */
+  interpretation: Record<string, InterpretationRange[]>;
+  disclaimer?: string;
+  isClinical: boolean;
+  safety?: Safety;
+  /** Что осталось проверить/дописать перед публикацией. */
+  todo?: string[];
+}
+
+export type TestSummary = Omit<
+  TestDef,
+  'questions' | 'interpretation' | 'fullDescription' | 'instructions' | 'scale' | 'scoring'
+>;
+
+export type Answers = Record<string, number>;
+
+export interface ScaleResult {
+  id: string;
+  title: string;
+  description?: string;
+  value: number; // сумма или среднее
+  min: number;
+  max: number;
+  percent: number; // 0..100
+  answered: number;
+  total: number;
+  range?: InterpretationRange;
+}
+
+export interface ScoreResult {
+  scales: ScaleResult[];
+  /** Для typeMax — id доминирующих типов. */
+  dominant: string[];
+  complete: boolean;
+}
+
+export interface SafetyOutcome {
+  showHelp: boolean;
+  crisis: boolean;
+}
+
+export interface HistoryEntry {
+  id: string;
+  testId: string;
+  testTitle: string;
+  completedAt: string; // ISO
+  answers: Answers;
+}

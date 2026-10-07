@@ -1,0 +1,45 @@
+{
+  "id": "cbi",
+  "status": "draft",
+  "title": "Копенгагенский опросник выгорания (CBI)",
+  "shortDescription": "Личное, рабочее и клиентское выгорание — три отдельные шкалы.",
+  "fullDescription": "Открытая альтернатива Maslach Burnout Inventory: три шкалы (личное, связанное с работой, связанное с клиентами).",
+  "category": "emotional",
+  "tags": [
+    "выгорание",
+    "работа",
+    "усталость"
+  ],
+  "duration": 4,
+  "questionCount": 19,
+  "author": "Tage S. Kristensen, Marianne Borritz, Ebbe Villadsen, Karl B. Christensen",
+  "year": 2005,
+  "source": "https://nfa.dk/da/Vaerktoejer/Spoergeskemaer/Spoergeskema-om-Copenhagen-Burnout-Inventory-CBI",
+  "license": "Свободное использование (по заявлению авторов; TODO: проверить условия)",
+  "instructions": "TODO",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "TODO"
+      },
+      {
+        "value": 1,
+        "label": "TODO"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "todo": [
+    "Подсчёт: subscales (личное 6, рабочее 7, клиентское 6), среднее по шкале 0–100",
+    "Взять пункты, шкалы ответов (две разные!) и ключи с сайта NFA.",
+    "Проверить русскую адаптацию."
+  ]
+}

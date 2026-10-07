@@ -1,0 +1,46 @@
+{
+  "id": "riasec",
+  "status": "draft",
+  "title": "Профессиональные интересы RIASEC",
+  "shortDescription": "Шесть типов интересов Холланда: реалистический, исследовательский, артистический, социальный, предпринимательский, конвенциональный.",
+  "fullDescription": "Профиль интересов по модели Холланда. Планируется на основе O*NET Interest Profiler (общественное достояние, Минтруд США) или IPIP RIASEC.",
+  "category": "career",
+  "tags": [
+    "профориентация",
+    "Холланд",
+    "RIASEC"
+  ],
+  "duration": 10,
+  "questionCount": 60,
+  "author": "U.S. Department of Labor, O*NET Resource Center (Interest Profiler Short Form)",
+  "year": 2010,
+  "source": "https://www.onetcenter.org/IP.html",
+  "license": "Public domain (O*NET, США)",
+  "instructions": "TODO",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "TODO"
+      },
+      {
+        "value": 1,
+        "label": "TODO"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "todo": [
+    "Подсчёт: typeMax (6 типов), результат — код из трёх букв",
+    "Взять 60 пунктов и ключи из официальных материалов O*NET.",
+    "Подобрать перевод; список профессий не копировать без проверки.",
+    "Определить количество вариантов ответа (Like / Dislike / Unsure в оригинале)."
+  ]
+}

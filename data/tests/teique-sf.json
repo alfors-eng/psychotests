@@ -1,0 +1,44 @@
+{
+  "id": "teique-sf",
+  "status": "draft",
+  "title": "TEIQue-SF — эмоциональный интеллект (черта)",
+  "shortDescription": "Самооценка эмоционального интеллекта как черты личности.",
+  "fullDescription": "Краткая форма Trait Emotional Intelligence Questionnaire: 30 утверждений, общий балл и четыре фактора.",
+  "category": "eq",
+  "tags": [
+    "эмоциональный интеллект",
+    "EQ"
+  ],
+  "duration": 6,
+  "questionCount": 30,
+  "author": "K. V. Petrides",
+  "year": 2009,
+  "source": "https://www.psychometriclab.com/",
+  "license": "Бесплатно только для академического некоммерческого использования; TODO: проверить допустимость публикации на сайте — при сомнениях заменить открытым аналогом",
+  "instructions": "TODO",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "TODO"
+      },
+      {
+        "value": 1,
+        "label": "TODO"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "todo": [
+    "Подсчёт: average 1–7, обратные ключи, 4 фактора",
+    "Проверить лицензию до любого воспроизведения текста.",
+    "При отказе — подобрать открытый аналог (например, на базе IPIP)."
+  ]
+}
