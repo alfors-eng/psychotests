@@ -16,6 +16,8 @@ export function scaleBounds(test: TestDef): { min: number; max: number } {
 /** Значение ответа с учётом обратного ключа. */
 export function keyedValue(test: TestDef, questionId: string, raw: number): number {
   const q = test.questions.find((x) => x.id === questionId);
+  // Дихотомический ключ (AQ-10 и т.п.): 1 балл, если ответ входит в scoreWhen.
+  if (q?.scoreWhen) return q.scoreWhen.includes(raw) ? 1 : 0;
   if (!q?.reversed) return raw;
   const { min, max } = scaleBounds(test);
   return min + max - raw;
@@ -53,8 +55,12 @@ export function scoreTest(test: TestDef, answers: Answers): ScoreResult {
     const sum = answered.reduce((acc, q) => acc + keyedValue(test, q.id, answers[q.id]), 0);
     const n = g.qs.length;
     const value = aggregate === 'average' ? (answered.length ? sum / answered.length : smin) : sum;
-    const min = aggregate === 'average' ? smin : smin * n;
-    const max = aggregate === 'average' ? smax : smax * n;
+    const lo = (q: (typeof g.qs)[number]) => (q.scoreWhen ? 0 : smin);
+    const hi = (q: (typeof g.qs)[number]) => (q.scoreWhen ? 1 : smax);
+    const sumLo = g.qs.reduce((a, q) => a + lo(q), 0);
+    const sumHi = g.qs.reduce((a, q) => a + hi(q), 0);
+    const min = aggregate === 'average' ? sumLo / (n || 1) : sumLo;
+    const max = aggregate === 'average' ? sumHi / (n || 1) : sumHi;
     const percent = max === min ? 0 : ((value - min) / (max - min)) * 100;
     return {
       id: g.id,

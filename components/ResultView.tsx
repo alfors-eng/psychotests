@@ -43,7 +43,8 @@ export default function ResultView({ test }: { test: TestDef }) {
   const { result, safety } = computed;
   const multi = result.scales.length >= 3;
   const date = formatDate(entry.completedAt);
-  const dominant = result.scales.filter((s) => result.dominant.includes(s.id));
+  const ranked = [...result.scales].sort((a, b) => b.value - a.value);
+  const dominant = ranked.slice(0, 3);
 
   return (
     <div className="mx-auto max-w-2xl space-y-8">
@@ -61,7 +62,7 @@ export default function ResultView({ test }: { test: TestDef }) {
 
       {dominant.length > 0 && test.scoring.method === 'typeMax' && (
         <section className="card">
-          <h2 className="text-sm font-medium text-muted">Преобладающий тип</h2>
+          <h2 className="text-sm font-medium text-muted">Ведущие типы (по убыванию баллов)</h2>
           <p className="mt-1 text-2xl font-semibold">{dominant.map((s) => s.title).join(' + ')}</p>
         </section>
       )}

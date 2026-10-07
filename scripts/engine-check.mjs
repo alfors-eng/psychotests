@@ -33,3 +33,25 @@ const big = load('ipip-big5-50');
 r = scoreTest(big, all(big, 5));
 eq(r.scales.map((x) => x.value).join(','), '30,34,34,42,38', 'IPIP: все «5» → 30,34,34,42,38');
 eq(big.questions.filter((q) => q.reversed).length, 18, 'IPIP: 18 обратных пунктов');
+
+// --- Проверки новых тестов ---
+const aq = load('aq-10');
+const aqAns = Object.fromEntries(aq.questions.map((q) => [q.id, q.scoreWhen.includes(1) ? 1 : 4]));
+eq(scoreTest(aq, aqAns).scales[0].value, 10, 'AQ-10: все ключевые ответы → 10');
+eq(scoreTest(aq, all(aq, 1)).scales[0].value, 4, 'AQ-10: везде «определённо согласен» → 4 (пункты 1,7,8,10)');
+eq(scoreTest(aq, all(aq, 4)).scales[0].value, 6, 'AQ-10: везде «определённо не согласен» → 6 (пункты 2–6,9)');
+
+const grit = load('grit-s');
+eq(scoreTest(grit, all(grit, 5)).scales.map((x) => x.value).join(','), '1,5'.replace('1,5', '1,5'), 'Grit-S: все «5» → CI=1 (4 обратных), PE=5');
+
+const ecr = load('ecr-r');
+const chris = [1,2,2,1,3,2,2,2,1,1,6,2,2,2,3,2,5,1,2,5,2,5,2,4,2,6,6,7,7,5,6,2,6,6,6,6];
+const ca = Object.fromEntries(chris.map((v, i) => [`q${i + 1}`, v]));
+const cr = scoreTest(ecr, ca).scales.map((x) => x.value.toFixed(2));
+eq(cr.join(','), '2.33,2.17', 'ECR-R: пример с сайта Fraley (тревожность 2.33, избегание 2.17)');
+
+const ri = load('riasec');
+const rr = Object.fromEntries(ri.questions.map((q) => [q.id, q.subscale === 'S' || q.subscale === 'A' ? 1 : 0]));
+r = scoreTest(ri, rr);
+eq(r.dominant.sort().join(''), 'AS', 'RIASEC: максимум у A и S');
+eq(r.scales.find((x) => x.id === 'S').value, 10, 'RIASEC: 10 пунктов на тип');

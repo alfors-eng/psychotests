@@ -26,6 +26,8 @@ export interface Question {
   reversed?: boolean;
   /** id подшкалы из scoring.subscales. */
   subscale?: string;
+  /** Дихотомический ключ: 1 балл, если выбран один из этих вариантов (value), иначе 0. */
+  scoreWhen?: number[];
 }
 
 export interface Subscale {
