@@ -18,11 +18,19 @@ export interface Characteristic {
   date: string; // ISO
 }
 
-/** Краткое имя теста: «IPIP» из «Большая пятёрка (IPIP, 50 вопросов)» или первое слово названия. */
+/**
+ * Краткое имя теста: код перед тире («PHQ-9 — …»), латинская аббревиатура в скобках («… (DASS-21)»),
+ * код в названии («… PCL-5») или последнее слово. Для редких случаев в JSON есть поле shortName.
+ */
 export function shortName(title: string): string {
-  const m = title.match(/\(([^)]+)\)\s*$/);
-  if (m) return m[1].split(',')[0].trim();
-  return title.split(/\s+/)[0];
+  const lead = title.match(/^([A-Za-z][A-Za-z0-9-]*)\s+[—–-]\s/);
+  if (lead) return lead[1];
+  const parens = [...title.matchAll(/\(([^)]+)\)/g)].map((m) => m[1].split(',')[0].trim()).filter((x) => /[A-Za-z0-9]/.test(x));
+  if (parens.length) return parens[parens.length - 1];
+  const code = title.match(/\b[A-Z][A-Za-z]*-?[A-Z0-9][A-Za-z0-9-]*\b/);
+  if (code) return code[0];
+  const words = title.split(/\s+/);
+  return words[words.length - 1];
 }
 
 /** Берёт самое свежее полное прохождение каждого теста и раскладывает его на шкалы. */
@@ -43,7 +51,7 @@ export function buildCharacteristics(tests: TestDef[], history: HistoryEntry[]):
         key: `${testId}:${s.id}`,
         testId,
         testTitle: t.title,
-        short: shortName(t.title),
+        short: t.shortName ?? shortName(t.title),
         category: t.category,
         isClinical: t.isClinical,
         scaleId: s.id,

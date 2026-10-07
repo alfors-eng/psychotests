@@ -30,6 +30,7 @@ test('пустой профиль предлагает пройти тест', a
 test('профиль: радар из выбранных характеристик, скрининги по умолчанию выключены', async ({ page }) => {
   await page.addInitScript(seed);
   await page.goto('/profile');
+  await page.getByRole('tab', { name: 'Диаграммы' }).click();
   // 5 шкал Big Five + самооценка + удовлетворённость жизнью = 7 (PHQ-9 — скрининг, выключен)
   await expect(page.getByRole('heading', { name: 'Диаграмма (7)' })).toBeVisible();
   await expect(page.getByRole('img', { name: /Круговая карта: 7 характеристик/ })).toBeVisible();
@@ -51,15 +52,19 @@ test('профиль: радар из выбранных характерист�
 
   // Выбор сохраняется после перезагрузки
   await page.reload();
+  await page.getByRole('tab', { name: 'Диаграммы' }).click();
   await expect(page.getByRole('heading', { name: 'Диаграмма (2)' })).toBeVisible();
 });
 
 test('профиль: полосы по категориям, таблица и скачивание PNG', async ({ page }) => {
   await page.addInitScript(seed);
   await page.goto('/profile');
+  await page.getByRole('tab', { name: 'Диаграммы' }).click();
   await page.getByRole('button', { name: 'Полосы' }).click();
   await expect(page.getByRole('meter', { name: /Экстраверсия/ })).toBeVisible();
-  await expect(page.getByRole('table')).toBeVisible();
+  await page.getByRole('tab', { name: 'Сводные таблицы' }).click();
+  await expect(page.getByRole('table', { name: /Все выбранные характеристики/ })).toBeVisible();
+  await page.getByRole('tab', { name: 'Диаграммы' }).click();
   const [download] = await Promise.all([page.waitForEvent('download'), page.getByRole('button', { name: 'Скачать PNG' }).click()]);
   expect(download.suggestedFilename()).toBe('psychotests-profile.png');
 });
@@ -69,7 +74,7 @@ for (const theme of ['light', 'dark'] as const) {
     await page.addInitScript(seed);
     await page.addInitScript((t) => localStorage.setItem('pt:theme', t), theme);
     await page.goto('/profile');
-    await expect(page.getByRole('heading', { name: /Диаграмма/ })).toBeVisible();
+    await expect(page.getByRole('heading', { name: /Целостная картина/ })).toBeVisible();
     const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21aa']).analyze();
     expect(res.violations.map((v) => `${v.id}: ${v.nodes[0].target}`)).toEqual([]);
   });

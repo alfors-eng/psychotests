@@ -90,6 +90,8 @@ export interface TestDef {
   source: string;
   license: string;
   popular?: boolean;
+  /** Краткое имя для подписей (если автоматическое получается неудачным). */
+  shortName?: string;
   /** Сведения о переводе (например, «рабочий перевод, не валидирован»). */
   translationNote?: string;
   instructions: string;

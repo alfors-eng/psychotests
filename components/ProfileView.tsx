@@ -3,11 +3,14 @@ import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 import CategoryIcon from '@/components/CategoryIcon';
 import { RadarChart } from '@/components/Charts';
+import IntegratedView from '@/components/IntegratedView';
+import { CharacteristicsTable, ConstructTable, MatrixTable } from '@/components/ProfileTables';
 import RoseChart from '@/components/RoseChart';
 import { CATEGORIES } from '@/lib/categories';
 import { formatValue } from '@/lib/engine';
 import { downloadProfilePng } from '@/lib/exportProfile';
 import { formatDate } from '@/lib/format';
+import { buildIntegrated, domainOf, uncovered } from '@/lib/integrate';
 import { buildCharacteristics, chartLabels, type Characteristic } from '@/lib/profile';
 import { loadHistory, loadProfileOverrides, saveProfileOverrides, type ProfileOverrides } from '@/lib/storage';
 import type { ScaleResult, TestDef } from '@/lib/types';
@@ -19,6 +22,7 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
   const [chars, setChars] = useState<Characteristic[] | null>(null);
   const [over, setOver] = useState<ProfileOverrides>({});
   const [view, setView] = useState<'radar' | 'map' | 'bars'>('map');
+  const [tab, setTab] = useState<'whole' | 'tables' | 'charts'>('whole');
 
   useEffect(() => {
     setChars(buildCharacteristics(tests, loadHistory()));
@@ -38,6 +42,9 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
 
   const selected = useMemo(() => (chars ?? []).filter(isOn), [chars, over]); // eslint-disable-line react-hooks/exhaustive-deps
   const labels = useMemo(() => chartLabels(selected), [selected]);
+  const testTitles = useMemo(() => Object.fromEntries(tests.map((t) => [t.id, t.title])), [tests]);
+  const integrated = useMemo(() => buildIntegrated(selected), [selected]);
+  const uncoveredChars = useMemo(() => uncovered(selected), [selected]);
 
   if (chars === null) return <p className="text-muted" role="status">Загрузка…</p>;
 
@@ -90,16 +97,82 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
       formatDate(new Date().toISOString()),
     );
 
+  const exportIntegrated = () => {
+    const rows = integrated.filter((i) => i.score !== null);
+    downloadProfilePng(
+      rows.map((i) => ({
+        label: i.def.title.replace(/s*(.*)$/, ''),
+        sub: '',
+        percent: i.score!,
+        value: Math.round(i.score!),
+        max: 100,
+        category: domainOf(i.def.domain).category,
+      })),
+      rows.length >= 3 ? 'radar' : 'bars',
+      formatDate(new Date().toISOString()),
+    );
+  };
+
+  const TABS = [
+    { id: 'whole', label: 'Целостная картина' },
+    { id: 'tables', label: 'Сводные таблицы' },
+    { id: 'charts', label: 'Диаграммы' },
+  ] as const;
+
   return (
     <div className="space-y-10">
       <p className="rounded-xl2 bg-accent-soft p-4 text-[15px]">
-        Диаграмма строится из <strong>последнего прохождения каждого теста</strong>. Длина полосы или точка на
-        радаре — положение на шкале конкретного теста (0–100 %), а не норма и не сравнение между тестами. Тест
-        не является диагнозом. Для оценки состояния обратитесь к специалисту.
+        Профиль строится из <strong>последнего прохождения каждого теста</strong>. Значения — положение на шкале
+        теста (0–100 %), а не норма. Шкалы разных тестов, которые измеряют одно и то же, объединяются в сводные
+        показатели. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.
       </p>
 
-      <div className="grid gap-8 lg:grid-cols-[1.15fr_1fr]">
-        <section aria-labelledby="chart-title" className="space-y-4 lg:sticky lg:top-4 lg:self-start">
+      <div role="tablist" aria-label="Разделы профиля" className="flex flex-wrap gap-2 print:hidden">
+        {TABS.map((t) => (
+          <button
+            key={t.id}
+            id={`tab-${t.id}`}
+            type="button"
+            role="tab"
+            aria-selected={tab === t.id}
+            aria-controls={`panel-${t.id}`}
+            onClick={() => setTab(t.id)}
+            className={`min-h-[44px] rounded-full border px-5 text-[15px] font-medium transition-colors ${
+              tab === t.id ? 'border-accent bg-accent text-accent-fg' : 'border-line bg-surface hover:bg-accent-soft'
+            }`}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+
+      <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
+        <div className="space-y-8">
+          <div id="panel-whole" role="tabpanel" aria-labelledby="tab-whole" hidden={tab !== 'whole'} className="space-y-6">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <h2 className="text-xl font-semibold">Целостная картина ({selected.length} шкал → {integrated.filter((i) => i.score !== null).length} показателей)</h2>
+              <div className="flex gap-2 print:hidden">
+                <button type="button" className="btn btn-primary !min-h-[40px] !px-4 text-sm disabled:opacity-40" disabled={!integrated.some((i) => i.score !== null)} onClick={exportIntegrated}>
+                  Скачать PNG
+                </button>
+                <button type="button" className="btn btn-ghost !min-h-[40px] !px-4 text-sm" onClick={() => window.print()}>
+                  Скачать PDF
+                </button>
+              </div>
+            </div>
+            <IntegratedView items={integrated} uncoveredChars={uncoveredChars} testTitles={testTitles} />
+          </div>
+
+          <div id="panel-tables" role="tabpanel" aria-labelledby="tab-tables" hidden={tab !== 'tables'} className="space-y-10">
+            <h2 className="text-xl font-semibold">Сводные таблицы</h2>
+            <ConstructTable items={integrated} testTitles={testTitles} />
+            <MatrixTable items={integrated} testTitles={testTitles} />
+            <CharacteristicsTable chars={selected} />
+            <p className="text-sm text-muted">Последнее прохождение: {formatDate(lastDate)}.</p>
+          </div>
+
+          <div id="panel-charts" role="tabpanel" aria-labelledby="tab-charts" hidden={tab !== 'charts'}>
+        <section aria-labelledby="chart-title" className="space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 id="chart-title" className="text-xl font-semibold">
               Диаграмма ({selected.length})
@@ -192,8 +265,10 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
             </button>
           </div>
         </section>
+          </div>
+        </div>
 
-        <section aria-labelledby="pick-title" className="space-y-4 print:hidden">
+        <section aria-labelledby="pick-title" className="space-y-4 print:hidden lg:sticky lg:top-4 lg:self-start">
           <h2 id="pick-title" className="text-xl font-semibold">
             Что показывать
           </h2>
@@ -253,37 +328,6 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
           ))}
         </section>
       </div>
-
-      <section aria-labelledby="table-title" className="space-y-3">
-        <h2 id="table-title" className="text-xl font-semibold">
-          Таблица характеристик
-        </h2>
-        <div className="overflow-x-auto rounded-xl2 border border-line bg-surface">
-          <table className="w-full min-w-[560px] text-left text-sm">
-            <thead className="border-b border-line text-muted">
-              <tr>
-                <th scope="col" className="p-3 font-medium">Характеристика</th>
-                <th scope="col" className="p-3 font-medium">Тест</th>
-                <th scope="col" className="p-3 font-medium">Балл</th>
-                <th scope="col" className="p-3 font-medium">Вывод теста</th>
-              </tr>
-            </thead>
-            <tbody>
-              {selected.map((c) => (
-                <tr key={c.key} className="border-b border-line last:border-0">
-                  <th scope="row" className="p-3 font-medium">{c.title}</th>
-                  <td className="p-3">{c.short}</td>
-                  <td className="p-3 tabular-nums">
-                    {formatValue(c.value)} / {formatValue(c.max)}
-                  </td>
-                  <td className="p-3">{c.rangeTitle ?? '—'}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <p className="text-sm text-muted">Последнее прохождение: {formatDate(lastDate)}.</p>
-      </section>
     </div>
   );
 }
