@@ -51,3 +51,46 @@ export function addHistory(entry: Omit<HistoryEntry, 'id' | 'completedAt'>): His
 
 export const deleteHistory = (id: string) => write(HISTORY, loadHistory().filter((h) => h.id !== id));
 export const clearHistory = () => write(HISTORY, []);
+
+export interface HistoryExport {
+  app: 'psychotests';
+  version: 1;
+  exportedAt: string;
+  entries: HistoryEntry[];
+}
+
+export const buildExport = (): HistoryExport => ({
+  app: 'psychotests',
+  version: 1,
+  exportedAt: new Date().toISOString(),
+  entries: loadHistory(),
+});
+
+const isEntry = (e: unknown): e is HistoryEntry => {
+  const x = e as HistoryEntry;
+  return (
+    !!x &&
+    typeof x.id === 'string' &&
+    typeof x.testId === 'string' &&
+    typeof x.testTitle === 'string' &&
+    typeof x.completedAt === 'string' &&
+    !Number.isNaN(Date.parse(x.completedAt)) &&
+    !!x.answers &&
+    typeof x.answers === 'object' &&
+    Object.values(x.answers).every((v) => typeof v === 'number')
+  );
+};
+
+/** Добавляет записи из файла; повторяющиеся id пропускает. Возвращает число добавленных. */
+export function importHistory(raw: unknown): number {
+  const entries = (raw as HistoryExport | null)?.entries;
+  if (!Array.isArray(entries)) throw new Error('Неверный формат файла');
+  const current = loadHistory();
+  const known = new Set(current.map((h) => h.id));
+  const fresh = entries.filter((e) => isEntry(e) && !known.has(e.id));
+  write(
+    HISTORY,
+    [...current, ...fresh].sort((a, b) => b.completedAt.localeCompare(a.completedAt)),
+  );
+  return fresh.length;
+}

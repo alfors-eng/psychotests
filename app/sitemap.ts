@@ -7,6 +7,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   return [
     { url: base },
     { url: `${base}/about` },
+    { url: `${base}/contribute` },
     ...getAllTests().map((t) => ({ url: `${base}/tests/${t.id}` })),
   ];
 }

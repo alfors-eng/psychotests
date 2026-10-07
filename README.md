@@ -8,6 +8,7 @@ npm run dev        # http://localhost:3000
 npm run validate   # проверка всех JSON в data/tests (Node 22.18+)
 npm run build
 node scripts/engine-check.mjs   # проверки подсчёта на крайних ответах
+npm run e2e        # UI-тесты и проверка доступности (Playwright + axe); локально: PW_CHANNEL=msedge npm run e2e
 ```
 
 ## Структура

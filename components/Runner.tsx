@@ -11,6 +11,12 @@ export default function Runner({ test }: { test: TestDef }) {
   const [index, setIndex] = useState(0);
   const [ready, setReady] = useState(false);
   const advance = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Актуальный индекс вопроса, чтобы быстрые нажатия не перезаписывали один и тот же вопрос.
+  const idxRef = useRef(0);
+  const go = useCallback((i: number) => {
+    idxRef.current = i;
+    setIndex(i);
+  }, []);
   const total = test.questions.length;
 
   // Восстанавливаем прогресс.
@@ -18,10 +24,10 @@ export default function Runner({ test }: { test: TestDef }) {
     const p = loadProgress(test.id);
     if (p) {
       setAnswers(p.answers);
-      setIndex(Math.min(p.index, total - 1));
+      go(Math.min(p.index, total - 1));
     }
     setReady(true);
-  }, [test.id, total]);
+  }, [test.id, total, go]);
 
   useEffect(() => {
     if (ready) saveProgress(test.id, { answers, index });
@@ -37,18 +43,32 @@ export default function Runner({ test }: { test: TestDef }) {
 
   const choose = useCallback(
     (value: number) => {
-      if (!q) return;
-      setAnswers((a) => ({ ...a, [q.id]: value }));
-      if (advance.current) clearTimeout(advance.current);
-      if (index < total - 1) advance.current = setTimeout(() => setIndex((i) => Math.min(i + 1, total - 1)), 220);
+      // Если предыдущий автопереход ещё не сработал, выполняем его сразу.
+      if (advance.current) {
+        clearTimeout(advance.current);
+        advance.current = null;
+        go(Math.min(idxRef.current + 1, total - 1));
+      }
+      const cur = test.questions[idxRef.current];
+      if (!cur) return;
+      setAnswers((a) => ({ ...a, [cur.id]: value }));
+      if (idxRef.current < total - 1) {
+        advance.current = setTimeout(() => {
+          advance.current = null;
+          go(Math.min(idxRef.current + 1, total - 1));
+        }, 220);
+      }
     },
-    [q, index, total],
+    [test.questions, total, go],
   );
 
   const back = useCallback(() => {
-    if (advance.current) clearTimeout(advance.current);
-    setIndex((i) => Math.max(0, i - 1));
-  }, []);
+    if (advance.current) {
+      clearTimeout(advance.current);
+      advance.current = null;
+    }
+    go(Math.max(0, idxRef.current - 1));
+  }, [go]);
 
   const finish = () => {
     const entry = addHistory({ testId: test.id, testTitle: test.title, answers });
@@ -78,6 +98,7 @@ export default function Runner({ test }: { test: TestDef }) {
 
   return (
     <div className="mx-auto max-w-2xl space-y-8">
+      <h1 className="sr-only">{test.title}</h1>
       <div className="space-y-2">
         <div className="flex items-center justify-between text-sm text-muted">
           <Link href={`/tests/${test.id}`} className="underline-offset-4 hover:underline">
@@ -142,10 +163,18 @@ export default function Runner({ test }: { test: TestDef }) {
           <button type="button" onClick={finish} className="btn btn-primary">
             Показать результат
           </button>
+        ) : index === total - 1 && current !== undefined ? (
+          <button
+            type="button"
+            onClick={() => go(test.questions.findIndex((x) => answers[x.id] === undefined))}
+            className="btn btn-primary"
+          >
+            К первому неотвеченному ({total - answeredCount})
+          </button>
         ) : (
           <button
             type="button"
-            onClick={() => setIndex((i) => Math.min(i + 1, total - 1))}
+            onClick={() => go(Math.min(idxRef.current + 1, total - 1))}
             disabled={current === undefined || index === total - 1}
             className="btn btn-ghost disabled:opacity-40"
           >

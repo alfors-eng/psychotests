@@ -5,7 +5,13 @@ import ThemeToggle from '@/components/ThemeToggle';
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://psychotests.vercel.app'),
-  openGraph: { type: 'website', locale: 'ru_RU', siteName: 'Психотесты' },
+  openGraph: {
+    type: 'website',
+    locale: 'ru_RU',
+    siteName: 'Психотесты',
+    images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Психотесты' }],
+  },
+  twitter: { card: 'summary_large_image', images: ['/og.png'] },
   title: { default: 'Психотесты — каталог тестов онлайн', template: '%s · Психотесты' },
   description:
     'Каталог психологических тестов с открытыми методиками. Без регистрации: результаты считаются в вашем браузере и никуда не отправляются.',
@@ -61,7 +67,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <footer className="border-t border-line print:hidden">
           <div className="mx-auto max-w-5xl px-4 py-6 text-sm text-muted">
             Тесты не являются диагнозом. Для оценки состояния обратитесь к специалисту. Ответы и результаты
-            хранятся только в вашем браузере; трекеров и аналитики на сайте нет.
+            хранятся только в вашем браузере; трекеров и аналитики на сайте нет.{' '}
+            <Link href="/contribute" className="underline underline-offset-4">
+              Для специалистов
+            </Link>
           </div>
         </footer>
       </body>
