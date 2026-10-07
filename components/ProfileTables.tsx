@@ -148,7 +148,7 @@ export function ConstructTable({ items, testTitles }: { items: Integrated[]; tes
               const conf = CONFIDENCE[i.confidence];
               return (
                 <Fragment key={i.def.id}>
-                  <tr className={`cat-${dom.category} border-b border-line align-top ${i.score === null ? 'opacity-60' : ''}`}>
+                  <tr className={`cat-${dom.category} border-b border-line align-top ${i.score === null ? 'text-muted' : ''}`}>
                     <th scope="row" className="p-3 font-medium">
                       <span className="mb-1 inline-block rounded-full bg-[rgb(var(--cat)/0.18)] px-2 py-0.5 text-xs font-medium text-ink">{dom.title}</span>
                       <br />

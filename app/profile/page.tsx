@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 };
 
 export default function ProfilePage() {
-  const tests = getAllTests().filter(isReady).map(toScoringDef);
+  const tests = getAllTests().filter(isReady).map((t) => toScoringDef(t, true));
   return (
     <div className="space-y-8">
       <header className="space-y-2">

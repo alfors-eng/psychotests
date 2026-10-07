@@ -48,3 +48,45 @@ if (cerrs.length) {
   process.exit(1);
 }
 console.log(`OK: конструктов — ${cons.constructs.length}, соответствий проверено`);
+
+// ---- Проверка модели глубинного анализа (data/dimensions.json) ----
+const model = JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'dimensions.json'), 'utf8'));
+const derrs = [];
+const groupIds = new Set(model.groups.map((g) => g.id));
+const refIds = new Set(model.references.map((r) => r.id));
+const dimIds = new Set();
+const readyTests = Object.values(tests).filter((t) => t.status !== 'draft');
+const scaleKeys = (t) => (t.scoring.method === 'sum' || t.scoring.method === 'average' ? ['total'] : (t.scoring.subscales ?? []).map((x) => x.id));
+const covered = new Set();
+for (const d of model.dimensions) {
+  if (dimIds.has(d.id)) derrs.push(`dimensions: повторяющийся id ${d.id}`);
+  dimIds.add(d.id);
+  if (!groupIds.has(d.group)) derrs.push(`dimensions ${d.id}: неизвестная группа ${d.group}`);
+  for (const r of d.refs) if (!refIds.has(r)) derrs.push(`dimensions ${d.id}: нет источника ${r}`);
+  if (!d.composite && !d.loadings.some((x) => x.b === 'def')) derrs.push(`dimensions ${d.id}: нет ни одной прямой (def) нагрузки`);
+  for (const x of d.loadings) {
+    const t = tests[x.t];
+    if (!t) { derrs.push(`dimensions ${d.id}: нет теста ${x.t}`); continue; }
+    if (t.status === 'draft') derrs.push(`dimensions ${d.id}: тест ${x.t} — заготовка`);
+    if (!scaleKeys(t).includes(x.s)) derrs.push(`dimensions ${d.id}: у теста ${x.t} нет шкалы ${x.s}`);
+    if (!(Math.abs(x.l) > 0 && Math.abs(x.l) <= 1)) derrs.push(`dimensions ${d.id}: нагрузка ${x.l} вне (0; 1]`);
+    if (!['def', 'lit', 'cnt'].includes(x.b)) derrs.push(`dimensions ${d.id}: неизвестное основание ${x.b}`);
+    covered.add(`${x.t}:${x.s}`);
+  }
+}
+for (const x of model.itemLoadings) {
+  const t = tests[x.t];
+  if (!t) { derrs.push(`itemLoadings: нет теста ${x.t}`); continue; }
+  if (!t.questions.some((q) => q.id === x.i)) derrs.push(`itemLoadings: у ${x.t} нет пункта ${x.i}`);
+  if (!dimIds.has(x.d)) derrs.push(`itemLoadings: нет измерения ${x.d}`);
+  if (!x.why) derrs.push(`itemLoadings ${x.t}:${x.i}: нужно пояснение why`);
+}
+// каждый пункт каждого готового теста должен попадать хотя бы в одно измерение
+for (const t of readyTests) {
+  for (const s of scaleKeys(t)) if (!covered.has(`${t.id}:${s}`)) derrs.push(`dimensions: шкала ${t.id}:${s} не входит ни в одно измерение`);
+}
+if (derrs.length) {
+  console.error(derrs.join('\n'));
+  process.exit(1);
+}
+console.log(`OK: измерений — ${model.dimensions.length}, все шкалы ${readyTests.length} готовых тестов покрыты`);

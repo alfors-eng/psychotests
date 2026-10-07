@@ -1,0 +1,1596 @@
+{
+  "_comment": "Априорная модель измерения для глубинного анализа. У каждой скрытой характеристики (измерения) — набор шкал из разных тестов с нагрузками (loading, от −1 до 1; знак показывает направление). Нагрузки назначены экспертно по определению шкалы (b: def), по литературе (b: lit, см. refs) или по содержанию пункта (b: cnt); они не оцениваются по данным. Каждый пункт шкалы наследует нагрузку шкалы; точечные исключения и дополнения — в itemLoadings. Пункт оценивается в направлении своей шкалы (обратные пункты уже инвертированы, дихотомические — 0/100).",
+  "groups": [
+    {
+      "id": "traits",
+      "title": "Личностные черты",
+      "category": "personality"
+    },
+    {
+      "id": "affect",
+      "title": "Эмоциональные переживания",
+      "category": "emotional"
+    },
+    {
+      "id": "self",
+      "title": "Отношение к себе и ресурсы",
+      "category": "wellbeing"
+    },
+    {
+      "id": "social",
+      "title": "Отношения и общение",
+      "category": "relationships"
+    },
+    {
+      "id": "regulation",
+      "title": "Регуляция эмоций",
+      "category": "eq"
+    },
+    {
+      "id": "interests",
+      "title": "Профессиональные интересы",
+      "category": "career"
+    },
+    {
+      "id": "neuro",
+      "title": "Нейроразнообразие (скрининг)",
+      "category": "neurodiversity"
+    }
+  ],
+  "references": [
+    {
+      "id": "digman1997",
+      "cite": "Digman, J. M. (1997). Higher-order factors of the Big Five. Journal of Personality and Social Psychology, 73(6), 1246–1256.",
+      "use": "Две метачерты (альфа и бета) над Большой пятёркой."
+    },
+    {
+      "id": "deyoung2002",
+      "cite": "DeYoung, C. G., Peterson, J. B., & Higgins, D. M. (2002). Higher-order factors of the Big Five predict conformity. Personality and Individual Differences, 33, 533–552.",
+      "use": "Стабильность (эмоциональная устойчивость, доброжелательность, добросовестность) и пластичность (экстраверсия, открытость)."
+    },
+    {
+      "id": "watson1991",
+      "cite": "Clark, L. A., & Watson, D. (1991). Tripartite model of anxiety and depression: Psychometric evidence and taxonomic implications. Journal of Abnormal Psychology, 100(3), 316–336.",
+      "use": "Общий негативный аффект у депрессии и тревоги, сниженный позитивный аффект (депрессия) и физиологическое возбуждение (тревога)."
+    },
+    {
+      "id": "judge2003",
+      "cite": "Judge, T. A., Erez, A., Bono, J. E., & Thoresen, C. J. (2003). The Core Self-Evaluations Scale: Development of a measure. Personnel Psychology, 56, 303–331.",
+      "use": "Самооценка, обобщённая самоэффективность, контроль и эмоциональная устойчивость образуют один общий фактор."
+    },
+    {
+      "id": "kotov2017",
+      "cite": "Kotov, R., Krueger, R. F., Watson, D., et al. (2017). The Hierarchical Taxonomy of Psychopathology (HiTOP): A dimensional alternative to traditional nosologies. Journal of Abnormal Psychology, 126(4), 454–477. https://doi.org/10.1037/abn0000258",
+      "use": "Симптомы организуются в спектры (интернализация, антагонизм, отстранённость и др.), а не в отдельные диагнозы."
+    },
+    {
+      "id": "caspi2014",
+      "cite": "Caspi, A., Houts, R. M., Belsky, D. W., et al. (2014). The p factor: One general psychopathology factor in the structure of psychiatric disorders? Clinical Psychological Science, 2(2), 119–137. https://doi.org/10.1177/2167702613497473",
+      "use": "Общий фактор психопатологии: симптомы разных расстройств в значительной мере делят общую основу."
+    },
+    {
+      "id": "kotov2010",
+      "cite": "Kotov, R., Gamez, W., Schmidt, F., & Watson, D. (2010). Linking “big” personality traits to anxiety, depressive, and substance use disorders: A meta-analysis. Psychological Bulletin, 136(5), 768–821.",
+      "use": "Высокий нейротизм и низкая добросовестность характерны для всех групп расстройств; низкая экстраверсия — для депрессии и социальной тревоги."
+    },
+    {
+      "id": "steel2008",
+      "cite": "Steel, P., Schmidt, J., & Shultz, J. (2008). Refining the relationship between personality and subjective well-being. Psychological Bulletin, 134(1), 138–161. https://doi.org/10.1037/0033-2909.134.1.138",
+      "use": "Экстраверсия (+) и нейротизм (−) — самые сильные предикторы благополучия."
+    },
+    {
+      "id": "paulhus2002",
+      "cite": "Paulhus, D. L., & Williams, K. M. (2002). The Dark Triad of personality: Narcissism, Machiavellianism, and psychopathy. Journal of Research in Personality, 36(6), 556–563.",
+      "use": "Общее у тёмной триады — недоброжелательность; Макиавеллизм и психопатия связаны с низкой добросовестностью."
+    },
+    {
+      "id": "lee2005",
+      "cite": "Lee, K., & Ashton, M. C. (2005). Psychopathy, Machiavellianism, and Narcissism in the Five-Factor Model and the HEXACO model of personality structure. Personality and Individual Differences, 38, 1571–1582.",
+      "use": "Все три тёмные черты сильно отрицательно связаны с честностью–скромностью."
+    },
+    {
+      "id": "noftle2006",
+      "cite": "Noftle, E. E., & Shaver, P. R. (2006). Attachment dimensions and the Big Five personality traits: Associations and comparative ability to predict relationship quality. Journal of Research in Personality, 40, 179–208.",
+      "use": "Согласованные связи тревоги и избегания в привязанности с чертами Большой пятёрки."
+    },
+    {
+      "id": "wiggins1979",
+      "cite": "Wiggins, J. S. (1979). A psychological taxonomy of trait-descriptive terms: The interpersonal domain. Journal of Personality and Social Psychology, 37(3), 395–412.",
+      "use": "Межличностный круг: оси доминантности (агентность) и теплоты (коммуналность), восемь секторов."
+    },
+    {
+      "id": "robins1996",
+      "cite": "Robins, R. W., John, O. P., Caspi, A., Moffitt, T. E., & Stouthamer-Loeber, M. (1996). Resilient, overcontrolled, and undercontrolled boys: Three replicable personality types. Journal of Personality and Social Psychology, 70(1), 157–171.",
+      "use": "Три воспроизводимых типа: устойчивый, сверхконтролирующий и недоконтролирующий (в приложении — упрощённая эвристика)."
+    },
+    {
+      "id": "larson2002",
+      "cite": "Larson, L. M., Rottinghaus, P. J., & Borgen, F. H. (2002). Meta-analyses of Big Six interests and Big Five personality factors. Journal of Vocational Behavior, 61(2), 217–239.",
+      "use": "Связи интересов с чертами: артистические интересы — открытость (r ≈ 0,48), предпринимательские — экстраверсия (r ≈ 0,41)."
+    },
+    {
+      "id": "prediger1982",
+      "cite": "Prediger, D. J. (1982). Dimensions underlying Holland's hexagon: Missing link between interests and occupations? Journal of Vocational Behavior, 21(3), 259–287.",
+      "use": "Две оси интересов: данные–идеи и вещи–люди."
+    },
+    {
+      "id": "higgins2002",
+      "cite": "Higgins, J. P. T., & Thompson, S. G. (2002). Quantifying heterogeneity in a meta-analysis. Statistics in Medicine, 21, 1539–1558. https://doi.org/10.1002/sim.1186",
+      "use": "Показатель неоднородности I²: какая доля различий между оценками связана не со случайной погрешностью."
+    },
+    {
+      "id": "dersimonian1986",
+      "cite": "DerSimonian, R., & Laird, N. (1986). Meta-analysis in clinical trials. Controlled Clinical Trials, 7(3), 177–188.",
+      "use": "Модель случайных эффектов для объединения оценок из разных тестов."
+    }
+  ],
+  "dimensions": [
+    {
+      "id": "E",
+      "group": "traits",
+      "title": "Экстраверсия",
+      "low": "сдержанность, предпочтение уединения и небольшого круга общения",
+      "high": "энергичность, общительность, жизнерадостность",
+      "refs": [
+        "steel2008",
+        "larson2002",
+        "kotov2010"
+      ],
+      "loadings": [
+        {
+          "t": "ipip-big5-50",
+          "s": "E",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "E",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "tipi",
+          "s": "E",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "hexaco-60",
+          "s": "X",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "riasec",
+          "s": "E",
+          "l": 0.3,
+          "b": "lit"
+        }
+      ]
+    },
+    {
+      "id": "A",
+      "group": "traits",
+      "title": "Доброжелательность",
+      "low": "прямолинейность, критичность, умение отстаивать позицию",
+      "high": "отзывчивость, терпимость, склонность к сотрудничеству",
+      "refs": [
+        "paulhus2002",
+        "lee2005"
+      ],
+      "loadings": [
+        {
+          "t": "ipip-big5-50",
+          "s": "A",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "A",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "tipi",
+          "s": "A",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "hexaco-60",
+          "s": "A",
+          "l": 0.7,
+          "b": "def"
+        },
+        {
+          "t": "hexaco-60",
+          "s": "H",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "sd3",
+          "s": "m",
+          "l": -0.4,
+          "b": "lit"
+        },
+        {
+          "t": "sd3",
+          "s": "n",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "sd3",
+          "s": "p",
+          "l": -0.4,
+          "b": "lit"
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "group": "traits",
+      "title": "Добросовестность",
+      "low": "гибкость и спонтанность, меньше склонности к планированию",
+      "high": "организованность, ответственность, упорство",
+      "refs": [
+        "kotov2010",
+        "paulhus2002"
+      ],
+      "loadings": [
+        {
+          "t": "ipip-big5-50",
+          "s": "C",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "C",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "tipi",
+          "s": "C",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "hexaco-60",
+          "s": "C",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "grit-s",
+          "s": "pe",
+          "l": 0.7,
+          "b": "lit"
+        },
+        {
+          "t": "grit-s",
+          "s": "ci",
+          "l": 0.7,
+          "b": "lit"
+        },
+        {
+          "t": "sd3",
+          "s": "m",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "sd3",
+          "s": "p",
+          "l": -0.4,
+          "b": "lit"
+        },
+        {
+          "t": "asrs-v1-1",
+          "s": "total",
+          "l": -0.3,
+          "b": "lit"
+        }
+      ]
+    },
+    {
+      "id": "ES",
+      "group": "traits",
+      "title": "Эмоциональная устойчивость",
+      "low": "острая реакция на стресс, склонность к тревоге и перепадам настроения",
+      "high": "спокойствие и выдержка в стрессовых ситуациях",
+      "refs": [
+        "kotov2010",
+        "kotov2017",
+        "judge2003"
+      ],
+      "loadings": [
+        {
+          "t": "ipip-big5-50",
+          "s": "N",
+          "l": -1,
+          "b": "def"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "N",
+          "l": -1,
+          "b": "def"
+        },
+        {
+          "t": "tipi",
+          "s": "S",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "hexaco-60",
+          "s": "E",
+          "l": -0.5,
+          "b": "lit"
+        },
+        {
+          "t": "phq-9",
+          "s": "total",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "gad-7",
+          "s": "total",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "dass-21",
+          "s": "d",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "dass-21",
+          "s": "a",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "dass-21",
+          "s": "s",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "k6",
+          "s": "total",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "pss-10",
+          "s": "total",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "pcl-5",
+          "s": "total",
+          "l": -0.2,
+          "b": "lit"
+        },
+        {
+          "t": "oci-r",
+          "s": "total",
+          "l": -0.2,
+          "b": "lit"
+        },
+        {
+          "t": "rosenberg-self-esteem",
+          "s": "total",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "gse",
+          "s": "total",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "brs",
+          "s": "total",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "lot-r",
+          "s": "total",
+          "l": 0.3,
+          "b": "lit"
+        }
+      ]
+    },
+    {
+      "id": "O",
+      "group": "traits",
+      "title": "Открытость опыту",
+      "low": "практичность, приверженность привычному",
+      "high": "любознательность, воображение, интерес к новому",
+      "refs": [
+        "larson2002"
+      ],
+      "loadings": [
+        {
+          "t": "ipip-big5-50",
+          "s": "O",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "O",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "tipi",
+          "s": "O",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "hexaco-60",
+          "s": "O",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "riasec",
+          "s": "A",
+          "l": 0.5,
+          "b": "lit"
+        },
+        {
+          "t": "riasec",
+          "s": "I",
+          "l": 0.2,
+          "b": "cnt"
+        }
+      ]
+    },
+    {
+      "id": "HH",
+      "group": "traits",
+      "title": "Честность–скромность",
+      "low": "расчётливость, стремление к выгоде и статусу",
+      "high": "честность, скромность, нежелание манипулировать",
+      "refs": [
+        "lee2005"
+      ],
+      "loadings": [
+        {
+          "t": "hexaco-60",
+          "s": "H",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "sd3",
+          "s": "m",
+          "l": -0.6,
+          "b": "lit"
+        },
+        {
+          "t": "sd3",
+          "s": "n",
+          "l": -0.5,
+          "b": "lit"
+        },
+        {
+          "t": "sd3",
+          "s": "p",
+          "l": -0.6,
+          "b": "lit"
+        }
+      ]
+    },
+    {
+      "id": "DIST",
+      "group": "affect",
+      "title": "Общий эмоциональный дистресс",
+      "low": "выраженного дистресса нет",
+      "high": "заметно выражены симптомы тревоги, подавленности и напряжения",
+      "refs": [
+        "watson1991",
+        "kotov2017",
+        "caspi2014"
+      ],
+      "loadings": [
+        {
+          "t": "phq-9",
+          "s": "total",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "gad-7",
+          "s": "total",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "dass-21",
+          "s": "d",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "dass-21",
+          "s": "a",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "dass-21",
+          "s": "s",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "k6",
+          "s": "total",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "pss-10",
+          "s": "total",
+          "l": 0.8,
+          "b": "def"
+        },
+        {
+          "t": "pcl-5",
+          "s": "total",
+          "l": 0.8,
+          "b": "lit"
+        },
+        {
+          "t": "oci-r",
+          "s": "total",
+          "l": 0.6,
+          "b": "lit"
+        },
+        {
+          "t": "who-5",
+          "s": "total",
+          "l": -1,
+          "b": "def"
+        },
+        {
+          "t": "swls",
+          "s": "total",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "flourishing",
+          "s": "total",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "ipip-big5-50",
+          "s": "N",
+          "l": 0.35,
+          "b": "lit"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "N",
+          "l": 0.35,
+          "b": "lit"
+        },
+        {
+          "t": "tipi",
+          "s": "S",
+          "l": -0.35,
+          "b": "lit"
+        },
+        {
+          "t": "hexaco-60",
+          "s": "E",
+          "l": 0.2,
+          "b": "lit"
+        },
+        {
+          "t": "ucla-3",
+          "s": "total",
+          "l": 0.2,
+          "b": "lit"
+        }
+      ]
+    },
+    {
+      "id": "LOWPA",
+      "group": "affect",
+      "title": "Сниженное положительное переживание (ангедония)",
+      "low": "достаточно интереса, энергии и радости",
+      "high": "мало интереса, энергии и удовольствия",
+      "refs": [
+        "watson1991",
+        "kotov2010"
+      ],
+      "loadings": [
+        {
+          "t": "dass-21",
+          "s": "d",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "phq-9",
+          "s": "total",
+          "l": 0.6,
+          "b": "def"
+        },
+        {
+          "t": "who-5",
+          "s": "total",
+          "l": -1,
+          "b": "def"
+        },
+        {
+          "t": "flourishing",
+          "s": "total",
+          "l": -0.6,
+          "b": "lit"
+        },
+        {
+          "t": "swls",
+          "s": "total",
+          "l": -0.4,
+          "b": "lit"
+        },
+        {
+          "t": "ipip-big5-50",
+          "s": "E",
+          "l": -0.4,
+          "b": "lit"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "E",
+          "l": -0.4,
+          "b": "lit"
+        },
+        {
+          "t": "tipi",
+          "s": "E",
+          "l": -0.4,
+          "b": "lit"
+        },
+        {
+          "t": "hexaco-60",
+          "s": "X",
+          "l": -0.4,
+          "b": "lit"
+        }
+      ]
+    },
+    {
+      "id": "AROUSAL",
+      "group": "affect",
+      "title": "Тревожное возбуждение и напряжение",
+      "low": "спокойное телесное состояние",
+      "high": "напряжение, тревожное возбуждение, трудно расслабиться",
+      "refs": [
+        "watson1991"
+      ],
+      "loadings": [
+        {
+          "t": "dass-21",
+          "s": "a",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "gad-7",
+          "s": "total",
+          "l": 0.8,
+          "b": "def"
+        },
+        {
+          "t": "dass-21",
+          "s": "s",
+          "l": 0.5,
+          "b": "def"
+        },
+        {
+          "t": "pcl-5",
+          "s": "total",
+          "l": 0.6,
+          "b": "cnt"
+        },
+        {
+          "t": "pss-10",
+          "s": "total",
+          "l": 0.5,
+          "b": "cnt"
+        },
+        {
+          "t": "k6",
+          "s": "total",
+          "l": 0.5,
+          "b": "cnt"
+        },
+        {
+          "t": "oci-r",
+          "s": "total",
+          "l": 0.3,
+          "b": "cnt"
+        }
+      ]
+    },
+    {
+      "id": "CSE",
+      "group": "self",
+      "title": "Позитивные самооценки (самооценка, самоэффективность, контроль)",
+      "low": "критичное отношение к себе, сомнения в своих силах",
+      "high": "принятие себя и вера в способность справляться",
+      "refs": [
+        "judge2003"
+      ],
+      "loadings": [
+        {
+          "t": "rosenberg-self-esteem",
+          "s": "total",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "gse",
+          "s": "total",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "brs",
+          "s": "total",
+          "l": 0.7,
+          "b": "lit"
+        },
+        {
+          "t": "lot-r",
+          "s": "total",
+          "l": 0.7,
+          "b": "lit"
+        },
+        {
+          "t": "flourishing",
+          "s": "total",
+          "l": 0.5,
+          "b": "lit"
+        },
+        {
+          "t": "swls",
+          "s": "total",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "grit-s",
+          "s": "pe",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "ipip-big5-50",
+          "s": "N",
+          "l": -0.5,
+          "b": "lit"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "N",
+          "l": -0.5,
+          "b": "lit"
+        },
+        {
+          "t": "tipi",
+          "s": "S",
+          "l": 0.5,
+          "b": "lit"
+        },
+        {
+          "t": "hexaco-60",
+          "s": "E",
+          "l": -0.3,
+          "b": "lit"
+        }
+      ]
+    },
+    {
+      "id": "WB",
+      "group": "self",
+      "title": "Благополучие",
+      "low": "самочувствие и удовлетворённость жизнью снижены",
+      "high": "хорошее самочувствие, ощущение смысла и удовлетворённости",
+      "refs": [
+        "steel2008"
+      ],
+      "loadings": [
+        {
+          "t": "who-5",
+          "s": "total",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "flourishing",
+          "s": "total",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "swls",
+          "s": "total",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "lot-r",
+          "s": "total",
+          "l": 0.4,
+          "b": "lit"
+        },
+        {
+          "t": "rosenberg-self-esteem",
+          "s": "total",
+          "l": 0.4,
+          "b": "lit"
+        },
+        {
+          "t": "phq-9",
+          "s": "total",
+          "l": -0.4,
+          "b": "lit"
+        },
+        {
+          "t": "dass-21",
+          "s": "d",
+          "l": -0.4,
+          "b": "lit"
+        },
+        {
+          "t": "k6",
+          "s": "total",
+          "l": -0.4,
+          "b": "lit"
+        },
+        {
+          "t": "ipip-big5-50",
+          "s": "E",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "E",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "tipi",
+          "s": "E",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "hexaco-60",
+          "s": "X",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "ipip-big5-50",
+          "s": "N",
+          "l": -0.4,
+          "b": "lit"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "N",
+          "l": -0.4,
+          "b": "lit"
+        },
+        {
+          "t": "tipi",
+          "s": "S",
+          "l": 0.4,
+          "b": "lit"
+        }
+      ]
+    },
+    {
+      "id": "RES",
+      "group": "self",
+      "title": "Устойчивость и оптимизм",
+      "low": "трудно восстанавливаться, ожидания от будущего сдержанны",
+      "high": "быстро восстанавливаетесь, ждёте хорошего",
+      "refs": [
+        "judge2003"
+      ],
+      "loadings": [
+        {
+          "t": "brs",
+          "s": "total",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "lot-r",
+          "s": "total",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "gse",
+          "s": "total",
+          "l": 0.5,
+          "b": "lit"
+        },
+        {
+          "t": "grit-s",
+          "s": "pe",
+          "l": 0.4,
+          "b": "lit"
+        },
+        {
+          "t": "erq",
+          "s": "cr",
+          "l": 0.3,
+          "b": "lit"
+        }
+      ]
+    },
+    {
+      "id": "CONN",
+      "group": "social",
+      "title": "Чувство связи с людьми",
+      "low": "нехватка общения и близости, дистанция",
+      "high": "ощущение близости и поддержки",
+      "refs": [
+        "noftle2006"
+      ],
+      "loadings": [
+        {
+          "t": "ucla-3",
+          "s": "total",
+          "l": -1,
+          "b": "def"
+        },
+        {
+          "t": "ecr-r",
+          "s": "avo",
+          "l": -0.8,
+          "b": "def"
+        },
+        {
+          "t": "ecr-r",
+          "s": "anx",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "flourishing",
+          "s": "total",
+          "l": 0.3,
+          "b": "cnt"
+        },
+        {
+          "t": "ipip-big5-50",
+          "s": "E",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "E",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "tipi",
+          "s": "E",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "ipip-big5-50",
+          "s": "A",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "A",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "tipi",
+          "s": "A",
+          "l": 0.3,
+          "b": "lit"
+        }
+      ]
+    },
+    {
+      "id": "ATA",
+      "group": "social",
+      "title": "Тревога в привязанности",
+      "low": "уверенность в прочности близких отношений",
+      "high": "страх отвержения и потребность в подтверждении близости",
+      "refs": [
+        "noftle2006"
+      ],
+      "loadings": [
+        {
+          "t": "ecr-r",
+          "s": "anx",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "ipip-big5-50",
+          "s": "N",
+          "l": 0.4,
+          "b": "lit"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "N",
+          "l": 0.4,
+          "b": "lit"
+        },
+        {
+          "t": "tipi",
+          "s": "S",
+          "l": -0.4,
+          "b": "lit"
+        },
+        {
+          "t": "rosenberg-self-esteem",
+          "s": "total",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "ucla-3",
+          "s": "total",
+          "l": 0.3,
+          "b": "cnt"
+        }
+      ]
+    },
+    {
+      "id": "ATV",
+      "group": "social",
+      "title": "Избегание близости",
+      "low": "комфортно сближаться и полагаться на других",
+      "high": "дистанция, самостоятельность, неловкость при близости",
+      "refs": [
+        "noftle2006"
+      ],
+      "loadings": [
+        {
+          "t": "ecr-r",
+          "s": "avo",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "ipip-big5-50",
+          "s": "A",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "A",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "tipi",
+          "s": "A",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "ipip-big5-50",
+          "s": "E",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "E",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "tipi",
+          "s": "E",
+          "l": -0.3,
+          "b": "lit"
+        }
+      ]
+    },
+    {
+      "id": "AGEN",
+      "group": "social",
+      "title": "Агентность (самоутверждение, доминантность)",
+      "low": "уступчивость, готовность оставаться в тени",
+      "high": "уверенное самоутверждение, стремление влиять",
+      "refs": [
+        "wiggins1979"
+      ],
+      "loadings": [
+        {
+          "t": "ipip-big5-50",
+          "s": "E",
+          "l": 0.8,
+          "b": "lit"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "E",
+          "l": 0.8,
+          "b": "lit"
+        },
+        {
+          "t": "tipi",
+          "s": "E",
+          "l": 0.8,
+          "b": "lit"
+        },
+        {
+          "t": "hexaco-60",
+          "s": "X",
+          "l": 0.8,
+          "b": "lit"
+        },
+        {
+          "t": "sd3",
+          "s": "n",
+          "l": 0.6,
+          "b": "lit"
+        },
+        {
+          "t": "riasec",
+          "s": "E",
+          "l": 0.3,
+          "b": "cnt"
+        },
+        {
+          "t": "gse",
+          "s": "total",
+          "l": 0.2,
+          "b": "cnt"
+        }
+      ],
+      "composite": true
+    },
+    {
+      "id": "COMM",
+      "group": "social",
+      "title": "Коммуналность (теплота, принятие других)",
+      "low": "прохладность, дистанция и жёсткость в отношении к людям",
+      "high": "теплота, забота, доверие",
+      "refs": [
+        "wiggins1979",
+        "lee2005"
+      ],
+      "loadings": [
+        {
+          "t": "ipip-big5-50",
+          "s": "A",
+          "l": 0.8,
+          "b": "lit"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "A",
+          "l": 0.8,
+          "b": "lit"
+        },
+        {
+          "t": "tipi",
+          "s": "A",
+          "l": 0.8,
+          "b": "lit"
+        },
+        {
+          "t": "hexaco-60",
+          "s": "A",
+          "l": 0.6,
+          "b": "lit"
+        },
+        {
+          "t": "hexaco-60",
+          "s": "H",
+          "l": 0.4,
+          "b": "lit"
+        },
+        {
+          "t": "sd3",
+          "s": "m",
+          "l": -0.5,
+          "b": "lit"
+        },
+        {
+          "t": "sd3",
+          "s": "p",
+          "l": -0.5,
+          "b": "lit"
+        },
+        {
+          "t": "sd3",
+          "s": "n",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "riasec",
+          "s": "S",
+          "l": 0.3,
+          "b": "cnt"
+        }
+      ],
+      "composite": true
+    },
+    {
+      "id": "REAPP",
+      "group": "regulation",
+      "title": "Когнитивная переоценка",
+      "low": "редко меняете взгляд на ситуацию, чтобы изменить чувства",
+      "high": "привычно меняете взгляд на ситуацию, чтобы справиться с эмоциями",
+      "refs": [],
+      "loadings": [
+        {
+          "t": "erq",
+          "s": "cr",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "brs",
+          "s": "total",
+          "l": 0.3,
+          "b": "cnt"
+        },
+        {
+          "t": "lot-r",
+          "s": "total",
+          "l": 0.3,
+          "b": "cnt"
+        }
+      ]
+    },
+    {
+      "id": "SUPP",
+      "group": "regulation",
+      "title": "Подавление выражения эмоций",
+      "low": "обычно не скрываете проявления эмоций",
+      "high": "часто сдерживаете внешние проявления эмоций",
+      "refs": [
+        "noftle2006"
+      ],
+      "loadings": [
+        {
+          "t": "erq",
+          "s": "es",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "ecr-r",
+          "s": "avo",
+          "l": 0.3,
+          "b": "lit"
+        },
+        {
+          "t": "ucla-3",
+          "s": "total",
+          "l": 0.2,
+          "b": "cnt"
+        }
+      ]
+    },
+    {
+      "id": "PEOPLE",
+      "group": "interests",
+      "title": "Интерес к людям (против вещей)",
+      "low": "интерес к предметам, технике, природе",
+      "high": "интерес к работе с людьми: помощь, обучение, влияние",
+      "refs": [
+        "prediger1982"
+      ],
+      "loadings": [
+        {
+          "t": "riasec",
+          "s": "S",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "riasec",
+          "s": "E",
+          "l": 0.5,
+          "b": "def"
+        },
+        {
+          "t": "riasec",
+          "s": "R",
+          "l": -1,
+          "b": "def"
+        },
+        {
+          "t": "riasec",
+          "s": "I",
+          "l": -0.4,
+          "b": "def"
+        }
+      ]
+    },
+    {
+      "id": "IDEAS",
+      "group": "interests",
+      "title": "Интерес к идеям (против данных)",
+      "low": "интерес к упорядоченной работе с данными и правилами",
+      "high": "интерес к идеям, исследованию и творчеству",
+      "refs": [
+        "prediger1982",
+        "larson2002"
+      ],
+      "loadings": [
+        {
+          "t": "riasec",
+          "s": "A",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "riasec",
+          "s": "I",
+          "l": 0.6,
+          "b": "def"
+        },
+        {
+          "t": "riasec",
+          "s": "C",
+          "l": -1,
+          "b": "def"
+        },
+        {
+          "t": "riasec",
+          "s": "E",
+          "l": -0.3,
+          "b": "def"
+        }
+      ]
+    },
+    {
+      "id": "ND_AQ",
+      "group": "neuro",
+      "title": "Аутистические черты (скрининг AQ-10)",
+      "low": "ниже порога скрининга",
+      "high": "на уровне или выше порога скрининга",
+      "refs": [
+        "kotov2017"
+      ],
+      "loadings": [
+        {
+          "t": "aq-10",
+          "s": "total",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "ipip-big5-50",
+          "s": "E",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "E",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "tipi",
+          "s": "E",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "ecr-r",
+          "s": "avo",
+          "l": 0.2,
+          "b": "cnt"
+        }
+      ]
+    },
+    {
+      "id": "ND_ADHD",
+      "group": "neuro",
+      "title": "Невнимательность и импульсивность (скрининг ASRS)",
+      "low": "ниже порога скрининга",
+      "high": "на уровне или выше порога скрининга",
+      "refs": [
+        "kotov2010"
+      ],
+      "loadings": [
+        {
+          "t": "asrs-v1-1",
+          "s": "total",
+          "l": 1,
+          "b": "def"
+        },
+        {
+          "t": "ipip-big5-50",
+          "s": "C",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "mini-ipip",
+          "s": "C",
+          "l": -0.3,
+          "b": "lit"
+        },
+        {
+          "t": "tipi",
+          "s": "C",
+          "l": -0.3,
+          "b": "lit"
+        }
+      ]
+    }
+  ],
+  "itemLoadings": [
+    {
+      "t": "phq-9",
+      "i": "q1",
+      "d": "LOWPA",
+      "l": 1,
+      "b": "cnt",
+      "why": "Снижение интереса и удовольствия — ядро ангедонии."
+    },
+    {
+      "t": "phq-9",
+      "i": "q6",
+      "d": "CSE",
+      "l": -0.6,
+      "b": "cnt",
+      "why": "Плохое мнение о себе — негативная самооценка."
+    },
+    {
+      "t": "dass-21",
+      "i": "q17",
+      "d": "CSE",
+      "l": -0.7,
+      "b": "cnt",
+      "why": "«Не представляю ценности как личность» — самооценка."
+    },
+    {
+      "t": "dass-21",
+      "i": "q10",
+      "d": "RES",
+      "l": -0.6,
+      "b": "cnt",
+      "why": "«Нечего ждать от жизни» — пессимизм."
+    },
+    {
+      "t": "dass-21",
+      "i": "q21",
+      "d": "WB",
+      "l": -0.6,
+      "b": "cnt",
+      "why": "«Жизнь не имеет смысла» — смысл и благополучие."
+    },
+    {
+      "t": "k6",
+      "i": "q6",
+      "d": "CSE",
+      "l": -0.6,
+      "b": "cnt",
+      "why": "Чувство никчёмности — самооценка."
+    },
+    {
+      "t": "pss-10",
+      "i": "q4",
+      "d": "CSE",
+      "l": -0.5,
+      "b": "cnt",
+      "why": "Успешное совладание с трудностями — самоэффективность."
+    },
+    {
+      "t": "pss-10",
+      "i": "q5",
+      "d": "CSE",
+      "l": -0.5,
+      "b": "cnt",
+      "why": "Эффективное совладание с изменениями — самоэффективность."
+    },
+    {
+      "t": "pss-10",
+      "i": "q7",
+      "d": "CSE",
+      "l": -0.5,
+      "b": "cnt",
+      "why": "Ощущение контроля — самоэффективность."
+    },
+    {
+      "t": "pss-10",
+      "i": "q8",
+      "d": "CSE",
+      "l": -0.5,
+      "b": "cnt",
+      "why": "Ощущение, что всё идёт хорошо — контроль."
+    },
+    {
+      "t": "flourishing",
+      "i": "q2",
+      "d": "CONN",
+      "l": 0.8,
+      "b": "cnt",
+      "why": "Поддерживающие социальные отношения."
+    },
+    {
+      "t": "flourishing",
+      "i": "q8",
+      "d": "CONN",
+      "l": 0.4,
+      "b": "cnt",
+      "why": "«Люди меня уважают» — принятие другими."
+    },
+    {
+      "t": "pcl-5",
+      "i": "q13",
+      "d": "CONN",
+      "l": -0.7,
+      "b": "cnt",
+      "why": "Чувство отдалённости от людей."
+    },
+    {
+      "t": "pcl-5",
+      "i": "q14",
+      "d": "LOWPA",
+      "l": 0.8,
+      "b": "cnt",
+      "why": "Трудности с переживанием положительных чувств."
+    },
+    {
+      "t": "pcl-5",
+      "i": "q9",
+      "d": "CSE",
+      "l": -0.5,
+      "b": "cnt",
+      "why": "Сильные негативные убеждения о себе."
+    },
+    {
+      "t": "pcl-5",
+      "i": "q10",
+      "d": "CSE",
+      "l": -0.4,
+      "b": "cnt",
+      "why": "Самообвинение."
+    }
+  ]
+}

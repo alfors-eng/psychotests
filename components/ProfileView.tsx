@@ -1,7 +1,8 @@
 'use client';
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import CategoryIcon from '@/components/CategoryIcon';
+import DeepView from '@/components/DeepView';
 import { RadarChart } from '@/components/Charts';
 import IntegratedView from '@/components/IntegratedView';
 import { CharacteristicsTable, ConstructTable, MatrixTable } from '@/components/ProfileTables';
@@ -13,7 +14,7 @@ import { formatDate } from '@/lib/format';
 import { buildIntegrated, domainOf, uncovered } from '@/lib/integrate';
 import { buildCharacteristics, chartLabels, type Characteristic } from '@/lib/profile';
 import { loadHistory, loadProfileOverrides, saveProfileOverrides, type ProfileOverrides } from '@/lib/storage';
-import type { ScaleResult, TestDef } from '@/lib/types';
+import type { HistoryEntry, ScaleResult, TestDef } from '@/lib/types';
 
 const MIN_RADAR = 3;
 const MAX_RADAR = 16;
@@ -22,10 +23,13 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
   const [chars, setChars] = useState<Characteristic[] | null>(null);
   const [over, setOver] = useState<ProfileOverrides>({});
   const [view, setView] = useState<'radar' | 'map' | 'bars'>('map');
-  const [tab, setTab] = useState<'whole' | 'tables' | 'charts'>('whole');
+  const [tab, setTab] = useState<'whole' | 'deep' | 'tables' | 'charts'>('whole');
+  const [history, setHistory] = useState<HistoryEntry[]>([]);
 
   useEffect(() => {
-    setChars(buildCharacteristics(tests, loadHistory()));
+    const h = loadHistory();
+    setHistory(h);
+    setChars(buildCharacteristics(tests, h));
     setOver(loadProfileOverrides());
   }, [tests]);
 
@@ -40,6 +44,14 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
     update(next);
   };
 
+  const charMap = useMemo(() => new Map((chars ?? []).map((c) => [c.key, c])), [chars]);
+  const include = useCallback(
+    (key: string) => {
+      const c = charMap.get(key);
+      return c ? (over[c.key] ?? !c.isClinical) : true;
+    },
+    [charMap, over],
+  );
   const selected = useMemo(() => (chars ?? []).filter(isOn), [chars, over]); // eslint-disable-line react-hooks/exhaustive-deps
   const labels = useMemo(() => chartLabels(selected), [selected]);
   const testTitles = useMemo(() => Object.fromEntries(tests.map((t) => [t.id, t.title])), [tests]);
@@ -115,6 +127,7 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
 
   const TABS = [
     { id: 'whole', label: 'Целостная картина' },
+    { id: 'deep', label: 'Глубинный анализ' },
     { id: 'tables', label: 'Сводные таблицы' },
     { id: 'charts', label: 'Диаграммы' },
   ] as const;
@@ -161,6 +174,19 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
               </div>
             </div>
             <IntegratedView items={integrated} uncoveredChars={uncoveredChars} testTitles={testTitles} />
+          </div>
+
+          <div id="panel-deep" role="tabpanel" aria-labelledby="tab-deep" hidden={tab !== 'deep'} className="space-y-6">
+            <h2 className="text-xl font-semibold">Глубинный анализ ответов</h2>
+            {tab === 'deep' && (
+              <DeepView
+                tests={tests}
+                history={history}
+                include={include}
+                screeningsOff={chars.some((c) => c.isClinical && !isOn(c))}
+                onEnableScreenings={() => setMany((c) => (c.isClinical ? true : isOn(c)))}
+              />
+            )}
           </div>
 
           <div id="panel-tables" role="tabpanel" aria-labelledby="tab-tables" hidden={tab !== 'tables'} className="space-y-10">

@@ -34,7 +34,7 @@ export function isReady(t: { status?: string }) {
 }
 
 /** Облегчённое описание для подсчёта в браузере: без текстов вопросов и описаний. */
-export function toScoringDef(t: TestDef): TestDef {
+export function toScoringDef(t: TestDef, keepQuestionText = false): TestDef {
   return {
     ...t,
     fullDescription: '',
@@ -43,6 +43,6 @@ export function toScoringDef(t: TestDef): TestDef {
     translationNote: undefined,
     license: '',
     todo: undefined,
-    questions: t.questions.map((q) => ({ ...q, text: '' })),
+    questions: t.questions.map((q) => ({ ...q, text: keepQuestionText ? q.text : '' })),
   };
 }
