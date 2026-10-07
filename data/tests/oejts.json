@@ -15,7 +15,7 @@
   "author": "Eric Jorgenson (Open Source Psychometrics Project)",
   "year": 2013,
   "source": "https://openpsychometrics.org/tests/OEJTS/",
-  "license": "TODO: проверить лицензию (на странице проекта указано свободное использование)",
+  "license": "Проект заявлен как open source, но явной лицензии на странице openpsychometrics.org нет (проверено 07.10.2026). Уточнить у автора перед публикацией текста.",
   "instructions": "TODO",
   "scale": {
     "type": "likert",
