@@ -4,6 +4,8 @@ import './globals.css';
 import ThemeToggle from '@/components/ThemeToggle';
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://psychotests.vercel.app'),
+  openGraph: { type: 'website', locale: 'ru_RU', siteName: 'Психотесты' },
   title: { default: 'Психотесты — каталог тестов онлайн', template: '%s · Психотесты' },
   description:
     'Каталог психологических тестов с открытыми методиками. Без регистрации: результаты считаются в вашем браузере и никуда не отправляются.',

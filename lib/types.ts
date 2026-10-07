@@ -96,6 +96,8 @@ export interface TestDef {
   disclaimer?: string;
   isClinical: boolean;
   safety?: Safety;
+  /** Двумерная плоскость из двух шкал (например, ECR-R): точка и четыре квадранта. */
+  plane?: Plane;
   /** Что осталось проверить/дописать перед публикацией. */
   todo?: string[];
 }
@@ -138,4 +140,16 @@ export interface HistoryEntry {
   testTitle: string;
   completedAt: string; // ISO
   answers: Answers;
+}
+
+export interface Plane {
+  /** id подшкал по горизонтали и вертикали. */
+  x: string;
+  y: string;
+  xLabel: string;
+  yLabel: string;
+  /** Граница между «низко» и «высоко» в единицах шкал. */
+  split: number;
+  /** Квадранты: [низ-лево, низ-право, верх-лево, верх-право]. */
+  quadrants: { name: string; description: string }[];
 }

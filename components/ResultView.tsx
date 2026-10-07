@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { RadarChart, ScaleBar } from '@/components/Charts';
+import PlaneChart from '@/components/PlaneChart';
 import HelpBlock from '@/components/HelpBlock';
 import { evaluateSafety, scoreTest } from '@/lib/engine';
 import { downloadResultPng } from '@/lib/exportPng';
@@ -43,6 +44,11 @@ export default function ResultView({ test }: { test: TestDef }) {
   const { result, safety } = computed;
   const multi = result.scales.length >= 3;
   const date = formatDate(entry.completedAt);
+  const plane = test.plane;
+  const px = plane && result.scales.find((x) => x.id === plane.x);
+  const py = plane && result.scales.find((x) => x.id === plane.y);
+  const quadrant =
+    plane && px && py ? plane.quadrants[(py.value >= plane.split ? 2 : 0) + (px.value >= plane.split ? 1 : 0)] : null;
   const ranked = [...result.scales].sort((a, b) => b.value - a.value);
   const dominant = ranked.slice(0, 3);
 
@@ -64,6 +70,16 @@ export default function ResultView({ test }: { test: TestDef }) {
         <section className="card">
           <h2 className="text-sm font-medium text-muted">Ведущие типы (по убыванию баллов)</h2>
           <p className="mt-1 text-2xl font-semibold">{dominant.map((s) => s.title).join(' + ')}</p>
+        </section>
+      )}
+
+      {plane && px && py && quadrant && (
+        <section className="card space-y-3" aria-labelledby="plane-title">
+          <h2 id="plane-title" className="text-xl font-semibold">
+            {quadrant.name}
+          </h2>
+          <PlaneChart plane={plane} xValue={px.value} yValue={py.value} min={px.min} max={px.max} />
+          <p className="text-[15px]">{quadrant.description}</p>
         </section>
       )}
 

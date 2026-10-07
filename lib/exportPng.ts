@@ -1,4 +1,5 @@
 import { formatValue } from './engine';
+import { drawRadar } from './exportRadar';
 import type { ScoreResult, TestDef } from './types';
 
 function wrap(ctx: CanvasRenderingContext2D, text: string, maxWidth: number): string[] {
@@ -26,7 +27,9 @@ export function downloadResultPng(test: TestDef, result: ScoreResult, date: stri
   measure.font = `400 26px ${font}`;
 
   // Предварительный расчёт высоты.
-  let h = pad + 44 + 40 + 32;
+  const radar = result.scales.length >= 3;
+  const radarH = radar ? 520 : 0;
+  let h = pad + 44 + 40 + 32 + radarH;
   const blocks = result.scales.map((s) => {
     const desc = s.range ? wrap(measure, s.range.description, inner) : [];
     return { s, desc };
@@ -53,6 +56,11 @@ export function downloadResultPng(test: TestDef, result: ScoreResult, date: stri
   ctx.font = `400 22px ${font}`;
   ctx.fillText(date, pad, y);
   y += 56;
+
+  if (radar) {
+    drawRadar(ctx, W / 2, y + 250, 170, result.scales, font);
+    y += radarH;
+  }
 
   for (const { s, desc } of blocks) {
     ctx.fillStyle = '#262a33';

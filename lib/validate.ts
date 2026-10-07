@@ -31,5 +31,9 @@ export function validateTest(t: TestDef, file: string): string[] {
     for (const c of t.safety.crisisQuestions ?? []) if (!ids.has(c.questionId)) e(`safety: нет вопроса ${c.questionId}`);
     if (t.safety.helpAboveScore && !scaleIds.includes(t.safety.helpAboveScore.scale)) e('safety: неизвестная шкала');
   }
+  if (t.plane) {
+    for (const id of [t.plane.x, t.plane.y]) if (!scaleIds.includes(id)) e(`plane: неизвестная шкала «${id}»`);
+    if (t.plane.quadrants.length !== 4) e('plane: нужно ровно 4 квадранта');
+  }
   return errs;
 }
