@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
+import AnswerAnalytics from '@/components/AnswerAnalytics';
 import CategoryIcon from '@/components/CategoryIcon';
 import { RadarChart, ScaleBar, ScoreRing } from '@/components/Charts';
 import PlaneChart from '@/components/PlaneChart';
@@ -119,11 +120,13 @@ export default function ResultView({ test }: { test: TestDef }) {
         {test.disclaimer && <p className="text-sm text-muted">{test.disclaimer}</p>}
       </section>
 
+      <AnswerAnalytics test={test} answers={entry.answers} scales={result.scales} />
+
       <div className="flex flex-wrap gap-3 print:hidden">
         <Link href={`/tests/${test.id}/run?fresh=1`} onClick={() => clearProgress(test.id)} className="btn btn-primary">
           Пройти заново
         </Link>
-        <button type="button" className="btn btn-ghost" onClick={() => downloadResultPng(test, result, date)}>
+        <button type="button" className="btn btn-ghost" onClick={() => downloadResultPng(test, result, date, entry.answers)}>
           Скачать PNG
         </button>
         <button type="button" className="btn btn-ghost" onClick={() => window.print()}>

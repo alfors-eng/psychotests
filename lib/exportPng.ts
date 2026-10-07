@@ -1,6 +1,7 @@
+import { analyzeAnswers } from './analytics';
 import { formatValue } from './engine';
 import { drawRadar } from './exportRadar';
-import type { ScoreResult, TestDef } from './types';
+import type { Answers, ScoreResult, TestDef } from './types';
 
 function wrap(ctx: CanvasRenderingContext2D, text: string, maxWidth: number): string[] {
   const lines: string[] = [];
@@ -17,7 +18,7 @@ function wrap(ctx: CanvasRenderingContext2D, text: string, maxWidth: number): st
 }
 
 /** Рисует карточку результата на canvas и скачивает PNG. Всё локально, без внешних библиотек. */
-export function downloadResultPng(test: TestDef, result: ScoreResult, date: string) {
+export function downloadResultPng(test: TestDef, result: ScoreResult, date: string, answers?: Answers) {
   const W = 1080;
   const pad = 64;
   const inner = W - pad * 2;
@@ -36,6 +37,8 @@ export function downloadResultPng(test: TestDef, result: ScoreResult, date: stri
   });
   for (const b of blocks) h += 36 + 24 + 20 + (b.s.range ? 36 : 0) + b.desc.length * 34 + 28;
   const disclaimer = wrap(measure, 'Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.', inner);
+  const dist = answers ? analyzeAnswers(test, answers, result.scales).distribution : null;
+  if (dist) h += 90 + dist.length * 46;
   h += 20 + disclaimer.length * 34 + pad;
 
   const canvas = document.createElement('canvas');
@@ -94,6 +97,33 @@ export function downloadResultPng(test: TestDef, result: ScoreResult, date: stri
       }
     }
     y += 28;
+  }
+
+  if (dist) {
+    ctx.fillStyle = '#262a33';
+    ctx.font = `600 28px ${font}`;
+    ctx.fillText('Распределение ответов', pad, y + 10);
+    y += 40;
+    const maxCount = Math.max(1, ...dist.map((b) => b.count));
+    for (const b of dist) {
+      ctx.fillStyle = '#262a33';
+      ctx.font = `400 22px ${font}`;
+      ctx.fillText(b.label.length > 44 ? b.label.slice(0, 43) + '…' : b.label, pad, y + 16);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#626a76';
+      ctx.fillText(`${b.count} · ${Math.round(b.percent)} %`, W - pad, y + 16);
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#e5f0ec';
+      ctx.beginPath();
+      ctx.roundRect(pad, y + 24, inner, 12, 6);
+      ctx.fill();
+      ctx.fillStyle = '#426c60';
+      ctx.beginPath();
+      ctx.roundRect(pad, y + 24, b.count ? Math.max(12, (inner * b.count) / maxCount) : 0, 12, 6);
+      ctx.fill();
+      y += 46;
+    }
+    y += 30;
   }
 
   ctx.fillStyle = '#626a76';
