@@ -42,7 +42,7 @@ export function scoreTest(test: TestDef, answers: Answers): ScoreResult {
 
   const groups: { id: string; title: string; description?: string; qs: typeof test.questions }[] =
     method === 'sum' || method === 'average'
-      ? [{ id: 'total', title: test.scoring.totalTitle ?? 'Общий балл', qs: test.questions }]
+      ? [{ id: 'total', title: test.scoring.totalTitle ?? 'Общий балл', qs: test.questions.filter((q) => !q.filler) }]
       : (test.scoring.subscales ?? []).map((s) => ({
           id: s.id,
           title: s.title,
@@ -91,8 +91,12 @@ export function evaluateSafety(test: TestDef, answers: Answers, result: ScoreRes
   const crisis = (s.crisisQuestions ?? []).some(
     (c) => answers[c.questionId] !== undefined && answers[c.questionId] > c.above,
   );
-  const scale = s.helpAboveScore ? result.scales.find((x) => x.id === s.helpAboveScore!.scale) : undefined;
-  const high = !!(s.helpAboveScore && scale && scale.value >= s.helpAboveScore.min);
+  const rules = s.helpAboveScore ? [s.helpAboveScore].flat() : [];
+  const high = rules.some((r) => {
+    const sc = result.scales.find((x) => x.id === r.scale);
+    if (!sc) return false;
+    return (r.min !== undefined && sc.value >= r.min) || (r.max !== undefined && sc.value <= r.max);
+  });
   return { crisis, showHelp: crisis || high };
 }
 

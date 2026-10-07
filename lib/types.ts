@@ -28,6 +28,8 @@ export interface Question {
   subscale?: string;
   /** Дихотомический ключ: 1 балл, если выбран один из этих вариантов (value), иначе 0. */
   scoreWhen?: number[];
+  /** Пункт показывается, но в подсчёт не входит (например, «отвлекающие» пункты LOT-R). */
+  filler?: boolean;
 }
 
 export interface Subscale {
@@ -63,8 +65,11 @@ export interface InterpretationRange {
 }
 
 export interface Safety {
-  /** Показать мягкий блок помощи при значении шкалы >= min. */
-  helpAboveScore?: { scale: string; min: number };
+  /**
+   * Показать мягкий блок помощи, если значение шкалы >= min (высокие баллы) или <= max (низкие,
+   * например WHO-5). Можно задать список правил по разным шкалам; достаточно сработать одному.
+   */
+  helpAboveScore?: HelpRule | HelpRule[];
   /** Показать блок экстренной помощи, если ответ на вопрос > value (сырой ответ). */
   crisisQuestions?: { questionId: string; above: number }[];
 }
@@ -152,4 +157,10 @@ export interface Plane {
   split: number;
   /** Квадранты: [низ-лево, низ-право, верх-лево, верх-право]. */
   quadrants: { name: string; description: string }[];
+}
+
+export interface HelpRule {
+  scale: string;
+  min?: number;
+  max?: number;
 }

@@ -55,3 +55,43 @@ const rr = Object.fromEntries(ri.questions.map((q) => [q.id, q.subscale === 'S' 
 r = scoreTest(ri, rr);
 eq(r.dominant.sort().join(''), 'AS', 'RIASEC: максимум у A и S');
 eq(r.scales.find((x) => x.id === 'S').value, 10, 'RIASEC: 10 пунктов на тип');
+
+// --- Раунд 4: новые тесты ---
+const help = (t, v) => { const a = all(t, v); return evaluateSafety(t, a, scoreTest(t, a)).showHelp; };
+const dass = load('dass-21');
+eq(scoreTest(dass, all(dass, 3)).scales.map((x) => x.value).join(','), '21,21,21', 'DASS-21: все «3» → по 21');
+eq(scoreTest(dass, all(dass, 3)).scales[0].range.level, 'severe', 'DASS-21: депрессия 21 → крайне тяжёлая');
+eq(help(dass, 3) && !help(dass, 0), true, 'DASS-21: помощь при высоких баллах, не при нулях');
+const mi = load('mini-ipip');
+eq(scoreTest(mi, all(mi, 5)).scales.map((x) => x.value).join(','), '12,12,12,12,8', 'Mini-IPIP: все «5» → 12,12,12,12,8');
+eq(mi.questions.filter((x) => x.reversed).length, 11, 'Mini-IPIP: 11 обратных пунктов (E2, A2, C2, N2, O3)');
+const brs = load('brs');
+eq(scoreTest(brs, all(brs, 5)).scales[0].value, 3, 'BRS: все «5» → 3 (3 обратных пункта)');
+const w5 = load('who-5');
+eq(help(w5, 0) && !help(w5, 5), true, 'WHO-5: помощь при низких баллах (≤12), не при высоких');
+eq(scoreTest(w5, all(w5, 5)).scales[0].value, 25, 'WHO-5 максимум = 25');
+const pcl = load('pcl-5');
+eq(scoreTest(pcl, all(pcl, 4)).scales[0].value, 80, 'PCL-5 максимум = 80');
+eq(help(pcl, 4) && !help(pcl, 1), true, 'PCL-5: помощь при ≥31');
+const k6 = load('k6');
+eq(help(k6, 4) && !help(k6, 0), true, 'K6: помощь при ≥13');
+const gse = load('gse');
+eq(scoreTest(gse, all(gse, 4)).scales[0].value, 40, 'GSE максимум = 40');
+const ucla = load('ucla-3');
+eq(scoreTest(ucla, all(ucla, 3)).scales[0].range.level, 'high', 'UCLA-3: 9 → выраженное одиночество');
+
+// --- Раунд 5 ---
+const lot = load('lot-r');
+eq(scoreTest(lot, all(lot, 4)).scales[0].value, 12, 'LOT-R: все «4» → 12 (3 прямых + 3 обратных = 12; филлеры не считаются)');
+eq(lot.questions.filter((x) => x.filler).length, 4, 'LOT-R: 4 филлера');
+const sd3 = load('sd3');
+eq(scoreTest(sd3, all(sd3, 5)).scales.map((x) => x.value.toFixed(2)).join(','), '5.00,3.67,4.11', 'SD3: все «5» → 5.00, 3.67, 4.11');
+const tipi = load('tipi');
+eq(scoreTest(tipi, all(tipi, 7)).scales.map((x) => x.value).join(','), '4,4,4,4,4', 'TIPI: все «7» → по 4 (прямой 7 + обратный 1)');
+const fl = load('flourishing');
+eq(scoreTest(fl, all(fl, 7)).scales[0].value, 56, 'Flourishing максимум = 56');
+const erq = load('erq');
+eq(scoreTest(erq, all(erq, 7)).scales.map((x) => x.value).join(','), '7,7', 'ERQ: все «7» → 7,7');
+const oci = load('oci-r');
+eq(scoreTest(oci, all(oci, 4)).scales[0].value, 72, 'OCI-R максимум = 72');
+eq(help(oci, 4) && !help(oci, 0), true, 'OCI-R: помощь при ≥21');
