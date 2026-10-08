@@ -48,8 +48,8 @@ export default function SiteNav() {
   }
 
   return (
-    <header className="sticky top-3 z-40 px-3 pt-3 print:hidden">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 rounded-full border border-line bg-surface/90 py-1.5 pl-4 pr-1.5 shadow-[0_18px_40px_-26px_rgb(var(--tint)/0.6)] backdrop-blur-xl">
+    <header className="sticky top-3 z-40 px-[clamp(0.75rem,3vw,4rem)] pt-3 print:hidden">
+      <div className="mx-auto flex max-w-[110rem] items-center justify-between gap-2 rounded-full border border-line bg-surface/90 py-1.5 pl-4 pr-1.5 shadow-[0_18px_40px_-26px_rgb(var(--tint)/0.6)] backdrop-blur-xl">
         <Link href="/" className="flex items-center gap-2 py-1 text-[17px] font-semibold tracking-tight">
           <Logo />
           <span className="font-display">Психотесты NoNinaaao</span>

@@ -151,7 +151,7 @@ a.tile:hover, a.tile:focus-visible { transform: translateY(-5px) rotate(-0.4deg)
 
 /* ---- Главный экран ---- */
 .display {
-  font-size: clamp(2.7rem, 8vw, 5.4rem);
+  font-size: clamp(2.7rem, 7.2vw, 8rem);
   line-height: 0.98;
   font-weight: 500;
   letter-spacing: -0.035em;
@@ -172,25 +172,31 @@ a.tile:hover, a.tile:focus-visible { transform: translateY(-5px) rotate(-0.4deg)
 @keyframes pill-flow { to { background-position: 100% 0; } }
 .aura {
   position: absolute;
-  inset: -9rem -1rem auto -1rem;
-  height: 46rem;
+  top: -10rem;
+  left: 50%;
+  width: 100vw;
+  height: 54rem;
+  transform: translateX(-50%);
   z-index: -10;
   pointer-events: none;
   background:
-    radial-gradient(34rem 26rem at 82% 22%, rgb(176 162 232 / 0.34), transparent 70%),
-    radial-gradient(30rem 24rem at 12% 12%, rgb(240 196 96 / 0.3), transparent 70%),
-    radial-gradient(32rem 26rem at 58% 78%, rgb(240 164 200 / 0.26), transparent 70%);
+    radial-gradient(38rem 28rem at 78% 30%, rgb(176 162 232 / 0.34), transparent 70%),
+    radial-gradient(34rem 26rem at 18% 22%, rgb(240 196 96 / 0.3), transparent 70%),
+    radial-gradient(36rem 28rem at 52% 70%, rgb(240 164 200 / 0.26), transparent 70%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 55%, transparent 100%);
 }
 html.dark .aura {
   background:
-    radial-gradient(34rem 26rem at 82% 22%, rgb(176 162 232 / 0.2), transparent 70%),
-    radial-gradient(30rem 24rem at 12% 12%, rgb(240 196 96 / 0.14), transparent 70%),
-    radial-gradient(32rem 26rem at 58% 78%, rgb(240 164 200 / 0.14), transparent 70%);
+    radial-gradient(38rem 28rem at 78% 30%, rgb(176 162 232 / 0.2), transparent 70%),
+    radial-gradient(34rem 26rem at 18% 22%, rgb(240 196 96 / 0.14), transparent 70%),
+    radial-gradient(36rem 28rem at 52% 70%, rgb(240 164 200 / 0.14), transparent 70%);
 }
 
 /* Веер карточек: на телефоне превращается в ленту без поворотов */
 .fan { --w: 15rem; position: relative; height: 29rem; }
 @media (min-width: 1280px) { .fan { --w: 17rem; height: 31rem; } }
+@media (min-width: 1536px) { .fan { --w: 20rem; height: 36rem; } }
 .fan-card {
   position: absolute;
   left: 50%;

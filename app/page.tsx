@@ -68,7 +68,7 @@ export default function HomePage() {
 
   return (
     <div className="relative space-y-24 sm:space-y-32">
-      <section className="relative grid items-center gap-10 lg:grid-cols-[1fr_30rem] lg:gap-6 xl:grid-cols-[1fr_34rem]">
+      <section className="relative grid items-center gap-10 lg:grid-cols-[1fr_30rem] lg:gap-6 xl:grid-cols-[1fr_34rem] 2xl:grid-cols-[1fr_44rem]">
         <div aria-hidden="true" className="aura" />
         <div className="space-y-8">
           <h1 className="display anim-fade-up">

@@ -49,11 +49,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           К содержимому
         </a>
         <SiteNav />
-        <main id="main" className="mx-auto max-w-6xl px-4 pb-24 pt-10 sm:pt-14">
+        <main id="main" className="mx-auto w-full max-w-[110rem] px-[clamp(1rem,4vw,4.5rem)] pb-24 pt-10 sm:pt-14">
           {children}
         </main>
-        <footer className="px-3 pb-8 print:hidden">
-          <div className="mx-auto grid max-w-6xl gap-8 rounded-[2rem] border border-line bg-surface p-8 sm:p-10 md:grid-cols-[1.5fr_1fr]">
+        <footer className="px-[clamp(0.75rem,3vw,4rem)] pb-8 print:hidden">
+          <div className="mx-auto grid max-w-[110rem] gap-8 rounded-[2rem] border border-line bg-surface p-8 sm:p-10 md:grid-cols-[1.5fr_1fr]">
             <div className="space-y-3">
               <p className="font-display text-2xl">Психотесты NoNinaaao</p>
               <p className="max-w-md text-sm text-muted">

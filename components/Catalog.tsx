@@ -149,7 +149,7 @@ export default function Catalog({ tests }: { tests: TestSummary[] }) {
             <span aria-hidden="true" className="inline-block h-5 w-1.5 rounded-full bg-accent" />
             Популярные
           </h2>
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
             {popular.map((t, i) => (
               <TestCard key={t.id} t={t} featured index={i} />
             ))}
@@ -174,7 +174,7 @@ export default function Catalog({ tests }: { tests: TestSummary[] }) {
                 </span>
                 {c.title}
               </h3>
-              <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
                 {items.map((t, i) => (
                   <TestCard key={t.id} t={t} index={i} />
                 ))}
@@ -205,7 +205,7 @@ export default function Catalog({ tests }: { tests: TestSummary[] }) {
               открытые тесты на сайте, которые можно пройти вместо них.
             </p>
           </div>
-          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4">
             {references.map((t, i) => (
               <TestCard key={t.id} t={t} index={i} />
             ))}
