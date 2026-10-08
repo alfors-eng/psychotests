@@ -7,7 +7,7 @@ import SiteNav from '@/components/SiteNav';
 
 // Шрифты скачиваются при сборке и отдаются с вашего домена: запросов к Google во время работы сайта нет.
 const sans = Onest({ subsets: ['latin', 'cyrillic'], variable: '--font-sans', display: 'swap' });
-const serif = Playfair_Display({ subsets: ['latin', 'cyrillic'], variable: '--font-serif', display: 'swap' });
+const serif = Playfair_Display({ subsets: ['latin', 'cyrillic'], style: ['normal', 'italic'], variable: '--font-serif', display: 'swap' });
 
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? 'https://psychotests.vercel.app'),

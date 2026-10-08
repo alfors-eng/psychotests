@@ -4,7 +4,7 @@ const DISCLAIMER = 'Тест не является диагнозом. Для о
 
 test('каталог: поиск и категории', async ({ page }) => {
   await page.goto('/');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Психологические тесты');
+  await expect(page.getByRole('heading', { level: 1 })).toContainText('без ярлыков');
   await page.getByLabel('Поиск по тестам').fill('тревога');
   await expect(page.getByRole('link', { name: /GAD-7/ })).toBeVisible();
   await expect(page.getByRole('link', { name: /Розенберг/ })).toHaveCount(0);

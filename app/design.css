@@ -127,3 +127,119 @@ html.dark .btn-primary::after {
 html.dark .btn-primary[href^='#']::after {
   background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%230e1412' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M8 3.5v9M4.5 9l3.5 3.5L11.5 9'/></svg>");
 }
+
+/* ---- Яркая палитра плиток: светлые пастели с тёмным текстом одинаково читаются в обеих темах ---- */
+.cat-personality { --tile: 176 162 232; }
+.cat-emotional { --tile: 240 160 160; }
+.cat-wellbeing { --tile: 240 196 96; }
+.cat-relationships { --tile: 240 164 200; }
+.cat-eq { --tile: 120 200 224; }
+.cat-career { --tile: 136 176 240; }
+.cat-neurodiversity { --tile: 156 208 128; }
+.cat-values { --tile: 232 178 128; }
+.tile {
+  background: rgb(var(--tile, var(--accent-soft)));
+  color: #1f2421;
+  border: 1px solid rgb(31 36 33 / 0.1);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.45), 0 26px 34px -28px rgb(var(--tint) / 0.6);
+  transition: transform 0.7s var(--ease), box-shadow 0.7s var(--ease);
+}
+.tile .tile-muted { color: rgb(31 36 33 / 0.9); }
+.tile .tile-chip { background: rgb(255 255 255 / 0.55); }
+.tile .tile-go { background: #1f2421; color: #fffdfa; }
+a.tile:hover, a.tile:focus-visible { transform: translateY(-5px) rotate(-0.4deg); }
+
+/* ---- Главный экран ---- */
+.display {
+  font-size: clamp(2.7rem, 8vw, 5.4rem);
+  line-height: 0.98;
+  font-weight: 500;
+  letter-spacing: -0.035em;
+}
+.display em { font-style: italic; color: rgb(var(--accent)); }
+.pill-inline {
+  display: inline-block;
+  width: 1.55em;
+  height: 0.62em;
+  margin-inline: 0.06em;
+  border-radius: 9999px;
+  vertical-align: 0.04em;
+  background: linear-gradient(100deg, rgb(176 162 232), rgb(240 164 200) 38%, rgb(240 196 96) 70%, rgb(156 208 128));
+  background-size: 200% 100%;
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.5), 0 10px 18px -10px rgb(176 162 232 / 0.9);
+  animation: pill-flow 9s var(--ease) infinite alternate;
+}
+@keyframes pill-flow { to { background-position: 100% 0; } }
+.aura {
+  position: absolute;
+  inset: -9rem -1rem auto -1rem;
+  height: 46rem;
+  z-index: -10;
+  pointer-events: none;
+  background:
+    radial-gradient(34rem 26rem at 82% 22%, rgb(176 162 232 / 0.34), transparent 70%),
+    radial-gradient(30rem 24rem at 12% 12%, rgb(240 196 96 / 0.3), transparent 70%),
+    radial-gradient(32rem 26rem at 58% 78%, rgb(240 164 200 / 0.26), transparent 70%);
+}
+html.dark .aura {
+  background:
+    radial-gradient(34rem 26rem at 82% 22%, rgb(176 162 232 / 0.2), transparent 70%),
+    radial-gradient(30rem 24rem at 12% 12%, rgb(240 196 96 / 0.14), transparent 70%),
+    radial-gradient(32rem 26rem at 58% 78%, rgb(240 164 200 / 0.14), transparent 70%);
+}
+
+/* Веер карточек: на телефоне превращается в ленту без поворотов */
+.fan { --w: 15rem; position: relative; height: 29rem; }
+@media (min-width: 1280px) { .fan { --w: 17rem; height: 31rem; } }
+.fan-card {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--w);
+  height: calc(var(--w) * 1.265);
+  margin: calc(var(--w) * -0.6325) 0 0 calc(var(--w) * -0.5);
+  border-radius: 2rem;
+  transform: translate(calc(var(--x, 0) * var(--w)), var(--y, 0px)) rotate(var(--r, 0deg));
+  animation: fan-in 1.1s var(--ease) backwards;
+  animation-delay: var(--d, 0s);
+}
+a.fan-card:hover, a.fan-card:focus-visible { transform: translate(calc(var(--x, 0) * var(--w)), calc(var(--y, 0px) - 18px)) rotate(0deg); }
+@keyframes fan-in { from { opacity: 0; transform: translate(0, 70px) rotate(0deg) scale(0.94); } }
+@media (max-width: 767px) {
+  .fan { height: auto; display: flex; gap: 1rem; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: -1rem; padding: 0.5rem 1rem 1.5rem; }
+  .fan-card { position: static; margin: 0; flex: none; width: 15rem; height: 19rem; transform: none; scroll-snap-align: center; }
+  a.fan-card:hover, a.fan-card:focus-visible { transform: translateY(-6px); }
+}
+
+/* Бегущая лента категорий; без анимации превращается в обычный перенос строк */
+.marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.marquee-set { display: flex; flex: none; gap: 0.75rem; padding-right: 0.75rem; }
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; flex-wrap: wrap; width: auto; }
+  .marquee-dup { display: none; }
+}
+html.no-anim .marquee-track { flex-wrap: wrap; width: auto; }
+html.no-anim .marquee-dup { display: none; }
+
+/* Светлая кнопка для тёмного блока */
+.btn-light {
+  background: #f7f3ec;
+  color: #1f2421;
+  padding: 0.375rem 0.375rem 0.375rem 1.5rem;
+  box-shadow: 0 14px 24px -16px rgb(0 0 0 / 0.6);
+}
+.btn-light::after {
+  content: '';
+  flex: none;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 9999px;
+  background: #1f2421 url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%23fffdfa' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M4.5 11.5l7-7M5.5 4.5h6v6'/></svg>") center / 16px no-repeat;
+  transition: transform 0.5s var(--ease);
+}
+.btn-light:hover::after { transform: translate(2px, -1px) scale(1.06); }
+
+/* Карточки каталога: лёгкий оттенок категории */
+.cat-card { background-image: linear-gradient(160deg, rgb(var(--cat, var(--accent)) / 0.1), transparent 55%); }
+
+body { overflow-x: clip; }
