@@ -145,7 +145,7 @@ export default function Catalog({ tests }: { tests: TestSummary[] }) {
 
       {!filtering && popular.length > 0 && (
         <section aria-labelledby="popular">
-          <h2 id="popular" className="mb-4 flex items-center gap-2 text-xl font-semibold">
+          <h2 id="popular" className="mb-6 flex items-center gap-2 text-3xl font-medium">
             <span aria-hidden="true" className="inline-block h-5 w-1.5 rounded-full bg-accent" />
             Популярные
           </h2>
@@ -158,7 +158,7 @@ export default function Catalog({ tests }: { tests: TestSummary[] }) {
       )}
 
       <section aria-labelledby="all" className="space-y-10">
-        <h2 id="all" className="flex items-center gap-2 text-xl font-semibold">
+        <h2 id="all" className="flex items-center gap-2 text-3xl font-medium">
           <span aria-hidden="true" className="inline-block h-5 w-1.5 rounded-full bg-accent" />
           {filtering ? 'Найдено' : 'Все тесты'}{' '}
           <span className="text-base font-normal text-muted" aria-live="polite">
@@ -195,7 +195,7 @@ export default function Catalog({ tests }: { tests: TestSummary[] }) {
       {references.length > 0 && (
         <section aria-labelledby="refs" className="space-y-4">
           <div>
-            <h2 id="refs" className="flex items-center gap-2 text-xl font-semibold">
+            <h2 id="refs" className="flex items-center gap-2 text-3xl font-medium">
               <span aria-hidden="true" className="inline-block h-5 w-1.5 rounded-full bg-[rgb(var(--warm))]" />
               Известные методики: ссылки и открытые аналоги{' '}
               <span className="text-base font-normal text-muted">({references.length})</span>

@@ -20,7 +20,8 @@ const config: Config = {
         'warm-soft': c('warm-soft'),
       },
       fontFamily: {
-        sans: ['system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        sans: ['var(--font-sans)', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Arial', 'sans-serif'],
+        serif: ['var(--font-serif)', 'Georgia', 'Times New Roman', 'serif'],
       },
       borderRadius: { xl2: '1.25rem' },
     },
