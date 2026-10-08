@@ -42,7 +42,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="min-h-screen">
-        <div aria-hidden="true" className="bg-decor pointer-events-none fixed inset-0 -z-10 print:hidden" />
         <a
           href="#main"
           className="sr-only focus:not-sr-only focus:absolute focus:left-3 focus:top-3 focus:z-50 focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-fg"
@@ -62,11 +61,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 хранятся только в вашем браузере; трекеров и аналитики на сайте нет.
               </p>
             </div>
-            <nav aria-label="Дополнительные ссылки" className="flex flex-wrap content-start gap-x-6 gap-y-2 text-sm md:justify-end">
-              <Link href="/about" className="underline-offset-4 hover:underline">О проекте</Link>
-              <Link href="/results" className="underline-offset-4 hover:underline">Мои результаты</Link>
-              <Link href="/profile" className="underline-offset-4 hover:underline">Профиль</Link>
-              <Link href="/contribute" className="underline-offset-4 hover:underline">Для специалистов</Link>
+            <nav aria-label="Дополнительные ссылки" className="flex flex-wrap content-start gap-x-6 text-sm md:justify-end">
+              <Link href="/about" className="inline-flex min-h-[44px] items-center underline-offset-4 hover:underline">О проекте</Link>
+              <Link href="/results" className="inline-flex min-h-[44px] items-center underline-offset-4 hover:underline">Мои результаты</Link>
+              <Link href="/profile" className="inline-flex min-h-[44px] items-center underline-offset-4 hover:underline">Профиль</Link>
+              <Link href="/contribute" className="inline-flex min-h-[44px] items-center underline-offset-4 hover:underline">Для специалистов</Link>
             </nav>
           </div>
         </footer>

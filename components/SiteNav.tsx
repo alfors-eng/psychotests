@@ -32,7 +32,20 @@ export default function SiteNav() {
     };
   }, [open]);
 
+  const parts = path.split('/');
+  const inRun = parts[1] === 'tests' && parts[3] === 'run';
   const active = (href: string) => (href === '/' ? path === '/' : path.startsWith(href));
+
+  if (inRun) {
+    return (
+      <header className="px-4 pt-5 print:hidden">
+        <Link href="/" className="mx-auto flex max-w-2xl items-center gap-2 text-[15px] text-muted hover:text-ink">
+          <Logo />
+          <span className="font-display">Психотесты NoNinaaao</span>
+        </Link>
+      </header>
+    );
+  }
 
   return (
     <header className="sticky top-3 z-40 px-3 pt-3 print:hidden">
@@ -48,7 +61,7 @@ export default function SiteNav() {
               key={href}
               href={href}
               aria-current={active(href) ? 'page' : undefined}
-              className={`rounded-full px-4 py-2 transition-colors duration-300 hover:bg-accent-soft ${active(href) ? 'bg-accent-soft font-medium' : ''}`}
+              className={`rounded-full px-4 py-2.5 transition-colors duration-300 hover:bg-accent-soft ${active(href) ? 'bg-accent-soft font-medium' : ''}`}
             >
               {label}
             </Link>

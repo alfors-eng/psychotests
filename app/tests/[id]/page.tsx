@@ -46,8 +46,6 @@ export default async function TestPage({ params }: Props) {
         ← Все тесты
       </Link>
       <header className="relative overflow-hidden rounded-xl2 border border-line bg-[rgb(var(--cat)/0.10)] p-6 sm:p-8">
-        <span aria-hidden="true" className="absolute -right-10 -top-10 h-44 w-44 rounded-full bg-[rgb(var(--cat)/0.16)]" />
-        <span aria-hidden="true" className="absolute -bottom-12 right-16 h-28 w-28 rounded-full bg-[rgb(var(--cat)/0.10)]" />
         <div className="relative space-y-4">
           <span className="cat-bubble inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-surface">
             <CategoryIcon id={t.category} className="h-8 w-8" />
@@ -58,7 +56,7 @@ export default async function TestPage({ params }: Props) {
         </div>
       </header>
 
-      <dl className="grid grid-cols-2 gap-4 rounded-xl2 border border-line bg-surface p-5 text-sm sm:grid-cols-4 dots">
+      <dl className="grid grid-cols-2 gap-4 rounded-xl2 border border-line bg-surface p-5 text-sm sm:grid-cols-4">
         {facts.map(([k, v]) => (
           <div key={k}>
             <dt className="text-muted">{k}</dt>
@@ -72,6 +70,12 @@ export default async function TestPage({ params }: Props) {
         <p>{t.fullDescription}</p>
         {ready && <p className="text-muted">{t.instructions}</p>}
       </section>
+
+      {t.isClinical && !ref && (
+        <p className="rounded-xl2 bg-accent-soft p-4 text-[15px]">
+          Это скрининговый опросник. Он не ставит диагноз и не заменяет консультацию специалиста.
+        </p>
+      )}
 
       {ready && t.mode === 'external' ? (
         <section className="card space-y-3">
@@ -132,12 +136,6 @@ export default async function TestPage({ params }: Props) {
         <p className="rounded-xl2 bg-accent-soft p-4 text-[15px]">
           Открытого аналога на сайте пока нет. Для такой методики лучше обратиться к специалисту, который имеет
           право её проводить.
-        </p>
-      )}
-
-      {t.isClinical && !ref && (
-        <p className="rounded-xl2 bg-accent-soft p-4 text-[15px]">
-          Это скрининговый опросник. Он не ставит диагноз и не заменяет консультацию специалиста.
         </p>
       )}
 

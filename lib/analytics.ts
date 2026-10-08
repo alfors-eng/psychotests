@@ -88,7 +88,7 @@ export function analyzeAnswers(test: TestDef, answers: Answers, scales: ScaleRes
   }
   if (straightLine) {
     insights.push('Все ответы одинаковы. Если вы не отвечали механически, результат может быть неточным: такой тест лучше пройти заново, вчитываясь в каждый пункт.');
-  } else if (ends && extremeShare >= 0.7) {
+  } else if (opts.length >= 5 && extremeShare >= 0.7) {
     insights.push(`Крайние варианты составили ${pct(extremeShare)} % ответов. Склонность к крайним оценкам может сдвигать результат — учитывайте это при интерпретации.`);
   } else if (neutralShare !== null && neutralShare >= 0.5) {
     insights.push(`Нейтральный вариант выбран в ${pct(neutralShare)} % случаев. Когда сомнений много, результат получается «средним» — возможно, часть утверждений была вам не вполне понятна.`);

@@ -7,7 +7,7 @@ import { computeDeep, GROUPS, levelOf, REFERENCES, type DimEstimate, type ItemEv
 import { buildDeepInsights } from '@/lib/deepInsights';
 import type { HistoryEntry, Plane, TestDef } from '@/lib/types';
 
-const TONE: Record<string, string> = { info: 'border-l-accent', positive: 'border-l-[rgb(var(--c-neurodiversity))]', attention: 'border-l-warm' };
+const TONE: Record<string, string> = { info: 'bg-accent', positive: 'bg-[rgb(var(--c-neurodiversity))]', attention: 'bg-warm' };
 const TONE_LABEL: Record<string, string> = { info: 'К сведению', positive: 'Ресурс', attention: 'Обратите внимание' };
 const PRECISION: Record<string, string> = { none: 'нет данных', low: 'низкая точность', medium: 'средняя точность', high: 'высокая точность' };
 const LEVEL: Record<string, string> = { low: 'ниже середины', mid: 'около середины', high: 'выше середины' };
@@ -183,8 +183,8 @@ export default function DeepView({
           </h3>
           <ul className="space-y-3">
             {insights.map((i) => (
-              <li key={i.id} className={`card border-l-4 ${TONE[i.tone]} space-y-1 p-4`}>
-                <p className="text-xs font-medium uppercase tracking-wide text-muted">{TONE_LABEL[i.tone]}</p>
+              <li key={i.id} className="card space-y-1 p-4">
+                <p className="flex items-center gap-2 text-xs font-medium text-muted"><span aria-hidden="true" className={`h-2 w-2 rounded-full ${TONE[i.tone]}`} />{TONE_LABEL[i.tone]}</p>
                 <h4 className="font-semibold">{i.title}</h4>
                 <p className="text-[15px]">{i.text}</p>
                 {i.refs.length > 0 && (

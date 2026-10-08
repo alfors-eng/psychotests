@@ -57,7 +57,6 @@ export default function ResultView({ test }: { test: TestDef }) {
   return (
     <div className={`cat-${test.category} mx-auto max-w-2xl space-y-8`}>
       <header className="relative overflow-hidden rounded-xl2 border border-line bg-[rgb(var(--cat)/0.10)] p-6">
-        <span aria-hidden="true" className="absolute -right-8 -top-8 h-36 w-36 rounded-full bg-[rgb(var(--cat)/0.16)]" />
         <div className="relative flex items-start gap-4">
           <span className="cat-bubble inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-surface">
             <CategoryIcon id={test.category} className="h-7 w-7" />
@@ -111,7 +110,7 @@ export default function ResultView({ test }: { test: TestDef }) {
           Что это значит
         </h2>
         {result.scales.map((s) => (
-          <article key={s.id} className="card border-l-4 border-l-[rgb(var(--cat)/0.8)]">
+          <article key={s.id} className="card">
             {result.scales.length > 1 && <p className="text-sm text-muted">{s.title}</p>}
             <h3 className="text-lg font-semibold">{s.range?.title ?? 'Без интерпретации'}</h3>
             {s.range && <p className="mt-1 text-[15px]">{s.range.description}</p>}
@@ -120,7 +119,16 @@ export default function ResultView({ test }: { test: TestDef }) {
         {test.disclaimer && <p className="text-sm text-muted">{test.disclaimer}</p>}
       </section>
 
-      <AnswerAnalytics test={test} answers={entry.answers} scales={result.scales} />
+      {safety.crisis ? (
+        <details className="card">
+          <summary className="cursor-pointer text-[15px] font-medium">Подробная аналитика ответов</summary>
+          <div className="mt-6">
+            <AnswerAnalytics test={test} answers={entry.answers} scales={result.scales} />
+          </div>
+        </details>
+      ) : (
+        <AnswerAnalytics test={test} answers={entry.answers} scales={result.scales} />
+      )}
 
       <div className="flex flex-wrap gap-3 print:hidden">
         <Link href={`/tests/${test.id}/run?fresh=1`} onClick={() => clearProgress(test.id)} className="btn btn-primary">

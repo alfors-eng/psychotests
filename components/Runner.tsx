@@ -114,7 +114,7 @@ export default function Runner({ test }: { test: TestDef }) {
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={pct}
-          className="h-2 overflow-hidden rounded-full bg-accent-soft"
+          className="h-2 overflow-hidden rounded-full bg-line"
         >
           <div className="h-full rounded-full bg-accent transition-all" style={{ width: `${pct}%` }} />
         </div>
@@ -186,10 +186,25 @@ export default function Runner({ test }: { test: TestDef }) {
         )}
       </div>
 
-      <p className="hidden text-center text-sm text-muted sm:block">
-        Подсказка: нажимайте цифры 1–{options.length} для ответа, «←» — назад. Прогресс сохраняется в этом
-        браузере.
-      </p>
+      <div className="space-y-2 text-center text-sm text-muted">
+        <p>Прогресс сохраняется в этом браузере.</p>
+        <p className="hidden sm:block">Подсказка: нажимайте цифры 1–{options.length} для ответа, «←» — назад.</p>
+        {answeredCount > 0 && (
+          <button
+            type="button"
+            onClick={() => {
+              if (advance.current) clearTimeout(advance.current);
+              advance.current = null;
+              clearProgress(test.id);
+              setAnswers({});
+              go(0);
+            }}
+            className="inline-flex min-h-[44px] items-center underline underline-offset-4 hover:text-ink"
+          >
+            Начать заново
+          </button>
+        )}
+      </div>
     </div>
   );
 }
