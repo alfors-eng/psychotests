@@ -1,0 +1,48 @@
+{
+  "status": "reference",
+  "tags": [
+    "схема-терапия",
+    "схемы",
+    "психотерапия"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "fullDescription": "Опросник Джеффри Янга определяет 18 ранних дезадаптивных схем, с которыми работает схема-терапия. YSQ-S3 — короткая форма из 90 пунктов третьей версии. Опросник защищён, а интерпретировать результат должен специалист.",
+  "id": "ysq-s3",
+  "title": "YSQ-S3 — опросник схем Янга (короткая форма)",
+  "category": "personality",
+  "shortDescription": "Измеряет ранние дезадаптивные схемы (например, покинутость, дефективность, неуспех); основа схема-терапии.",
+  "duration": 20,
+  "questionCount": 90,
+  "author": "Jeffrey E. Young",
+  "year": 2005,
+  "source": "https://www.schematherapy.com/",
+  "officialUrl": "https://www.schematherapy.com/",
+  "license": "Защищён авторским правом (Schema Therapy Institute); копировать без приобретения нельзя.",
+  "restriction": "Для использования нужно приобрести опросник; перевод — только с письменного разрешения. Открытые аналоги: SCS-SF, ECR-R и шкала Розенберга.",
+  "analogs": [
+    "scs-sf",
+    "ecr-r",
+    "rosenberg-self-esteem"
+  ]
+}

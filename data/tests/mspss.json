@@ -1,0 +1,47 @@
+{
+  "status": "reference",
+  "tags": [
+    "социальная поддержка",
+    "отношения",
+    "ресурсы"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "fullDescription": "MSPSS (Zimet, Dahlem, Zimet и Farley, 1988) — широко используемая в психотерапии и исследованиях мера социальной поддержки. Она состоит из трёх подшкал: семья, друзья и значимый человек.",
+  "id": "mspss",
+  "title": "MSPSS — многомерная шкала воспринимаемой социальной поддержки",
+  "category": "relationships",
+  "shortDescription": "Как вы оцениваете поддержку от семьи, друзей и значимого человека. 12 утверждений.",
+  "duration": 3,
+  "questionCount": 12,
+  "author": "Gregory D. Zimet, Nancy W. Dahlem, Sara G. Zimet, Gordon K. Farley",
+  "year": 1988,
+  "source": "https://doi.org/10.1207/s15327752jpa5201_2",
+  "officialUrl": "https://doi.org/10.1207/s15327752jpa5201_2",
+  "license": "Опубликована в Journal of Personality Assessment; официальная лицензия на сайте автора нами не подтверждена.",
+  "restriction": "Шкалу часто используют бесплатно, но формального заявления о свободной лицензии найти не удалось, поэтому вопросов здесь нет. Открытые аналоги: UCLA-3 и ECR-R.",
+  "analogs": [
+    "ucla-3",
+    "ecr-r"
+  ]
+}

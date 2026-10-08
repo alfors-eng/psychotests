@@ -1,0 +1,48 @@
+{
+  "status": "reference",
+  "tags": [
+    "осознанность",
+    "mindfulness",
+    "MBCT",
+    "внимание"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "fullDescription": "MAAS (Brown и Ryan, 2003) — самая распространённая шкала осознанности (mindfulness), применяется в исследованиях программ MBSR и MBCT. Чем выше средний балл, тем чаще человек осознанно присутствует в моменте.",
+  "id": "maas",
+  "title": "MAAS — шкала осознанного внимания (Mindful Attention Awareness Scale)",
+  "category": "wellbeing",
+  "shortDescription": "Как часто вы замечаете, что делаете и чувствуете, а не действуете «на автопилоте». 15 утверждений.",
+  "duration": 3,
+  "questionCount": 15,
+  "author": "Kirk Warren Brown, Richard M. Ryan",
+  "year": 2003,
+  "source": "https://selfdeterminationtheory.org/mindfulness-attention-awareness/",
+  "officialUrl": "https://selfdeterminationtheory.org/mindfulness-attention-awareness/",
+  "license": "Защищена авторским правом; академическое использование разрешено, коммерческое требует разрешения (Center for Self-Determination Theory).",
+  "restriction": "Условия не охватывают публикацию на общедоступном сайте, поэтому вопросов здесь нет. Открытые аналоги: SCS-SF (самосострадание) и CFQ-7 (слияние с мыслями).",
+  "analogs": [
+    "scs-sf",
+    "cfq-7"
+  ]
+}

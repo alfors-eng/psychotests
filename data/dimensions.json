@@ -147,6 +147,26 @@
       "id": "raes2011",
       "cite": "Raes, F., Pommier, E., Neff, K. D., & Van Gucht, D. (2011). Construction and factorial validation of a short form of the Self-Compassion Scale. Clinical Psychology & Psychotherapy, 18, 250–255. https://doi.org/10.1002/cpp.702",
       "use": "Самосострадание связано с меньшей тревогой и депрессией и большим благополучием."
+    },
+    {
+      "id": "bond2011",
+      "cite": "Bond, F. W., Hayes, S. C., Baer, R. A., Carpenter, K. M., Guenole, N., Orcutt, H. K., Waltz, T., & Zettle, R. D. (2011). Preliminary psychometric properties of the Acceptance and Action Questionnaire–II: A revised measure of psychological inflexibility and experiential avoidance. Behavior Therapy, 42(4), 676–688.",
+      "use": "AAQ-II измеряет психологическую негибкость; высокие значения связаны с дистрессом и сниженным благополучием."
+    },
+    {
+      "id": "gillanders2014",
+      "cite": "Gillanders, D. T., Bolderston, H., Bond, F. W., Dempster, M., Flaxman, P. E., Campbell, L., … Remington, B. (2014). The development and initial validation of the Cognitive Fusion Questionnaire. Behavior Therapy, 45(1), 83–101.",
+      "use": "Когнитивное слияние связано с дистрессом и сниженным благополучием."
+    },
+    {
+      "id": "diener2010",
+      "cite": "Diener, E., Wirtz, D., Tov, W., Kim-Prieto, C., Choi, D., Oishi, S., & Biswas-Diener, R. (2010). New well-being measures: Short scales to assess flourishing and positive and negative feelings. Social Indicators Research, 97(2), 143–156.",
+      "use": "SPANE: частота положительных и отрицательных переживаний как компонент благополучия."
+    },
+    {
+      "id": "prins2016",
+      "cite": "Prins, A., Bovin, M. J., Smolenski, D. J., Marx, B. P., Kimerling, R., Jenkins-Guarnieri, M. A., … Tiet, Q. Q. (2016). The Primary Care PTSD Screen for DSM-5 (PC-PTSD-5): Development and evaluation within a veteran primary care sample. Journal of General Internal Medicine, 31(10), 1206–1211.",
+      "use": "PC-PTSD-5: скрининг вероятного ПТСР; пороги 3 и 4."
     }
   ],
   "dimensions": [
@@ -564,7 +584,11 @@
         "caspi2014",
         "radloff1977",
         "kroenke2009",
-        "schaufeli2020"
+        "schaufeli2020",
+        "bond2011",
+        "gillanders2014",
+        "diener2010",
+        "prins2016"
       ],
       "loadings": [
         {
@@ -698,6 +722,30 @@
           "s": "total",
           "l": -0.5,
           "b": "lit"
+        },
+        {
+          "t": "aaq-ii",
+          "s": "total",
+          "l": 0.7,
+          "b": "lit"
+        },
+        {
+          "t": "cfq-7",
+          "s": "total",
+          "l": 0.7,
+          "b": "lit"
+        },
+        {
+          "t": "spane",
+          "s": "N",
+          "l": 0.8,
+          "b": "def"
+        },
+        {
+          "t": "pc-ptsd-5",
+          "s": "total",
+          "l": 0.7,
+          "b": "lit"
         }
       ]
     },
@@ -710,7 +758,8 @@
       "refs": [
         "watson1991",
         "kotov2010",
-        "radloff1977"
+        "radloff1977",
+        "diener2010"
       ],
       "loadings": [
         {
@@ -778,6 +827,12 @@
           "s": "dep",
           "l": 0.8,
           "b": "def"
+        },
+        {
+          "t": "spane",
+          "s": "P",
+          "l": -0.9,
+          "b": "def"
         }
       ]
     },
@@ -844,6 +899,18 @@
           "s": "total",
           "l": 0.4,
           "b": "lit"
+        },
+        {
+          "t": "pc-ptsd-5",
+          "s": "total",
+          "l": 0.6,
+          "b": "cnt"
+        },
+        {
+          "t": "spane",
+          "s": "N",
+          "l": 0.4,
+          "b": "cnt"
         }
       ]
     },
@@ -944,7 +1011,10 @@
       "low": "самочувствие и удовлетворённость жизнью снижены",
       "high": "хорошее самочувствие, ощущение смысла и удовлетворённости",
       "refs": [
-        "steel2008"
+        "steel2008",
+        "diener2010",
+        "bond2011",
+        "gillanders2014"
       ],
       "loadings": [
         {
@@ -1053,6 +1123,30 @@
           "t": "scs-sf",
           "s": "total",
           "l": 0.5,
+          "b": "lit"
+        },
+        {
+          "t": "spane",
+          "s": "P",
+          "l": 0.8,
+          "b": "def"
+        },
+        {
+          "t": "spane",
+          "s": "N",
+          "l": -0.5,
+          "b": "lit"
+        },
+        {
+          "t": "aaq-ii",
+          "s": "total",
+          "l": -0.4,
+          "b": "lit"
+        },
+        {
+          "t": "cfq-7",
+          "s": "total",
+          "l": -0.3,
           "b": "lit"
         }
       ]
@@ -1492,6 +1586,18 @@
           "t": "ucla-3",
           "s": "total",
           "l": 0.2,
+          "b": "cnt"
+        },
+        {
+          "t": "aaq-ii",
+          "s": "total",
+          "l": 0.4,
+          "b": "cnt"
+        },
+        {
+          "t": "cfq-7",
+          "s": "total",
+          "l": 0.3,
           "b": "cnt"
         }
       ]
@@ -1992,6 +2098,38 @@
       "l": 0.6,
       "b": "cnt",
       "why": "Страх — тревожное возбуждение."
+    },
+    {
+      "t": "aaq-ii",
+      "i": "q6",
+      "d": "CSE",
+      "l": -0.5,
+      "b": "cnt",
+      "why": "Сравнение себя с другими не в свою пользу — негативная самооценка."
+    },
+    {
+      "t": "pc-ptsd-5",
+      "i": "q3",
+      "d": "AROUSAL",
+      "l": 1,
+      "b": "cnt",
+      "why": "Настороженность и вздрагивание — прямой признак физиологического возбуждения."
+    },
+    {
+      "t": "pc-ptsd-5",
+      "i": "q4",
+      "d": "LOWPA",
+      "l": 0.6,
+      "b": "cnt",
+      "why": "Онемение и отстранённость — снижение способности чувствовать радость и интерес."
+    },
+    {
+      "t": "pc-ptsd-5",
+      "i": "q5",
+      "d": "CSE",
+      "l": -0.5,
+      "b": "cnt",
+      "why": "Чувство вины и самообвинение — негативная самооценка."
     }
   ]
 }

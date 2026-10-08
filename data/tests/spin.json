@@ -1,0 +1,49 @@
+{
+  "status": "reference",
+  "tags": [
+    "социальная тревога",
+    "социофобия",
+    "КПТ",
+    "скрининг"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "SPIN (Connor и соавторы, 2000) — один из самых распространённых опросников социальной тревоги в когнитивно-поведенческой терапии. Он описывает страх социальных ситуаций, избегание и телесные реакции (краснение, потливость, дрожь).",
+  "id": "spin",
+  "title": "SPIN — опросник социальной фобии (Social Phobia Inventory)",
+  "category": "emotional",
+  "shortDescription": "Скрининг и оценка выраженности социальной тревоги: страх, избегание и телесные симптомы. 17 утверждений.",
+  "duration": 3,
+  "questionCount": 17,
+  "author": "Kathryn M. Connor, Jonathan R. T. Davidson и др.",
+  "year": 2000,
+  "source": "https://doi.org/10.1192/bjp.176.4.379",
+  "officialUrl": "https://doi.org/10.1192/bjp.176.4.379",
+  "license": "Защищено авторским правом (Jonathan Davidson, Duke University).",
+  "restriction": "По условиям правообладателя для использования SPIN нужно письменное разрешение; воспроизводить его пункты нельзя. Для оценки тревоги на сайте есть открытые GAD-7, PHQ-4 и DASS-21.",
+  "analogs": [
+    "gad-7",
+    "phq-4",
+    "dass-21"
+  ]
+}

@@ -321,6 +321,11 @@
           "test": "swls",
           "scale": "total",
           "weight": 1
+        },
+        {
+          "test": "spane",
+          "scale": "P",
+          "weight": 0.6
         }
       ]
     },

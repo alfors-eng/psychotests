@@ -1,0 +1,47 @@
+{
+  "status": "reference",
+  "tags": [
+    "тревога",
+    "неопределённость",
+    "КПТ"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "fullDescription": "Короткая форма (Carleton, Norton, Asmundson, 2007) делится на два фактора: «перспективная» тревога о будущем и «тормозящая» неопределённость, которая мешает действовать. Непереносимость неопределённости считается одним из главных механизмов тревожных расстройств и мишенью когнитивно-поведенческой терапии.",
+  "id": "ius-12",
+  "title": "IUS-12 — шкала непереносимости неопределённости",
+  "category": "emotional",
+  "shortDescription": "Как вы переносите неопределённость и непредсказуемость — важный фактор тревоги, на который направлена КПТ.",
+  "duration": 3,
+  "questionCount": 12,
+  "author": "R. Nicholas Carleton, Peter J. Norton, Gordon J. G. Asmundson",
+  "year": 2007,
+  "source": "https://research.bond.edu.au/en/publications/fearing-the-unknown-a-short-version-of-the-intolerance-of-uncerta/",
+  "officialUrl": "https://research.bond.edu.au/en/publications/fearing-the-unknown-a-short-version-of-the-intolerance-of-uncerta/",
+  "license": "Опубликована в Journal of Anxiety Disorders; свободная лицензия на публикацию пунктов на сайте не подтверждена.",
+  "restriction": "Условия повторного использования не подтверждены (нужно согласие авторов или издателя), поэтому вопросов здесь нет. Открытые аналоги: GAD-7 и Brief COPE.",
+  "analogs": [
+    "gad-7",
+    "brief-cope"
+  ]
+}

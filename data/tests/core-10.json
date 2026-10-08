@@ -1,0 +1,48 @@
+{
+  "status": "reference",
+  "tags": [
+    "психотерапия",
+    "результат терапии",
+    "дистресс"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "CORE-10 — одна из самых распространённых в мире мер результата психотерапии (британская система CORE). Эта краткая версия заменила две 18-пунктные формы. В ней шесть пунктов о проблемах, три о функционировании и один о риске.",
+  "id": "core-10",
+  "title": "CORE-10 — краткая мера психологического дистресса",
+  "category": "emotional",
+  "shortDescription": "Десятипунктовая мера, которую используют для отслеживания состояния в психотерапии: напряжение, функционирование, риск.",
+  "duration": 2,
+  "questionCount": 10,
+  "author": "CORE System Trust (Michael Barkham и др.)",
+  "year": 2013,
+  "source": "https://www.coresystemtrust.org.uk/home/instruments/core-10-information/",
+  "officialUrl": "https://www.coresystemtrust.org.uk/home/instruments/core-10-information/",
+  "license": "Авторские права принадлежат CORE System Trust; бесплатно в неизменном виде (лицензия CC BY-NC-ND по данным CORC).",
+  "restriction": "Запрет на изменения не позволяет нам публиковать собственный русский перевод; официальный текст и условия — на сайте правообладателя. Для оценки дистресса на сайте есть открытые PHQ-9, GAD-7 и K6.",
+  "analogs": [
+    "phq-9",
+    "gad-7",
+    "k6"
+  ]
+}

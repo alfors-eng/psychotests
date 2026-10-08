@@ -1,0 +1,48 @@
+{
+  "status": "reference",
+  "tags": [
+    "психотерапия",
+    "динамика",
+    "обратная связь"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "OQ-45 (Lambert и соавторы) — одна из самых известных систем обратной связи в психотерапии: клиент заполняет его перед сессиями, а терапевт видит динамику. Платный инструмент, распространяется через OQ Measures.",
+  "id": "oq-45",
+  "title": "OQ-45.2 — опросник результатов психотерапии",
+  "category": "emotional",
+  "shortDescription": "Опросник для регулярного отслеживания состояния клиента в ходе психотерапии: симптомы, отношения, социальная роль.",
+  "duration": 10,
+  "questionCount": 45,
+  "author": "Michael J. Lambert и др.",
+  "year": 1996,
+  "source": "https://www.oqmeasures.com/",
+  "officialUrl": "https://www.oqmeasures.com/",
+  "license": "Проприетарная методика (OQ Measures LLC).",
+  "restriction": "Платная лицензия; пункты на сайте не воспроизводятся. Открытые аналоги: DASS-21, K6 и WHO-5.",
+  "analogs": [
+    "dass-21",
+    "k6",
+    "who-5"
+  ]
+}

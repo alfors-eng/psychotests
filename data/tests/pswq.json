@@ -1,0 +1,48 @@
+{
+  "status": "reference",
+  "tags": [
+    "тревога",
+    "беспокойство",
+    "ГТР",
+    "КПТ"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "PSWQ (Meyer, Miller, Metzger и Borkovec, 1990) оценивает, насколько беспокойство чрезмерно, неконтролируемо и всеобъемлюще. Опросник применяется для оценки результата когнитивно-поведенческой терапии тревоги; общепринятый порог — 45 баллов из 80.",
+  "id": "pswq",
+  "title": "PSWQ — опросник тревожных размышлений (Penn State Worry Questionnaire)",
+  "category": "emotional",
+  "shortDescription": "Измеряет склонность к чрезмерному беспокойству, ключевой признак генерализованного тревожного расстройства. 16 утверждений.",
+  "duration": 4,
+  "questionCount": 16,
+  "author": "T. J. Meyer, M. L. Miller, R. L. Metzger, T. D. Borkovec",
+  "year": 1990,
+  "source": "https://doi.org/10.1016/0005-7967(90)90135-6",
+  "officialUrl": "https://doi.org/10.1016/0005-7967(90)90135-6",
+  "license": "Статья опубликована в Behaviour Research and Therapy; свободная лицензия на публикацию пунктов на сайте не подтверждена.",
+  "restriction": "Условия повторного использования не подтверждены, поэтому вопросов здесь нет. Открытые аналоги: GAD-7 и DASS-21.",
+  "analogs": [
+    "gad-7",
+    "dass-21"
+  ]
+}

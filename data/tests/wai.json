@@ -1,0 +1,44 @@
+{
+  "status": "reference",
+  "tags": [
+    "психотерапия",
+    "терапевтический альянс",
+    "отношения"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "fullDescription": "Опросник Адама Хорвата и Леса Гринберга (1989) оценивает терапевтический альянс — один из самых надёжных общих факторов успеха психотерапии. Заполняется клиентом или терапевтом. Права принадлежат Обществу исследования психотерапии (SPR).",
+  "id": "wai",
+  "title": "WAI — опросник рабочего альянса (Working Alliance Inventory)",
+  "category": "relationships",
+  "shortDescription": "Измеряет, насколько клиент и терапевт согласны в целях и задачах и как складывается их связь.",
+  "duration": 10,
+  "questionCount": 36,
+  "author": "Adam O. Horvath, Leslie S. Greenberg",
+  "year": 1989,
+  "source": "https://www.psychotherapyresearch.org/page/WAI",
+  "officialUrl": "https://www.psychotherapyresearch.org/page/WAI",
+  "license": "Защищён авторским правом (Society for Psychotherapy Research); для использования нужен запрос.",
+  "restriction": "Использование и перевод — по запросу в SPR, поэтому пунктов здесь нет. Открытого аналога на сайте нет: связь с терапевтом лучше обсудить с самим специалистом.",
+  "analogs": []
+}

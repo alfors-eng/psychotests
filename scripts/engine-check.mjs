@@ -131,3 +131,24 @@ eq(scoreTest(bat, all(bat, 2)).scales[0].range.title, 'Низкий риск в�
 const cope = load('brief-cope');
 eq(scoreTest(cope, all(cope, 4)).scales.every((x) => x.value === 8), true, 'Brief COPE: все «4» → по 8 в каждой из 14 стратегий');
 eq(scoreTest(cope, all(cope, 4)).scales.length, 14, 'Brief COPE: 14 стратегий');
+
+// --- Раунд 7: AAQ-II, CFQ-7, SPANE, PC-PTSD-5 ---
+const aaq = load('aaq-ii');
+eq(scoreTest(aaq, all(aaq, 1)).scales[0].value, 7, 'AAQ-II минимум = 7');
+eq(scoreTest(aaq, all(aaq, 7)).scales[0].value, 49, 'AAQ-II максимум = 49 (обратных пунктов нет)');
+eq(scoreTest(aaq, all(aaq, 4)).scales[0].range.level, 'severe', 'AAQ-II: все «4» = 28 → выраженная негибкость');
+eq(scoreTest(aaq, all(aaq, 3)).scales[0].range.level, 'low', 'AAQ-II: все «3» = 21 → невелика');
+const cfq = load('cfq-7');
+eq(scoreTest(cfq, all(cfq, 7)).scales[0].value, 49, 'CFQ-7 максимум = 49');
+eq(scoreTest(cfq, all(cfq, 3)).scales[0].range.level, 'mid', 'CFQ-7: все «3» = 21 → умеренное слияние');
+const sp = load('spane');
+eq(scoreTest(sp, all(sp, 5)).scales.map((x) => x.value).join(','), '30,30', 'SPANE: все «5» → 30 и 30');
+eq(scoreTest(sp, all(sp, 1)).scales.map((x) => x.value).join(','), '6,6', 'SPANE: все «1» → 6 и 6');
+eq(sp.questions.filter((x) => x.subscale === 'P').map((x) => x.id).join(','), 'q1,q3,q5,q7,q10,q12', 'SPANE: положительные пункты 1, 3, 5, 7, 10, 12');
+const pc = load('pc-ptsd-5');
+eq(scoreTest(pc, all(pc, 1)).scales[0].value, 5, 'PC-PTSD-5: пять «да» → 5');
+const pc3 = all(pc, 0); pc3.q1 = pc3.q2 = pc3.q3 = 1;
+eq(evaluateSafety(pc, pc3, scoreTest(pc, pc3)).showHelp, true, 'PC-PTSD-5: три «да» → блок помощи');
+const pc2 = all(pc, 0); pc2.q1 = pc2.q2 = 1;
+eq(evaluateSafety(pc, pc2, scoreTest(pc, pc2)).showHelp, false, 'PC-PTSD-5: два «да» → без блока');
+eq(['spin', 'panas', 'core-10', 'wsas', 'pswq', 'ius-12', 'mspss', 'maas', 'oq-45', 'ysq-s3', 'wai'].every((id) => load(id).status === 'reference' && load(id).questions.length === 0), true, 'Новые справочные карточки не содержат вопросов');
