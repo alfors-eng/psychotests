@@ -4,6 +4,9 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import CategoryIcon from '@/components/CategoryIcon';
 import DeepView from '@/components/DeepView';
 import { RadarChart } from '@/components/Charts';
+import ReportView from '@/components/ReportView';
+import ScreeningView from '@/components/ScreeningView';
+import TrendView from '@/components/TrendView';
 import IntegratedView from '@/components/IntegratedView';
 import { CharacteristicsTable, ConstructTable, MatrixTable } from '@/components/ProfileTables';
 import RoseChart from '@/components/RoseChart';
@@ -23,7 +26,7 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
   const [chars, setChars] = useState<Characteristic[] | null>(null);
   const [over, setOver] = useState<ProfileOverrides>({});
   const [view, setView] = useState<'radar' | 'map' | 'bars'>('map');
-  const [tab, setTab] = useState<'whole' | 'deep' | 'tables' | 'charts'>('whole');
+  const [tab, setTab] = useState<'whole' | 'trend' | 'screen' | 'deep' | 'tables' | 'charts' | 'report'>('whole');
   const [history, setHistory] = useState<HistoryEntry[]>([]);
 
   useEffect(() => {
@@ -127,10 +130,14 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
 
   const TABS = [
     { id: 'whole', label: 'Целостная картина' },
+    { id: 'trend', label: 'Динамика' },
+    { id: 'screen', label: 'Скрининги и шаги' },
     { id: 'deep', label: 'Глубинный анализ' },
     { id: 'tables', label: 'Сводные таблицы' },
     { id: 'charts', label: 'Диаграммы' },
+    { id: 'report', label: 'Отчёт и данные' },
   ] as const;
+  const showPicker = tab === 'whole' || tab === 'deep' || tab === 'tables' || tab === 'charts';
 
   return (
     <div className="space-y-10">
@@ -159,7 +166,7 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
         ))}
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-[1.4fr_1fr]">
+      <div className={`grid gap-8 ${showPicker ? 'lg:grid-cols-[1.4fr_1fr]' : ''}`}>
         <div className="space-y-8">
           <div id="panel-whole" role="tabpanel" aria-labelledby="tab-whole" hidden={tab !== 'whole'} className="space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
@@ -174,6 +181,21 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
               </div>
             </div>
             <IntegratedView items={integrated} uncoveredChars={uncoveredChars} testTitles={testTitles} />
+          </div>
+
+          <div id="panel-trend" role="tabpanel" aria-labelledby="tab-trend" hidden={tab !== 'trend'} className="space-y-6">
+            <h2 className="text-xl font-semibold">Динамика результатов</h2>
+            {tab === 'trend' && <TrendView tests={tests} history={history} />}
+          </div>
+
+          <div id="panel-screen" role="tabpanel" aria-labelledby="tab-screen" hidden={tab !== 'screen'} className="space-y-6">
+            <h2 className="text-xl font-semibold">Скрининги и следующие шаги</h2>
+            {tab === 'screen' && <ScreeningView tests={tests} history={history} />}
+          </div>
+
+          <div id="panel-report" role="tabpanel" aria-labelledby="tab-report" hidden={tab !== 'report'} className="space-y-6">
+            <h2 className="text-xl font-semibold">Отчёт и данные</h2>
+            {tab === 'report' && <ReportView tests={tests} history={history} />}
           </div>
 
           <div id="panel-deep" role="tabpanel" aria-labelledby="tab-deep" hidden={tab !== 'deep'} className="space-y-6">
@@ -294,7 +316,7 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
           </div>
         </div>
 
-        <section aria-labelledby="pick-title" className="space-y-4 print:hidden lg:sticky lg:top-4 lg:self-start">
+        <section aria-labelledby="pick-title" hidden={!showPicker} className="space-y-4 print:hidden lg:sticky lg:top-4 lg:self-start">
           <h2 id="pick-title" className="text-xl font-semibold">
             Что показывать
           </h2>

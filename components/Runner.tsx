@@ -14,6 +14,7 @@ export default function Runner({ test }: { test: TestDef }) {
   const advance = useRef<ReturnType<typeof setTimeout> | null>(null);
   // Актуальный индекс вопроса, чтобы быстрые нажатия не перезаписывали один и тот же вопрос.
   const idxRef = useRef(0);
+  const startedRef = useRef<number | undefined>(undefined);
   const go = useCallback((i: number) => {
     idxRef.current = i;
     setIndex(i);
@@ -25,13 +26,14 @@ export default function Runner({ test }: { test: TestDef }) {
     const p = loadProgress(test.id);
     if (p) {
       setAnswers(p.answers);
+      startedRef.current = p.startedAt;
       go(Math.min(p.index, total - 1));
     }
     setReady(true);
   }, [test.id, total, go]);
 
   useEffect(() => {
-    if (ready) saveProgress(test.id, { answers, index });
+    if (ready) saveProgress(test.id, { answers, index, startedAt: startedRef.current });
   }, [ready, answers, index, test.id]);
 
   useEffect(() => () => void (advance.current && clearTimeout(advance.current)), []);
@@ -52,6 +54,7 @@ export default function Runner({ test }: { test: TestDef }) {
       }
       const cur = test.questions[idxRef.current];
       if (!cur) return;
+      if (startedRef.current === undefined) startedRef.current = Date.now();
       setAnswers((a) => ({ ...a, [cur.id]: value }));
       if (idxRef.current < total - 1) {
         advance.current = setTimeout(() => {
@@ -72,7 +75,10 @@ export default function Runner({ test }: { test: TestDef }) {
   }, [go]);
 
   const finish = () => {
-    const entry = addHistory({ testId: test.id, testTitle: test.title, answers });
+    const elapsed = startedRef.current === undefined ? undefined : (Date.now() - startedRef.current) / 1000;
+    // Если тест прерывали надолго, время ничего не говорит о качестве ответов — не сохраняем.
+    const durationSec = elapsed !== undefined && elapsed > 0 && elapsed <= 3 * 3600 ? Math.round(elapsed) : undefined;
+    const entry = addHistory({ testId: test.id, testTitle: test.title, answers, durationSec });
     clearProgress(test.id);
     router.push(`/tests/${test.id}/result?r=${entry.id}`);
   };

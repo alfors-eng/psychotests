@@ -123,11 +123,11 @@ export default function ResultView({ test }: { test: TestDef }) {
         <details className="card">
           <summary className="cursor-pointer text-[15px] font-medium">Подробная аналитика ответов</summary>
           <div className="mt-6">
-            <AnswerAnalytics test={test} answers={entry.answers} scales={result.scales} />
+            <AnswerAnalytics test={test} answers={entry.answers} scales={result.scales} durationSec={entry.durationSec} />
           </div>
         </details>
       ) : (
-        <AnswerAnalytics test={test} answers={entry.answers} scales={result.scales} />
+        <AnswerAnalytics test={test} answers={entry.answers} scales={result.scales} durationSec={entry.durationSec} />
       )}
 
       <div className="flex flex-wrap gap-3 print:hidden">

@@ -8,3 +8,8 @@ export function plural(n: number) {
 
 export const formatDate = (iso: string) =>
   new Date(iso).toLocaleString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+
+export const formatDay = (iso: string) => new Date(iso).toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' });
+export const formatDayShort = (ms: number) => new Date(ms).toLocaleDateString('ru-RU', { day: 'numeric', month: 'short', year: '2-digit' });
+/** Число для таблиц: десятичная запятая, знак минус, «+» у положительных изменений. */
+export const signed = (n: number) => `${n > 0 ? '+' : n < 0 ? '−' : ''}${Math.abs(Math.round(n * 100) / 100).toString().replace('.', ',')}`;

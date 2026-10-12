@@ -164,6 +164,15 @@ export interface HistoryEntry {
   testTitle: string;
   completedAt: string; // ISO
   answers: Answers;
+  /** Время прохождения в секундах (если тест проходили за один подход). */
+  durationSec?: number;
+}
+
+/** Личная заметка к дате: помогает связать изменения результатов с событиями жизни. */
+export interface Note {
+  id: string;
+  date: string; // YYYY-MM-DD
+  text: string;
 }
 
 export interface Plane {

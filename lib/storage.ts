@@ -1,5 +1,5 @@
 'use client';
-import type { Answers, HistoryEntry } from './types';
+import type { Answers, HistoryEntry, Note } from './types';
 
 // Всё хранится только в localStorage этого браузера и никуда не отправляется.
 const PROGRESS = (id: string) => `pt:progress:${id}`;
@@ -25,6 +25,8 @@ function write(key: string, value: unknown) {
 export interface Progress {
   answers: Answers;
   index: number;
+  /** Когда дан первый ответ (мс), для расчёта времени прохождения. */
+  startedAt?: number;
 }
 
 export const loadProgress = (testId: string) => read<Progress | null>(PROGRESS(testId), null);
@@ -54,16 +56,18 @@ export const clearHistory = () => write(HISTORY, []);
 
 export interface HistoryExport {
   app: 'psychotests';
-  version: 1;
+  version: 1 | 2;
   exportedAt: string;
   entries: HistoryEntry[];
+  notes?: Note[];
 }
 
 export const buildExport = (): HistoryExport => ({
   app: 'psychotests',
-  version: 1,
+  version: 2,
   exportedAt: new Date().toISOString(),
   entries: loadHistory(),
+  notes: loadNotes(),
 });
 
 const isEntry = (e: unknown): e is HistoryEntry => {
@@ -88,6 +92,7 @@ export function importHistory(raw: unknown): number {
   const current = loadHistory();
   const known = new Set(current.map((h) => h.id));
   const fresh = entries.filter((e) => isEntry(e) && !known.has(e.id));
+  importNotes((raw as HistoryExport).notes);
   write(
     HISTORY,
     [...current, ...fresh].sort((a, b) => b.completedAt.localeCompare(a.completedAt)),
@@ -100,3 +105,25 @@ const PROFILE_OVERRIDES = 'pt:profile-overrides';
 export type ProfileOverrides = Record<string, boolean>;
 export const loadProfileOverrides = () => read<ProfileOverrides>(PROFILE_OVERRIDES, {});
 export const saveProfileOverrides = (o: ProfileOverrides) => write(PROFILE_OVERRIDES, o);
+
+// ---- Заметки к датам ----
+const NOTES = 'pt:notes';
+export const loadNotes = () => read<Note[]>(NOTES, []);
+export function addNote(date: string, text: string): Note {
+  const note: Note = { id: Date.now().toString(36) + Math.random().toString(36).slice(2, 5), date, text: text.trim().slice(0, 300) };
+  write(NOTES, [...loadNotes(), note].sort((a, b) => a.date.localeCompare(b.date)));
+  return note;
+}
+export const deleteNote = (id: string) => write(NOTES, loadNotes().filter((n) => n.id !== id));
+
+const isNote = (n: unknown): n is Note => {
+  const x = n as Note;
+  return !!x && typeof x.id === 'string' && typeof x.text === 'string' && typeof x.date === 'string' && /^d{4}-d{2}-d{2}$/.test(x.date);
+};
+function importNotes(raw: unknown) {
+  if (!Array.isArray(raw)) return;
+  const current = loadNotes();
+  const known = new Set(current.map((n) => n.id));
+  const fresh = raw.filter((n) => isNote(n) && !known.has(n.id)).map((n: Note) => ({ ...n, text: n.text.slice(0, 300) }));
+  if (fresh.length) write(NOTES, [...current, ...fresh].sort((a, b) => a.date.localeCompare(b.date)));
+}

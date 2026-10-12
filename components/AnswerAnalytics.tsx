@@ -2,6 +2,7 @@
 import { useMemo, useState } from 'react';
 import { analyzeAnswers, type ItemStat } from '@/lib/analytics';
 import { allOptions } from '@/lib/engine';
+import { timeQuality } from '@/lib/quality';
 import type { Answers, ScaleResult, TestDef } from '@/lib/types';
 
 const BAR_LIMIT = 12; // до стольких пунктов в шкале показываем полосы с текстом, дальше — матрицу
@@ -122,8 +123,9 @@ function ItemMatrix({ items }: { items: ItemStat[] }) {
   );
 }
 
-export default function AnswerAnalytics({ test, answers, scales }: { test: TestDef; answers: Answers; scales: ScaleResult[] }) {
+export default function AnswerAnalytics({ test, answers, scales, durationSec }: { test: TestDef; answers: Answers; scales: ScaleResult[]; durationSec?: number }) {
   const a = useMemo(() => analyzeAnswers(test, answers, scales), [test, answers, scales]);
+  const time = timeQuality(durationSec, a.total);
   const [sort, setSort] = useState<'order' | 'impact'>('order');
 
   const groups = useMemo(() => {
@@ -154,6 +156,12 @@ export default function AnswerAnalytics({ test, answers, scales }: { test: TestD
           </li>
         ))}
       </ul>
+
+      {time && (
+        <p role={time.tooFast ? 'note' : undefined} className={`rounded-xl p-3 text-[15px] ${time.tooFast ? 'bg-warm-soft font-medium' : 'bg-accent-soft'}`}>
+          {time.text}
+        </p>
+      )}
 
       <div className="grid gap-4 sm:grid-cols-3" aria-label="Краткие показатели ответов">
         {[
