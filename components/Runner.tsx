@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { autoBackup } from '@/lib/autoBackup';
+import { isFirefox, requestPersistence } from '@/lib/backup';
 import { questionOptions } from '@/lib/engine';
 import { addHistory, clearProgress, loadProgress, saveProgress } from '@/lib/storage';
 import type { Answers, TestDef } from '@/lib/types';
@@ -80,6 +82,10 @@ export default function Runner({ test }: { test: TestDef }) {
     const durationSec = elapsed !== undefined && elapsed > 0 && elapsed <= 3 * 3600 ? Math.round(elapsed) : undefined;
     const entry = addHistory({ testId: test.id, testTitle: test.title, answers, durationSec });
     clearProgress(test.id);
+    // Просим браузер не удалять данные сайта (Firefox спросил бы пользователя, поэтому там — только на странице «Мои данные»)
+    // и обновляем автокопию в файл, если она настроена: клик по кнопке даёт право запросить доступ к файлу.
+    if (!isFirefox()) void requestPersistence();
+    void autoBackup();
     router.push(`/tests/${test.id}/result?r=${entry.id}`);
   };
 

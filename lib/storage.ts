@@ -1,4 +1,5 @@
 'use client';
+import { mirrorPut, PERSISTENT_KEYS } from './backup';
 import type { Answers, HistoryEntry, Note } from './types';
 
 // Всё хранится только в localStorage этого браузера и никуда не отправляется.
@@ -16,7 +17,10 @@ function read<T>(key: string, fallback: T): T {
 
 function write(key: string, value: unknown) {
   try {
-    localStorage.setItem(key, JSON.stringify(value));
+    const json = JSON.stringify(value);
+    localStorage.setItem(key, json);
+    // Запасная копия в IndexedDB для самых ценных данных.
+    if ((PERSISTENT_KEYS as readonly string[]).includes(key)) void mirrorPut(key, json);
   } catch {
     /* приватный режим или переполнение — работаем без сохранения */
   }

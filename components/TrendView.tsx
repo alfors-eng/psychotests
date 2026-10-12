@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
+import { autoBackup } from '@/lib/autoBackup';
 import { formatValue } from '@/lib/engine';
 import { formatDay, formatDayShort, signed } from '@/lib/format';
 import { formatDuration } from '@/lib/quality';
@@ -169,6 +170,7 @@ function Notes({ notes, onChange }: { notes: Note[]; onChange: () => void }) {
           e.preventDefault();
           if (!text.trim()) return;
           addNote(date, text);
+          void autoBackup();
           setText('');
           onChange();
         }}

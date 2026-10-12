@@ -1,6 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import BackupReminder from '@/components/BackupReminder';
 import CategoryIcon from '@/components/CategoryIcon';
 import DeepView from '@/components/DeepView';
 import { RadarChart } from '@/components/Charts';
@@ -141,6 +142,7 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
 
   return (
     <div className="space-y-10">
+      <BackupReminder />
       <p className="rounded-xl2 bg-accent-soft p-4 text-[15px]">
         Профиль строится из <strong>последнего прохождения каждого теста</strong>. Значения — положение на шкале
         теста (0–100 %), а не норма. Шкалы разных тестов, которые измеряют одно и то же, объединяются в сводные

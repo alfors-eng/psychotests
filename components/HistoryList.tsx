@@ -1,6 +1,8 @@
 'use client';
 import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
+import BackupReminder from '@/components/BackupReminder';
+import { markBackup } from '@/lib/backup';
 import { formatDate } from '@/lib/format';
 import { buildExport, clearHistory, deleteHistory, importHistory, loadHistory } from '@/lib/storage';
 import type { HistoryEntry } from '@/lib/types';
@@ -19,6 +21,7 @@ export default function HistoryList() {
     a.download = `psychotests-results-${new Date().toISOString().slice(0, 10)}.json`;
     a.click();
     URL.revokeObjectURL(a.href);
+    markBackup();
   };
 
   const onImport = async (file: File | undefined) => {
@@ -39,7 +42,8 @@ export default function HistoryList() {
     <div className="space-y-2 border-t border-line pt-4">
       <p className="text-sm text-muted">
         Файл с результатами можно сохранить и загрузить на другом устройстве. Он хранится только у вас и
-        содержит ваши ответы — берегите его.
+        содержит ваши ответы — берегите его. Перенос зашифрованной ссылкой или QR-кодом и автокопия в файл — на странице{' '}
+        <Link href="/data" className="underline underline-offset-4">«Мои данные»</Link>.
       </p>
       <div className="flex flex-wrap gap-2">
         {items.length > 0 && (
@@ -86,6 +90,7 @@ export default function HistoryList() {
 
   return (
     <div className="space-y-4">
+      <BackupReminder />
       <ul className="space-y-3">
         {items.map((h) => (
           <li key={h.id} className="card flex flex-wrap items-center justify-between gap-3">

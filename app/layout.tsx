@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { Onest, Playfair_Display } from 'next/font/google';
 import './globals.css';
 import './design.css';
+import DataGuard from '@/components/DataGuard';
 import SiteNav from '@/components/SiteNav';
 
 // Шрифты скачиваются при сборке и отдаются с вашего домена: запросов к Google во время работы сайта нет.
@@ -18,6 +19,7 @@ export const metadata: Metadata = {
     images: [{ url: '/og.png', width: 1200, height: 630, alt: 'Психотесты NoNinaaao' }],
   },
   twitter: { card: 'summary_large_image', images: ['/og.png'] },
+  appleWebApp: { capable: true, title: 'Психотесты', statusBarStyle: 'default' },
   title: { default: 'Психотесты NoNinaaao — каталог тестов онлайн', template: '%s · Психотесты NoNinaaao' },
   description:
     'Каталог психологических тестов с открытыми методиками. Без регистрации: результаты считаются в вашем браузере и никуда не отправляются.',
@@ -49,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           К содержимому
         </a>
         <SiteNav />
+        <DataGuard />
         <main id="main" className="mx-auto w-full max-w-[110rem] px-[clamp(1rem,4vw,4.5rem)] pb-24 pt-10 sm:pt-14">
           {children}
         </main>
@@ -65,6 +68,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <Link href="/about" className="inline-flex min-h-[44px] items-center underline-offset-4 hover:underline">О проекте</Link>
               <Link href="/results" className="inline-flex min-h-[44px] items-center underline-offset-4 hover:underline">Мои результаты</Link>
               <Link href="/profile" className="inline-flex min-h-[44px] items-center underline-offset-4 hover:underline">Профиль</Link>
+              <Link href="/data" className="inline-flex min-h-[44px] items-center underline-offset-4 hover:underline">Мои данные</Link>
+              <Link href="/privacy" className="inline-flex min-h-[44px] items-center underline-offset-4 hover:underline">Конфиденциальность</Link>
               <Link href="/contribute" className="inline-flex min-h-[44px] items-center underline-offset-4 hover:underline">Для специалистов</Link>
             </nav>
           </div>
