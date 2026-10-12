@@ -1,6 +1,7 @@
 'use client';
 import { useMemo, useState } from 'react';
 import { analyzeAnswers, type ItemStat } from '@/lib/analytics';
+import { allOptions } from '@/lib/engine';
 import type { Answers, ScaleResult, TestDef } from '@/lib/types';
 
 const BAR_LIMIT = 12; // до стольких пунктов в шкале показываем полосы с текстом, дальше — матрицу
@@ -26,7 +27,7 @@ function Distribution({ bins }: { bins: ReturnType<typeof analyzeAnswers>['distr
 }
 
 function Sequence({ test, seq }: { test: TestDef; seq: { index: number; raw: number }[] }) {
-  const opts = [...test.scale.options].sort((a, b) => a.value - b.value);
+  const opts = [...allOptions(test)].sort((a, b) => a.value - b.value);
   const W = 640;
   const H = 200;
   const left = 34;

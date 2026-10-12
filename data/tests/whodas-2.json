@@ -1,0 +1,48 @@
+{
+  "status": "reference",
+  "tags": [
+    "функционирование",
+    "инвалидность",
+    "ВОЗ",
+    "МКФ"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": false,
+  "fullDescription": "WHODAS 2.0 основана на Международной классификации функционирования (МКФ) и показывает, насколько здоровье мешает пониманию и общению, передвижению, самообслуживанию, отношениям, повседневной деятельности и участию в жизни общества. Версия из 12 пунктов входит в DSM-5.",
+  "id": "whodas-2",
+  "title": "WHODAS 2.0 — шкала оценки нарушений здоровья ВОЗ",
+  "category": "emotional",
+  "shortDescription": "Оценка нарушений функционирования в шести областях жизни за последние 30 дней (12 или 36 пунктов).",
+  "duration": 5,
+  "questionCount": 12,
+  "author": "World Health Organization",
+  "year": 2010,
+  "source": "https://www.who.int/classifications/international-classification-of-functioning-disability-and-health/who-disability-assessment-schedule",
+  "officialUrl": "https://www.who.int/classifications/international-classification-of-functioning-disability-and-health/who-disability-assessment-schedule",
+  "license": "Инструмент ВОЗ; условия использования указаны на странице ВОЗ.",
+  "restriction": "Условия ВОЗ на публикацию опросника в сети не подтверждены (ВОЗ просит запрашивать разрешение и указывать версию), поэтому вопросов здесь нет. Для общей оценки самочувствия на сайте есть WHO-5 и K6.",
+  "analogs": [
+    "who-5",
+    "k6"
+  ]
+}

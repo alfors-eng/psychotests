@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { questionOptions } from '@/lib/engine';
 import { addHistory, clearProgress, loadProgress, saveProgress } from '@/lib/storage';
 import type { Answers, TestDef } from '@/lib/types';
 
@@ -36,7 +37,7 @@ export default function Runner({ test }: { test: TestDef }) {
   useEffect(() => () => void (advance.current && clearTimeout(advance.current)), []);
 
   const q = test.questions[index];
-  const options = test.scale.options;
+  const options = q ? questionOptions(test, q) : test.scale.options;
   const current = q ? answers[q.id] : undefined;
   const answeredCount = Object.keys(answers).length;
   const allDone = answeredCount >= total;
@@ -84,13 +85,14 @@ export default function Runner({ test }: { test: TestDef }) {
       if (tag === 'INPUT' || tag === 'TEXTAREA') return;
       if (e.key === 'ArrowLeft') return back();
       if (/^[0-9]$/.test(e.key)) {
-        const opt = options[Number(e.key) - 1];
+        const cur = test.questions[idxRef.current];
+        const opt = cur ? questionOptions(test, cur)[Number(e.key) - 1] : undefined;
         if (opt) choose(opt.value);
       }
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [options, choose, back]);
+  }, [test, choose, back]);
 
   if (!ready || !q) return <p className="text-muted" role="status">Загрузка…</p>;
 

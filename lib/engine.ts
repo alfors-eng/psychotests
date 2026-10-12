@@ -1,15 +1,40 @@
 import type {
   Answers,
   InterpretationRange,
+  Question,
+  ScaleOption,
   SafetyOutcome,
   ScaleResult,
   ScoreResult,
   TestDef,
 } from './types';
 
-/** Границы шкалы ответов. */
+/** Варианты ответа пункта: собственные (как у AUDIT) или общие для теста. */
+export function questionOptions(test: TestDef, q: Question): ScaleOption[] {
+  return q.options?.length ? q.options : test.scale.options;
+}
+
+/** Все варианты теста по значениям: объединение общих и собственных вариантов пунктов. */
+export function allOptions(test: TestDef): ScaleOption[] {
+  if (!test.questions.some((q) => q.options?.length)) return test.scale.options;
+  const byValue = new Map<number, ScaleOption>();
+  for (const o of test.scale.options) byValue.set(o.value, o);
+  for (const q of test.questions) for (const o of q.options ?? []) if (!byValue.has(o.value)) byValue.set(o.value, o);
+  return [...byValue.values()].sort((a, b) => a.value - b.value);
+}
+
+/** Тест, у пунктов которого разные наборы вариантов ответа. */
+export const hasOwnOptions = (test: TestDef) => test.questions.some((q) => q.options?.length);
+
+/** Границы шкалы ответов (по всем вариантам теста). */
 export function scaleBounds(test: TestDef): { min: number; max: number } {
-  const vals = test.scale.options.map((o) => o.value);
+  const vals = allOptions(test).map((o) => o.value);
+  return { min: Math.min(...vals), max: Math.max(...vals) };
+}
+
+/** Границы ответов конкретного пункта. */
+export function questionBounds(test: TestDef, q: Question): { min: number; max: number } {
+  const vals = questionOptions(test, q).map((o) => o.value);
   return { min: Math.min(...vals), max: Math.max(...vals) };
 }
 
@@ -19,7 +44,7 @@ export function keyedValue(test: TestDef, questionId: string, raw: number): numb
   // Дихотомический ключ (AQ-10 и т.п.): 1 балл, если ответ входит в scoreWhen.
   if (q?.scoreWhen) return q.scoreWhen.includes(raw) ? 1 : 0;
   if (!q?.reversed) return raw;
-  const { min, max } = scaleBounds(test);
+  const { min, max } = questionBounds(test, q);
   return min + max - raw;
 }
 
@@ -36,7 +61,7 @@ export function pickRange(
 }
 
 export function scoreTest(test: TestDef, answers: Answers): ScoreResult {
-  const { min: smin, max: smax } = scaleBounds(test);
+  const { min: smin } = scaleBounds(test);
   const { method } = test.scoring;
   const aggregate = method === 'average' ? 'average' : (test.scoring.aggregate ?? 'sum');
 
@@ -55,8 +80,8 @@ export function scoreTest(test: TestDef, answers: Answers): ScoreResult {
     const sum = answered.reduce((acc, q) => acc + keyedValue(test, q.id, answers[q.id]), 0);
     const n = g.qs.length;
     const value = aggregate === 'average' ? (answered.length ? sum / answered.length : smin) : sum;
-    const lo = (q: (typeof g.qs)[number]) => (q.scoreWhen ? 0 : smin);
-    const hi = (q: (typeof g.qs)[number]) => (q.scoreWhen ? 1 : smax);
+    const lo = (q: (typeof g.qs)[number]) => (q.scoreWhen ? 0 : questionBounds(test, q).min);
+    const hi = (q: (typeof g.qs)[number]) => (q.scoreWhen ? 1 : questionBounds(test, q).max);
     const sumLo = g.qs.reduce((a, q) => a + lo(q), 0);
     const sumHi = g.qs.reduce((a, q) => a + hi(q), 0);
     const min = aggregate === 'average' ? sumLo / (n || 1) : sumLo;

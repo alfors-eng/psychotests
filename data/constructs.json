@@ -239,6 +239,11 @@
           "test": "phq-4",
           "scale": "dep",
           "weight": 1
+        },
+        {
+          "test": "gds-15",
+          "scale": "total",
+          "weight": 1
         }
       ]
     },

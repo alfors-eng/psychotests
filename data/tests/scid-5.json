@@ -1,0 +1,49 @@
+{
+  "status": "reference",
+  "tags": [
+    "интервью",
+    "DSM-5",
+    "клиническая диагностика"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "SCID-5 (Ферст и др., 2015) — структурированное интервью, по которому клиницист шаг за шагом проверяет критерии DSM-5. Самоопрос на сайте его заменить не может; результат — клиническая диагностика, а не балл.",
+  "id": "scid-5",
+  "title": "SCID-5 — структурированное клиническое интервью по DSM-5",
+  "category": "emotional",
+  "shortDescription": "Стандарт «золотой» диагностики психических расстройств: интервью, которое проводит обученный клиницист.",
+  "duration": 90,
+  "questionCount": 0,
+  "author": "Michael B. First, Janet B. W. Williams, Rhonda S. Karg, Robert L. Spitzer",
+  "year": 2015,
+  "source": "https://www.appi.org/",
+  "officialUrl": "https://www.appi.org/",
+  "license": "Проприетарная методика (American Psychiatric Association Publishing).",
+  "restriction": "Интервью проводит обученный специалист; материалы продаются издателем. Самооценку симптомов на сайте частично заменяют открытые PHQ-9, GAD-7, PHQ-15 и PC-PTSD-5.",
+  "analogs": [
+    "phq-9",
+    "gad-7",
+    "phq-15",
+    "pc-ptsd-5"
+  ]
+}

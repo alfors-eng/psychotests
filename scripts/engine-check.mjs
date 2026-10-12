@@ -152,3 +152,26 @@ eq(evaluateSafety(pc, pc3, scoreTest(pc, pc3)).showHelp, true, 'PC-PTSD-5: тр�
 const pc2 = all(pc, 0); pc2.q1 = pc2.q2 = 1;
 eq(evaluateSafety(pc, pc2, scoreTest(pc, pc2)).showHelp, false, 'PC-PTSD-5: два «да» → без блока');
 eq(['spin', 'panas', 'core-10', 'wsas', 'pswq', 'ius-12', 'mspss', 'maas', 'oq-45', 'ysq-s3', 'wai'].every((id) => load(id).status === 'reference' && load(id).questions.length === 0), true, 'Новые справочные карточки не содержат вопросов');
+
+// --- Раунд 8: GDS-15, PHQ-15, AUDIT (у пунктов свои варианты ответа) ---
+const gds = load('gds-15');
+eq(scoreTest(gds, all(gds, 1)).scales[0].value, 10, 'GDS-15: все «да» → 10 (пять обратных пунктов дают 0)');
+eq(scoreTest(gds, all(gds, 0)).scales[0].value, 5, 'GDS-15: все «нет» → 5 (обратные пункты 1, 5, 7, 11, 13)');
+eq(gds.questions.filter((x) => x.reversed).map((x) => x.id).join(','), 'q1,q5,q7,q11,q13', 'GDS-15: обратные пункты 1, 5, 7, 11, 13');
+eq(help(gds, 1), true, 'GDS-15: 10 баллов → блок помощи (порог 5)');
+const p15 = load('phq-15');
+eq(scoreTest(p15, all(p15, 2)).scales[0].value, 30, 'PHQ-15 максимум = 30');
+eq(scoreTest(p15, all(p15, 1)).scales[0].range.title, 'Высокая выраженность', 'PHQ-15: все «1» = 15 → высокая');
+const au = load('audit');
+const auMax = Object.fromEntries(au.questions.map((x) => [x.id, Math.max(...(x.options ?? au.scale.options).map((o) => o.value))]));
+r = scoreTest(au, auMax);
+eq(r.scales[0].value, 40, 'AUDIT: максимальные ответы → 40');
+eq(r.scales[0].max, 40, 'AUDIT: максимум шкалы = 40 (у пунктов 9–10 значения 0/2/4)');
+eq(r.scales[0].range.title.startsWith('Зона IV'), true, 'AUDIT: 40 → зона IV');
+const auMin = Object.fromEntries(au.questions.map((x) => [x.id, Math.min(...(x.options ?? au.scale.options).map((o) => o.value))]));
+eq(scoreTest(au, auMin).scales[0].value, 0, 'AUDIT: минимальные ответы → 0');
+const au8 = { ...auMin, q1: 4, q2: 4 };
+eq(scoreTest(au, au8).scales[0].value, 8, 'AUDIT: 4 + 4 = 8 → зона II');
+eq(scoreTest(au, au8).scales[0].range.title.startsWith('Зона II'), true, 'AUDIT: 8 баллов → зона II');
+eq(au.questions.filter((x) => x.options).map((x) => x.id).join(','), 'q1,q2,q9,q10', 'AUDIT: свои варианты у пунктов 1, 2, 9, 10');
+eq(['mmse', 'moca', 'mcmi-iv', 'scid-5', 'mini', 'ados-2', 'c-ssrs', 'sdq', 'dast-10', 'dsm5-level1', 'pid-5-bf', 'whodas-2', 'sapas'].every((id) => load(id).status === 'reference' && load(id).questions.length === 0), true, 'Справочные карточки раунда 8 не содержат вопросов');

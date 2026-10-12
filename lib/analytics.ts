@@ -1,4 +1,4 @@
-import { keyedValue, scaleBounds } from './engine';
+import { allOptions, hasOwnOptions, keyedValue, questionBounds, questionOptions, scaleBounds } from './engine';
 import type { Answers, ScaleResult, TestDef } from './types';
 
 export interface DistributionBin {
@@ -41,7 +41,9 @@ const pct = (n: number) => Math.round(n * 100);
 
 export function analyzeAnswers(test: TestDef, answers: Answers, scales: ScaleResult[]): Analytics {
   const { min: smin, max: smax } = scaleBounds(test);
-  const opts = test.scale.options;
+  const own = hasOwnOptions(test);
+  // У тестов с разными вариантами у пунктов в распределении показываем баллы, а не подписи.
+  const opts = own ? allOptions(test).map((o) => ({ value: o.value, label: `Балл ${o.value}` })) : test.scale.options;
   const external = test.mode === 'external';
   const scaleTitle = new Map(scales.map((s) => [s.id, s.title]));
   const defaultScale = test.scoring.method === 'sum' || test.scoring.method === 'average' ? 'total' : '';
@@ -52,14 +54,15 @@ export function analyzeAnswers(test: TestDef, answers: Answers, scales: ScaleRes
   const items: ItemStat[] = answered.map((q) => {
     const raw = answers[q.id];
     const keyed = keyedValue(test, q.id, raw);
-    const percent = q.scoreWhen ? keyed * 100 : smax === smin ? 0 : ((keyed - smin) / (smax - smin)) * 100;
+    const qb = questionBounds(test, q);
+    const percent = q.scoreWhen ? keyed * 100 : qb.max === qb.min ? 0 : ((keyed - qb.min) / (qb.max - qb.min)) * 100;
     const sid = q.subscale ?? defaultScale;
     return {
       id: q.id,
       index: test.questions.indexOf(q) + 1,
       text: q.text,
       raw,
-      answerLabel: opts.find((o) => o.value === raw)?.label ?? String(raw),
+      answerLabel: questionOptions(test, q).find((o) => o.value === raw)?.label ?? String(raw),
       percent: Math.max(0, Math.min(100, percent)),
       scaleId: sid,
       scaleTitle: scaleTitle.get(sid) ?? '',
@@ -75,9 +78,9 @@ export function analyzeAnswers(test: TestDef, answers: Answers, scales: ScaleRes
 
   const sequence = answered.map((q) => ({ index: test.questions.indexOf(q) + 1, raw: answers[q.id] }));
   const mean = total ? answered.reduce((a, q) => a + answers[q.id], 0) / total : 0;
-  const ends = opts.length >= 3;
+  const ends = !own && opts.length >= 3;
   const extremeShare = total && ends ? answered.filter((q) => answers[q.id] === smin || answers[q.id] === smax).length / total : 0;
-  const mid = opts.length >= 3 && opts.length % 2 === 1 ? (smin + smax) / 2 : null;
+  const mid = !own && opts.length >= 3 && opts.length % 2 === 1 ? (smin + smax) / 2 : null;
   const neutralShare = mid !== null && total ? answered.filter((q) => answers[q.id] === mid).length / total : null;
   const straightLine = total >= 5 && new Set(answered.map((q) => answers[q.id])).size === 1;
   const topValue = distribution.reduce((a, b) => (b.count > a.count ? b : a), distribution[0]);

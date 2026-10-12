@@ -1,5 +1,5 @@
 import data from '../data/dimensions.json';
-import { keyedValue, scaleBounds, scoreTest } from './engine';
+import { keyedValue, questionBounds, questionOptions, scoreTest } from './engine';
 import type { Answers, CategoryId, HistoryEntry, TestDef } from './types';
 
 /* ------------------------------------------------------------------ */
@@ -163,8 +163,8 @@ function shortOf(t: TestDef): string {
 }
 
 function itemPercent(test: TestDef, qid: string, raw: number): number {
-  const { min, max } = scaleBounds(test);
   const q = test.questions.find((x) => x.id === qid)!;
+  const { min, max } = questionBounds(test, q);
   const keyed = keyedValue(test, qid, raw);
   if (q.scoreWhen) return keyed * 100;
   return max === min ? 0 : clamp(((keyed - min) / (max - min)) * 100);
@@ -242,7 +242,7 @@ export function computeDeep({ tests, history, include = () => true, dimensions =
           qid: q.id,
           index: qi + 1,
           text: q.text,
-          answerLabel: t.scale.options.find((o) => o.value === raw)?.label ?? String(raw),
+          answerLabel: questionOptions(t, q).find((o) => o.value === raw)?.label ?? String(raw),
           p,
           o: l > 0 ? p : 100 - p,
           w: Math.abs(l),

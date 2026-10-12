@@ -1,0 +1,44 @@
+{
+  "status": "reference",
+  "tags": [
+    "когнитивные функции",
+    "лёгкие когнитивные нарушения",
+    "память"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "MoCA (Насреддин, 2005) чувствительнее MMSE к ранним изменениям и широко используется в гериатрии, неврологии и нейропсихологии. Максимальный балл — 30.",
+  "id": "moca",
+  "title": "MoCA — Монреальская шкала оценки когнитивных функций",
+  "category": "emotional",
+  "shortDescription": "Экспресс-скрининг лёгких когнитивных нарушений: внимание, память, исполнительные функции, зрительно-пространственные навыки.",
+  "duration": 10,
+  "questionCount": 30,
+  "author": "Ziad S. Nasreddine и др.",
+  "year": 2005,
+  "source": "https://mocacognition.com/",
+  "officialUrl": "https://mocacognition.com/",
+  "license": "Проприетарная методика (MoCA Clinic & Institute).",
+  "restriction": "Использование регулируется правообладателем (требуются лицензия и подготовка специалиста); бланки на сайте не воспроизводятся.",
+  "analogs": []
+}

@@ -22,6 +22,12 @@ export function validateTest(t: TestDef, file: string): string[] {
   if (t.questions.length !== t.questionCount)
     e(`questionCount=${t.questionCount}, а вопросов ${t.questions.length}`);
   if (t.scale.options.length < 2) e('в scale меньше двух вариантов');
+  for (const q of t.questions) {
+    if (!q.options) continue;
+    const vals = q.options.map((o) => o.value);
+    if (vals.length < 2) e(`вопрос ${q.id}: в options меньше двух вариантов`);
+    if (new Set(vals).size !== vals.length) e(`вопрос ${q.id}: повторяющиеся значения в options`);
+  }
   const m = t.scoring.method;
   const subIds = new Set((t.scoring.subscales ?? []).map((s) => s.id));
   if (m === 'subscales' || m === 'typeMax') {

@@ -30,6 +30,8 @@ export interface Question {
   scoreWhen?: number[];
   /** Пункт показывается, но в подсчёт не входит (например, «отвлекающие» пункты LOT-R). */
   filler?: boolean;
+  /** Собственные варианты ответа пункта (если отличаются от scale.options), как у AUDIT. */
+  options?: ScaleOption[];
 }
 
 export interface Subscale {

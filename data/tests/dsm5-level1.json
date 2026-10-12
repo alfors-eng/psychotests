@@ -1,0 +1,50 @@
+{
+  "status": "reference",
+  "tags": [
+    "DSM-5",
+    "скрининг",
+    "симптомы"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "Измерение уровня 1 из DSM-5 помогает врачу быстро увидеть, в каких областях нужен более подробный опрос. Отвечают за последние две недели; если балл в области выше порога, врач предлагает дополнительные шкалы уровня 2.",
+  "id": "dsm5-level1",
+  "title": "DSM-5: самооценка перекрёстных симптомов (Level 1 Cross-Cutting)",
+  "category": "emotional",
+  "shortDescription": "Опросник Американской психиатрической ассоциации из 23 вопросов о 13 областях: настроение, тревога, мания, психоз, сон, память, вещества.",
+  "duration": 5,
+  "questionCount": 23,
+  "author": "American Psychiatric Association",
+  "year": 2013,
+  "source": "https://www.psychiatry.org/psychiatrists/practice/dsm/educational-resources/assessment-measures",
+  "officialUrl": "https://www.psychiatry.org/psychiatrists/practice/dsm/educational-resources/assessment-measures",
+  "license": "Защищено авторским правом (American Psychiatric Association).",
+  "restriction": "По условиям APA форма воспроизводится без разрешения только исследователями и клиницистами для работы со своими пациентами; на общедоступном сайте её публиковать нельзя. Открытые самоопросники по областям: PHQ-9, GAD-7, PHQ-15, PC-PTSD-5, AUDIT.",
+  "analogs": [
+    "phq-9",
+    "gad-7",
+    "phq-15",
+    "pc-ptsd-5",
+    "audit"
+  ]
+}

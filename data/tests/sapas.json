@@ -1,0 +1,47 @@
+{
+  "status": "reference",
+  "tags": [
+    "расстройства личности",
+    "скрининг",
+    "клиника"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "SAPAS (Моран и др., 2003) — быстрый скрининг, который задают на приёме врача или психолога. В клинических выборках балл 3 и более означает, что стоит провести более полную диагностику; на общей популяции шкала работает хуже.",
+  "id": "sapas",
+  "title": "SAPAS — краткая стандартизованная оценка личности",
+  "category": "personality",
+  "shortDescription": "Восемь коротких вопросов, которые помогают понять, нужна ли более подробная оценка расстройства личности.",
+  "duration": 3,
+  "questionCount": 8,
+  "author": "Paul Moran и др.",
+  "year": 2003,
+  "source": "https://research-information.bris.ac.uk/en/publications/screening-for-personality-disorder-with-the-standardised-assessme/",
+  "officialUrl": "https://research-information.bris.ac.uk/en/publications/screening-for-personality-disorder-with-the-standardised-assessme/",
+  "license": "Опубликована в British Journal of Psychiatry; свободная лицензия на публикацию вопросов на сайте не подтверждена.",
+  "restriction": "Условия повторного использования не подтверждены, и шкала рассчитана на клиническое интервью. Открытые описания личности: SD3, IPIP Big Five.",
+  "analogs": [
+    "sd3",
+    "ipip-big5-50"
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "status": "reference",
+  "tags": [
+    "интервью",
+    "диагностика",
+    "DSM",
+    "МКБ"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "M.I.N.I. (Шихан и др., 1998) за 15–30 минут проверяет критерии депрессии, тревожных расстройств, мании, психоза, зависимостей и других состояний. Проводит клиницист или обученный интервьюер.",
+  "id": "mini",
+  "title": "M.I.N.I. — краткое международное нейропсихиатрическое интервью",
+  "category": "emotional",
+  "shortDescription": "Короткое структурированное интервью для выявления основных психических расстройств по критериям DSM и МКБ.",
+  "duration": 30,
+  "questionCount": 0,
+  "author": "David V. Sheehan, Yves Lecrubier и др.",
+  "year": 1998,
+  "source": "https://www.medical-outcomes.com/",
+  "officialUrl": "https://www.medical-outcomes.com/",
+  "license": "Защищено авторским правом; использование — по лицензии правообладателя.",
+  "restriction": "Интервью проводит обученный специалист по лицензии; текст на сайте не воспроизводится. Открытые самоопросники: PHQ-9, GAD-7, AUDIT.",
+  "analogs": [
+    "phq-9",
+    "gad-7",
+    "audit"
+  ]
+}

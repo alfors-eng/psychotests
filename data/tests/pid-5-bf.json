@@ -1,0 +1,48 @@
+{
+  "status": "reference",
+  "tags": [
+    "расстройства личности",
+    "DSM-5",
+    "черты личности"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "PID-5-BF (Крюгер и др., 2013) — краткая форма из альтернативной модели расстройств личности DSM-5. Применяется в клинической диагностике и исследованиях как скрининг трудностей личности.",
+  "id": "pid-5-bf",
+  "title": "PID-5-BF — краткий опросник личности для DSM-5",
+  "category": "personality",
+  "shortDescription": "Опросник из 25 вопросов о патологических чертах личности: негативная аффективность, отстранённость, антагонизм, расторможенность, психотизм.",
+  "duration": 5,
+  "questionCount": 25,
+  "author": "Robert F. Krueger, Nicholas R. Eaton и др. (American Psychiatric Association)",
+  "year": 2013,
+  "source": "https://www.psychiatry.org/psychiatrists/practice/dsm/educational-resources/assessment-measures",
+  "officialUrl": "https://www.psychiatry.org/psychiatrists/practice/dsm/educational-resources/assessment-measures",
+  "license": "Защищено авторским правом (American Psychiatric Association).",
+  "restriction": "Как и другие формы APA, воспроизводится без разрешения только клиницистами и исследователями для работы со своими пациентами; публикация на общедоступном сайте требует разрешения. Открытые описания личности: SD3, IPIP Big Five, HEXACO-60.",
+  "analogs": [
+    "sd3",
+    "ipip-big5-50",
+    "hexaco-60"
+  ]
+}

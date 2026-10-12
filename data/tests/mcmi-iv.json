@@ -1,0 +1,48 @@
+{
+  "status": "reference",
+  "tags": [
+    "расстройства личности",
+    "клиническая диагностика",
+    "Миллон"
+  ],
+  "popular": false,
+  "instructions": "",
+  "scale": {
+    "type": "likert",
+    "options": [
+      {
+        "value": 0,
+        "label": "—"
+      },
+      {
+        "value": 1,
+        "label": "—"
+      }
+    ]
+  },
+  "questions": [],
+  "scoring": {
+    "method": "sum"
+  },
+  "interpretation": {},
+  "disclaimer": "Справочная карточка. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.",
+  "isClinical": true,
+  "fullDescription": "MCMI (Миллон, 1977; четвёртая версия — 2015) применяется в клинической и судебной диагностике расстройств личности. Результат интерпретирует обученный специалист.",
+  "id": "mcmi-iv",
+  "title": "MCMI-IV — Миллоновский клинический многоосевой опросник",
+  "category": "personality",
+  "shortDescription": "Опросник из 195 утверждений: паттерны личности и клинические синдромы по DSM-5.",
+  "duration": 30,
+  "questionCount": 195,
+  "author": "Theodore Millon, Seth Grossman, Carrie Millon",
+  "year": 2015,
+  "source": "https://www.pearsonassessments.com/",
+  "officialUrl": "https://www.pearsonassessments.com/",
+  "license": "Проприетарная методика (Pearson).",
+  "restriction": "Платная методика для квалифицированных специалистов; вопросов и ключей на сайте нет. Открытые альтернативы для описания личности: SD3, IPIP Big Five.",
+  "analogs": [
+    "sd3",
+    "ipip-big5-50",
+    "hexaco-60"
+  ]
+}
