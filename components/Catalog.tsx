@@ -21,7 +21,7 @@ function TestCard({ t, itemClass = '' }: { t: TestSummary; itemClass?: string })
     <li className={`cat-${t.category} ${itemClass}`.trim()}>
       <Link
         href={`/tests/${t.id}`}
-        className={`card cat-card flex h-full flex-col gap-3 p-4 sm:p-5 ${ref ? 'border-dashed border-line-strong' : ''}`}
+        className={`${ref ? 'card cat-card border-dashed border-line-strong' : 'tint-card'} flex h-full flex-col gap-3 p-4 sm:p-5`}
       >
         <div className="flex items-center justify-between gap-3">
           <span className="cat-bubble inline-flex h-9 w-9 items-center justify-center rounded-control">

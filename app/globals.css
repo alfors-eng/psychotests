@@ -133,11 +133,63 @@
     border-color: rgb(var(--cat, var(--accent)) / 0.7);
   }
 
+  /* Карточка с цветом категории: градиентная заливка, лёгкий подъём при наведении */
+  .tint-card {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgb(var(--cat, var(--accent)) / 0.28);
+    border-radius: var(--r-card);
+    background:
+      linear-gradient(150deg, rgb(var(--cat, var(--accent)) / 0.2), rgb(var(--cat, var(--accent)) / 0.03) 62%),
+      rgb(var(--surface));
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+  .tint-card:hover {
+    transform: translateY(-3px);
+    border-color: rgb(var(--cat, var(--accent)) / 0.6);
+    box-shadow: var(--shadow-float);
+  }
+  .tint-mark {
+    position: absolute;
+    right: -1.25rem;
+    bottom: -1.25rem;
+    width: 9rem;
+    height: 9rem;
+    color: rgb(var(--cat, var(--accent)));
+    opacity: 0.16;
+    pointer-events: none;
+    transition: transform 600ms var(--ease), opacity var(--dur) var(--ease);
+  }
+  .tint-card:hover .tint-mark { transform: rotate(-8deg) scale(1.08); opacity: 0.26; }
+
   /* Значок категории: пастельное пятно с цветным знаком */
   .cat-bubble {
     background: rgb(var(--cat, var(--accent)) / 0.14);
     color: rgb(var(--cat, var(--accent)));
   }
+}
+
+/* Живой фон: мягкие цветные пятна вверху страницы и точечная сетка */
+body::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 46rem;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(40rem 26rem at 12% 0%, rgb(var(--accent) / 0.16), transparent 70%),
+    radial-gradient(34rem 24rem at 88% 6%, rgb(var(--c-personality) / 0.16), transparent 70%),
+    radial-gradient(30rem 20rem at 60% 22%, rgb(var(--c-wellbeing) / 0.1), transparent 70%);
+}
+body { position: relative; }
+@media print { body::before { display: none; } }
+
+.dot-grid {
+  background-image: radial-gradient(rgb(var(--text) / 0.16) 1px, transparent 1.4px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(closest-side, #000 40%, transparent 100%);
+  mask-image: radial-gradient(closest-side, #000 40%, transparent 100%);
 }
 
 /* Цвет категории выставляется классом на контейнере (.cat-<id>) */
@@ -155,12 +207,17 @@
 @keyframes draw { from { stroke-dashoffset: var(--len, 600); } to { stroke-dashoffset: 0; } }
 @keyframes bar-grow { from { transform: scaleX(0); } }
 @keyframes ring-draw { from { stroke-dasharray: 0 400; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 @keyframes q-in { from { opacity: 0; transform: translateX(16px); } to { opacity: 1; transform: none; } }
 
 .anim-fade-up { animation: fade-up var(--dur-slow) var(--ease) both; animation-delay: var(--d, 0s); }
 .anim-draw { stroke-dasharray: var(--len, 600); animation: draw 1.4s var(--ease) 0.2s both; }
 .anim-bar { transform-origin: left center; animation: bar-grow 0.8s var(--ease) both; }
 .anim-ring { animation: ring-draw 1s var(--ease) both; }
+.orbit { animation: spin var(--orbit, 90s) linear infinite; }
+.orbit-rev { animation: spin var(--orbit, 90s) linear infinite reverse; }
+.bob { animation: bob 6s ease-in-out infinite; animation-delay: var(--d, 0s); }
 .anim-question { animation: q-in var(--dur) var(--ease) both; }
 
 @media (prefers-reduced-motion: reduce) {
