@@ -113,12 +113,12 @@ export default function Runner({ test }: { test: TestDef }) {
   return (
     <div className={`cat-${test.category} mx-auto max-w-2xl space-y-8`}>
       <h1 className="sr-only">{test.title}</h1>
-      <div className="space-y-2">
-        <div className="flex items-center justify-between text-sm text-muted">
-          <Link href={`/tests/${test.id}`} className="underline-offset-4 hover:underline">
+      <div className="space-y-3">
+        <div className="flex items-center justify-between text-ui text-muted">
+          <Link href={`/tests/${test.id}`} className="inline-flex min-h-[44px] items-center underline-offset-4 hover:underline">
             ← К описанию
           </Link>
-          <span aria-live="polite">
+          <span aria-live="polite" className="tabular-nums">
             Вопрос {index + 1} из {total}
           </span>
         </div>
@@ -128,22 +128,19 @@ export default function Runner({ test }: { test: TestDef }) {
           aria-valuemin={0}
           aria-valuemax={100}
           aria-valuenow={pct}
-          className="h-2 overflow-hidden rounded-full bg-line"
+          className="h-1.5 overflow-hidden rounded-full bg-line-strong/50"
         >
-          <div className="h-full rounded-full bg-accent transition-all" style={{ width: `${pct}%` }} />
+          <div className="h-full origin-left rounded-full bg-accent transition-transform duration-300 ease-out" style={{ transform: `scaleX(${pct / 100})` }} />
         </div>
       </div>
 
-      {index === 0 && <p className="text-[15px] text-muted">{test.instructions}</p>}
+      {index === 0 && <p className="text-ui text-muted">{test.instructions}</p>}
 
       <fieldset key={q.id} className="anim-question space-y-6">
-        <legend className="font-display flex items-start gap-4 text-2xl font-medium leading-snug sm:text-3xl" id="qtext">
-          <span aria-hidden="true" className="cat-bubble mt-0.5 inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-lg">
-            {index + 1}
-          </span>
-          <span>{q.text}</span>
+        <legend className="font-display text-2xl font-medium leading-snug sm:text-3xl" id="qtext">
+          {q.text}
         </legend>
-        <div role="radiogroup" aria-labelledby="qtext" className="grid gap-3">
+        <div role="radiogroup" aria-labelledby="qtext" className="grid gap-2.5">
           {options.map((o, i) => {
             const selected = current === o.value;
             return (
@@ -153,14 +150,14 @@ export default function Runner({ test }: { test: TestDef }) {
                 role="radio"
                 aria-checked={selected}
                 onClick={() => choose(o.value)}
-                className={`flex min-h-[52px] items-center gap-3 rounded-xl2 border px-4 py-3 text-left text-base transition-colors ${
-                  selected ? 'border-accent bg-accent-soft' : 'border-line bg-surface hover:border-accent'
+                className={`flex min-h-[52px] items-center gap-3 rounded-control border px-4 py-3 text-left text-base transition-colors ${
+                  selected ? 'border-accent bg-accent-soft ring-1 ring-accent' : 'border-line-strong bg-surface hover:border-accent'
                 }`}
               >
                 <span
                   aria-hidden="true"
                   className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-sm ${
-                    selected ? 'border-accent bg-accent text-accent-fg' : 'border-line text-muted'
+                    selected ? 'border-accent bg-accent text-accent-fg' : 'border-line-strong text-muted'
                   }`}
                 >
                   {i + 1}
@@ -200,7 +197,7 @@ export default function Runner({ test }: { test: TestDef }) {
         )}
       </div>
 
-      <div className="space-y-2 text-center text-sm text-muted">
+      <div className="space-y-2 text-center text-ui text-muted">
         <p>Прогресс сохраняется в этом браузере.</p>
         <p className="hidden sm:block">Подсказка: нажимайте цифры 1–{options.length} для ответа, «←» — назад.</p>
         {answeredCount > 0 && (

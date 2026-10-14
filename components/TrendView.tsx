@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { autoBackup } from '@/lib/autoBackup';
 import { formatValue } from '@/lib/engine';
 import { formatDay, formatDayShort, signed } from '@/lib/format';
@@ -55,12 +55,23 @@ function TrendChart({
   notes: { t: number; n: number }[];
   label: string;
 }) {
-  const W = 640;
-  const H = 260;
-  const left = 48;
-  const right = 18;
-  const top = 22;
-  const bottom = 38;
+  // График рисуется в реальных пикселях по измеренной ширине блока, поэтому подписи не масштабируются вместе с картинкой.
+  const wrap = useRef<HTMLDivElement>(null);
+  const [W, setW] = useState(640);
+  useEffect(() => {
+    const el = wrap.current;
+    if (!el) return;
+    const update = () => setW(Math.max(280, Math.round(el.getBoundingClientRect().width)));
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+  const H = W < 480 ? 230 : 280;
+  const left = 44;
+  const right = 14;
+  const top = 26;
+  const bottom = 34;
   const ts = points.map((p) => p.t);
   const span = Math.max(...ts) - Math.min(...ts);
   const pad = span ? span * 0.04 : 3 * 86_400_000;
@@ -71,47 +82,49 @@ function TrendChart({
   const path = points.map((p, i) => `${i ? 'L' : 'M'}${x(p.t).toFixed(1)} ${y(p.value).toFixed(1)}`).join(' ');
   const ticks = [min, (min + max) / 2, max];
   return (
-    <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={label} className="h-auto w-full">
-      {ticks.map((v) => (
-        <g key={v}>
-          <line x1={left} x2={W - right} y1={y(v)} y2={y(v)} className="stroke-line" strokeDasharray="3 5" />
-          <text x={left - 8} y={y(v) + 4} textAnchor="end" className="fill-muted text-[11px]">
-            {formatValue(v)}
-          </text>
-        </g>
-      ))}
-      {threshold && threshold.value >= min && threshold.value <= max && (
-        <g>
-          <line x1={left} x2={W - right} y1={y(threshold.value)} y2={y(threshold.value)} className="stroke-warm" strokeWidth={1.5} strokeDasharray="6 4" />
-          <text x={W - right} y={y(threshold.value) - 6} textAnchor="end" className="fill-warm text-[11px] font-medium">
-            {threshold.label}
-          </text>
-        </g>
-      )}
-      {notes
-        .filter((n) => n.t >= t0 && n.t <= t1)
-        .map((n) => (
-          <g key={n.n}>
-            <line x1={x(n.t)} x2={x(n.t)} y1={top - 4} y2={H - bottom} className="stroke-muted" strokeWidth={1} strokeDasharray="2 4" />
-            <circle cx={x(n.t)} cy={top - 8} r={8} className="fill-surface stroke-muted" strokeWidth={1.2} />
-            <text x={x(n.t)} y={top - 4.5} textAnchor="middle" className="fill-ink text-[10px] font-medium">
-              {n.n}
+    <div ref={wrap} className="w-full">
+      <svg width={W} height={H} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={label} className="block">
+        {ticks.map((v) => (
+          <g key={v}>
+            <line x1={left} x2={W - right} y1={y(v)} y2={y(v)} className="stroke-line" strokeDasharray="3 5" />
+            <text x={left - 8} y={y(v) + 4} textAnchor="end" className="fill-muted text-xs">
+              {formatValue(v)}
             </text>
           </g>
         ))}
-      <path d={path} fill="none" strokeWidth={2.5} strokeLinejoin="round" style={{ stroke: 'rgb(var(--cat) / 0.6)' }} />
-      {points.map((p) => (
-        <circle key={p.id} cx={x(p.t)} cy={y(p.value)} r={5} style={{ fill: 'rgb(var(--cat))' }} />
-      ))}
-      <text x={left} y={H - 10} textAnchor="start" className="fill-muted text-[11px]">
-        {formatDayShort(Math.min(...ts))}
-      </text>
-      {span > 0 && (
-        <text x={W - right} y={H - 10} textAnchor="end" className="fill-muted text-[11px]">
-          {formatDayShort(Math.max(...ts))}
+        {threshold && threshold.value >= min && threshold.value <= max && (
+          <g>
+            <line x1={left} x2={W - right} y1={y(threshold.value)} y2={y(threshold.value)} className="stroke-warm" strokeWidth={1.5} strokeDasharray="6 4" />
+            <text x={W - right} y={y(threshold.value) - 6} textAnchor="end" className="fill-warm text-xs font-medium">
+              {threshold.label}
+            </text>
+          </g>
+        )}
+        {notes
+          .filter((n) => n.t >= t0 && n.t <= t1)
+          .map((n) => (
+            <g key={n.n}>
+              <line x1={x(n.t)} x2={x(n.t)} y1={top - 4} y2={H - bottom} className="stroke-muted" strokeWidth={1} strokeDasharray="2 4" />
+              <circle cx={x(n.t)} cy={top - 10} r={9} className="fill-surface stroke-muted" strokeWidth={1.2} />
+              <text x={x(n.t)} y={top - 6} textAnchor="middle" className="fill-ink text-xs font-medium">
+                {n.n}
+              </text>
+            </g>
+          ))}
+        <path d={path} fill="none" strokeWidth={2.5} strokeLinejoin="round" style={{ stroke: 'rgb(var(--cat) / 0.6)' }} />
+        {points.map((p) => (
+          <circle key={p.id} cx={x(p.t)} cy={y(p.value)} r={5} style={{ fill: 'rgb(var(--cat))' }} />
+        ))}
+        <text x={left} y={H - 8} textAnchor="start" className="fill-muted text-xs">
+          {formatDayShort(Math.min(...ts))}
         </text>
-      )}
-    </svg>
+        {span > 0 && (
+          <text x={W - right} y={H - 8} textAnchor="end" className="fill-muted text-xs">
+            {formatDayShort(Math.max(...ts))}
+          </text>
+        )}
+      </svg>
+    </div>
   );
 }
 
@@ -124,15 +137,15 @@ function ItemDiff({ test, a, b }: { test: TestDef; a: HistoryEntry; b: HistoryEn
         .slice(0, 6),
     [test, a, b],
   );
-  if (!rows.length) return <p className="text-[15px] text-muted">Ответы в этих двух прохождениях не отличаются.</p>;
+  if (!rows.length) return <p className="text-ui text-muted">Ответы в этих двух прохождениях не отличаются.</p>;
   return (
     <ul className="space-y-3">
       {rows.map((r) => {
         const pol = polarity(test.id, r.scaleId);
         const kind: ChangeKind = pol === 'neutral' ? 'changed' : (pol === 'down' ? r.delta < 0 : r.delta > 0) ? 'better' : 'worse';
         return (
-          <li key={r.id} className="rounded-xl border border-line p-3">
-            <p className="text-[15px]">
+          <li key={r.id} className="rounded-control border border-line p-3">
+            <p className="text-ui">
               <span className="font-medium">Пункт {r.index}.</span> {r.text}
             </p>
             <p className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted">
@@ -175,13 +188,13 @@ function Notes({ notes, onChange }: { notes: Note[]; onChange: () => void }) {
           onChange();
         }}
       >
-        <label className="space-y-1 text-sm">
+        <label className="min-w-0 max-w-full space-y-1 text-sm">
           <span className="block text-muted">Дата</span>
-          <input type="date" value={date} max={today} onChange={(e) => setDate(e.target.value || today)} className="min-h-[44px] rounded-xl border border-line bg-surface px-3" />
+          <input type="date" value={date} max={today} onChange={(e) => setDate(e.target.value || today)} className="min-h-[44px] rounded-control border border-line-strong bg-surface px-3" />
         </label>
         <label className="min-w-[14rem] flex-1 space-y-1 text-sm">
           <span className="block text-muted">Что произошло</span>
-          <input type="text" value={text} maxLength={300} onChange={(e) => setText(e.target.value)} className="min-h-[44px] w-full rounded-xl border border-line bg-surface px-3" />
+          <input type="text" value={text} maxLength={300} onChange={(e) => setText(e.target.value)} className="min-h-[44px] w-full rounded-control border border-line-strong bg-surface px-3" />
         </label>
         <button type="submit" className="btn btn-ghost" disabled={!text.trim()}>
           Добавить
@@ -190,7 +203,7 @@ function Notes({ notes, onChange }: { notes: Note[]; onChange: () => void }) {
       {notes.length > 0 && (
         <ol className="space-y-2">
           {notes.map((n, i) => (
-            <li key={n.id} className="flex flex-wrap items-center justify-between gap-3 rounded-xl bg-accent-soft p-3 text-[15px]">
+            <li key={n.id} className="flex flex-wrap items-center justify-between gap-3 rounded-control bg-accent-soft p-3 text-ui">
               <span>
                 <span className="font-medium tabular-nums">{i + 1}. {formatDay(n.date)}</span> — {n.text}
               </span>
@@ -232,7 +245,7 @@ export default function TrendView({ tests, history }: { tests: TestDef[]; histor
 
   if (!series.length) {
     return (
-      <div className="card space-y-3 text-[15px]">
+      <div className="card space-y-3 text-ui">
         <p>Пока нет результатов. Пройдите тест, а потом повторите его позже: так появится динамика.</p>
         <Link href="/" className="btn btn-primary">
           Выбрать тест
@@ -264,19 +277,19 @@ export default function TrendView({ tests, history }: { tests: TestDef[]; histor
 
   return (
     <div className="space-y-8">
-      <p className="rounded-xl2 bg-accent-soft p-4 text-[15px]">
+      <p className="rounded-control bg-accent-soft p-4 text-ui">
         Одно прохождение показывает состояние в конкретный момент, а повторные — динамику. Регулярное отслеживание результатов
         помогает замечать перемены раньше и обсуждать их со специалистом (Lambert и др., обратная связь в психотерапии).
         Изменение считается значимым, только если оно больше обычных колебаний, поэтому ниже указан порог.
       </p>
 
       <div className="flex flex-wrap items-end gap-4">
-        <label className="space-y-1 text-sm">
+        <label className="min-w-0 max-w-full space-y-1 text-sm">
           <span className="block text-muted">Тест</span>
           <select
             value={test.id}
             onChange={(e) => setTestId(e.target.value)}
-            className="min-h-[44px] rounded-xl border border-line bg-surface px-3 text-base"
+            className="min-h-[44px] w-full max-w-full rounded-control border border-line-strong bg-surface px-3 text-base sm:w-auto"
           >
             {series.map((s) => (
               <option key={s.test.id} value={s.test.id}>
@@ -286,9 +299,9 @@ export default function TrendView({ tests, history }: { tests: TestDef[]; histor
           </select>
         </label>
         {scaleDefs.length > 1 && (
-          <label className="space-y-1 text-sm">
+          <label className="min-w-0 max-w-full space-y-1 text-sm">
             <span className="block text-muted">Шкала</span>
-            <select value={sid} onChange={(e) => setScaleId(e.target.value)} className="min-h-[44px] rounded-xl border border-line bg-surface px-3 text-base">
+            <select value={sid} onChange={(e) => setScaleId(e.target.value)} className="min-h-[44px] w-full max-w-full rounded-control border border-line-strong bg-surface px-3 text-base sm:w-auto">
               {scaleDefs.map((s) => (
                 <option key={s.id} value={s.id}>
                   {scaleTitle(s.id, s.title)}
@@ -312,9 +325,9 @@ export default function TrendView({ tests, history }: { tests: TestDef[]; histor
           label={`График результатов «${scaleTitle(sdef.id, sdef.title)}»: ${rows.map((r) => `${formatDay(r.entry.completedAt)} — ${formatValue(r.s.value)}`).join('; ')}. Подробности в таблице ниже.`}
         />
         {notes.length > 0 && <p className="text-sm text-muted">Цифры в кружках — заметки о событиях (список ниже).</p>}
-        {total === 1 && <p className="text-[15px] text-muted">Пока одно прохождение. Пройдите тест ещё раз (не раньше, чем через период, о котором спрашивает тест), чтобы увидеть динамику.</p>}
+        {total === 1 && <p className="text-ui text-muted">Пока одно прохождение. Пройдите тест ещё раз (не раньше, чем через период, о котором спрашивает тест), чтобы увидеть динамику.</p>}
         {lastChange && (
-          <div className="space-y-2 rounded-xl bg-accent-soft p-4 text-[15px]">
+          <div className="space-y-2 rounded-control bg-accent-soft p-4 text-ui">
             <p className="flex flex-wrap items-center gap-3">
               <ChangeChip kind={lastChange.kind} />
               <span>
@@ -332,8 +345,8 @@ export default function TrendView({ tests, history }: { tests: TestDef[]; histor
         )}
       </section>
 
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[34rem] border-collapse text-left text-[15px]">
+      <div className="overflow-x-auto" tabIndex={0} role="group" aria-label="Таблица, при необходимости прокручивается">
+        <table className="w-full min-w-[34rem] border-collapse text-left text-ui">
           <caption className="sr-only">Результаты по датам</caption>
           <thead>
             <tr className="border-b border-line text-sm text-muted">
@@ -375,7 +388,7 @@ export default function TrendView({ tests, history }: { tests: TestDef[]; histor
             ].map((x) => (
               <label key={x.label} className="space-y-1 text-sm">
                 <span className="block text-muted">{x.label}</span>
-                <select value={x.val} onChange={(e) => x.set(Number(e.target.value))} className="min-h-[44px] rounded-xl border border-line bg-surface px-3 text-base">
+                <select value={x.val} onChange={(e) => x.set(Number(e.target.value))} className="min-h-[44px] w-full max-w-full rounded-control border border-line-strong bg-surface px-3 text-base sm:w-auto">
                   {rows.map((r, i) => (
                     <option key={r.entry.id} value={i}>
                       {formatDay(r.entry.completedAt)}

@@ -60,25 +60,25 @@ export default function ExternalEntry({ test }: { test: TestDef }) {
       <Link href={`/tests/${test.id}`} className="text-sm text-accent underline-offset-4 hover:underline">
         ← К описанию
       </Link>
-      <h1 className="text-3xl font-semibold tracking-tight">{test.title}: ввод ответов</h1>
+      <h1 className="t-h1">{test.title}: ввод ответов</h1>
 
       <section className="card space-y-3">
-        <h2 className="text-lg font-semibold">1. Пройдите тест на сайте оригинала</h2>
-        <p className="text-[15px]">{ext.note}</p>
+        <h2 className="t-h3">1. Пройдите тест на сайте оригинала</h2>
+        <p className="text-ui">{ext.note}</p>
         <a href={ext.url} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
           {ext.urlLabel} ↗
         </a>
       </section>
 
       <section className="space-y-3" aria-labelledby="legend">
-        <h2 id="legend" className="text-lg font-semibold">
+        <h2 id="legend" className="t-h3">
           2. Введите свои ответы
         </h2>
-        <p className="text-[15px] text-muted">
+        <p className="text-ui text-muted">
           Для каждого пункта выберите тот вариант, который вы отметили на сайте оригинала. Нумерация пунктов —
           как в оригинале. Ответы считаются только в вашем браузере.
         </p>
-        <ul className="grid gap-1 rounded-xl2 bg-accent-soft p-4 text-sm sm:grid-cols-2">
+        <ul className="grid gap-1 rounded-control bg-accent-soft p-4 text-sm sm:grid-cols-2">
           {test.scale.options.map((o) => (
             <li key={o.value}>
               <span className="font-semibold">{o.value}</span> — {o.label}
@@ -100,7 +100,7 @@ export default function ExternalEntry({ test }: { test: TestDef }) {
           value={paste}
           onChange={(e) => setPaste(e.target.value)}
           rows={3}
-          className="w-full rounded-xl border border-line bg-surface p-3 text-base"
+          className="w-full rounded-control border border-line-strong bg-surface p-3 text-base"
           placeholder="например: 3 4 2 5 1 …"
         />
         <div className="flex flex-wrap gap-2">
@@ -131,8 +131,8 @@ export default function ExternalEntry({ test }: { test: TestDef }) {
         </h3>
         <ul className="grid gap-2 sm:grid-cols-2">
           {test.questions.map((q, i) => (
-            <li key={q.id} className="flex items-center justify-between gap-3 rounded-xl border border-line bg-surface px-3 py-2">
-              <label htmlFor={`a-${q.id}`} className="text-[15px]">
+            <li key={q.id} className="flex items-center justify-between gap-3 rounded-control border border-line-strong bg-surface px-3 py-2">
+              <label htmlFor={`a-${q.id}`} className="text-ui">
                 Пункт {i + 1}
               </label>
               <select
@@ -142,7 +142,7 @@ export default function ExternalEntry({ test }: { test: TestDef }) {
                   const v = e.target.value === '' ? '' : Number(e.target.value);
                   setAnswers((a) => a.map((x, j) => (j === i ? v : x)));
                 }}
-                className="min-h-[40px] rounded-lg border border-line bg-bg px-2"
+                className="min-h-[40px] rounded-control border border-line bg-bg px-2"
               >
                 <option value="">—</option>
                 {test.scale.options.map((o) => (

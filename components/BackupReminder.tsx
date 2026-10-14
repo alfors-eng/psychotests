@@ -12,7 +12,7 @@ export default function BackupReminder() {
 
   if (advice === 'none') return null;
   return (
-    <aside aria-label="Резервная копия" className="flex flex-wrap items-center justify-between gap-3 rounded-xl2 border border-line bg-warm-soft p-4 text-[15px] print:hidden">
+    <aside aria-label="Резервная копия" className="flex flex-wrap items-center justify-between gap-3 rounded-card border border-line bg-warm-soft p-4 text-ui print:hidden">
       <p className="min-w-[14rem] flex-1">
         {advice === 'first'
           ? 'Результаты хранятся только в этом браузере и пропадут, если очистить данные сайта. Сделайте резервную копию: это занимает полминуты.'

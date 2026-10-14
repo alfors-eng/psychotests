@@ -33,16 +33,16 @@ export function ForestPlot({ d }: { d: DimEstimate }) {
   const rows = d.byTest;
   const yPooled = rows.length * rowH + 22;
   return (
-    <svg
+    <div className="overflow-x-auto" tabIndex={0} role="group" aria-label="Диаграмма, при необходимости прокручивается"><svg
       viewBox={`0 0 ${W} ${H}`}
       role="img"
       aria-label={`Оценки по тестам: ${rows.map((t) => `${t.short} ${Math.round(t.theta)} %`).join(', ')}. Итог ${Math.round(d.theta)} % (интервал ${Math.round(d.lo!)}–${Math.round(d.hi!)}).`}
-      className="h-auto w-full"
+      className="mx-auto h-auto w-full max-w-3xl min-w-[30rem]"
     >
       {[0, 25, 50, 75, 100].map((v) => (
         <g key={v}>
           <line x1={x(v)} x2={x(v)} y1={8} y2={H - 26} className="stroke-line" strokeDasharray={v === 50 ? undefined : '3 4'} />
-          <text x={x(v)} y={H - 8} textAnchor="middle" className="fill-muted text-[11px]">
+          <text x={x(v)} y={H - 8} textAnchor="middle" className="fill-muted text-xs">
             {v}
           </text>
         </g>
@@ -52,7 +52,7 @@ export function ForestPlot({ d }: { d: DimEstimate }) {
         const y = 22 + i * rowH;
         return (
           <g key={t.testId} style={{ color: 'rgb(var(--cat))' }}>
-            <text x={left - 10} y={y + 4} textAnchor="end" className="fill-ink text-[12px]">
+            <text x={left - 10} y={y + 4} textAnchor="end" className="fill-ink text-xs">
               {t.short.length > 12 ? t.short.slice(0, 11) + '…' : t.short}
             </text>
             <line x1={x(a)} x2={x(b)} y1={y} y2={y} stroke="currentColor" strokeWidth={2.5} opacity={0.55} />
@@ -61,7 +61,7 @@ export function ForestPlot({ d }: { d: DimEstimate }) {
         );
       })}
       <g>
-        <text x={left - 10} y={yPooled + 4} textAnchor="end" className="fill-ink text-[12px] font-semibold">
+        <text x={left - 10} y={yPooled + 4} textAnchor="end" className="fill-ink text-xs font-semibold">
           Итог
         </text>
         <polygon
@@ -70,7 +70,7 @@ export function ForestPlot({ d }: { d: DimEstimate }) {
           strokeLinejoin="round"
         />
       </g>
-    </svg>
+    </svg></div>
   );
 }
 
@@ -88,11 +88,11 @@ export function CircumplexChart({ agency, communion, octant }: { agency: number;
     return `M ${cx} ${cy} L ${p(a0)} A ${R} ${R} 0 0 0 ${p(a1)} Z`;
   };
   return (
-    <svg
+    <div className="overflow-x-auto" tabIndex={0} role="group" aria-label="Диаграмма, при необходимости прокручивается"><svg
       viewBox="-30 0 380 330"
       role="img"
       aria-label={`Межличностный круг: теплота ${Math.round(communion)} %, доминантность ${Math.round(agency)} %${octant !== null ? `, сектор ${OCTANTS[octant].label}` : ''}`}
-      className="mx-auto h-auto w-full max-w-sm"
+      className="mx-auto h-auto w-full max-w-sm min-w-[21rem]"
     >
       {OCTANTS.map((o) => (
         <path key={o.code} d={wedge(o.index)} className={o.index === octant ? 'fill-accent/25 stroke-accent' : 'fill-none stroke-line'} strokeWidth={o.index === octant ? 2 : 1} />
@@ -105,18 +105,18 @@ export function CircumplexChart({ agency, communion, octant }: { agency: number;
         const ly = cy - (R + 16) * Math.sin(a);
         const anchor = Math.cos(a) < -0.3 ? 'end' : Math.cos(a) > 0.3 ? 'start' : 'middle';
         return (
-          <text key={o.code} x={lx} y={ly + 4} textAnchor={anchor} className={`text-[11px] ${o.index === octant ? 'fill-ink font-semibold' : 'fill-muted'}`}>
+          <text key={o.code} x={lx} y={ly + 4} textAnchor={anchor} className={`text-xs ${o.index === octant ? 'fill-ink font-semibold' : 'fill-muted'}`}>
             {o.code}
           </text>
         );
       })}
-      <text x={cx} y={14} textAnchor="middle" className="fill-muted text-[11px]">
+      <text x={cx} y={14} textAnchor="middle" className="fill-muted text-xs">
         доминантность ↑
       </text>
-      <text x={cx + R + 20} y={cy + 28} textAnchor="end" className="fill-muted text-[11px]">
+      <text x={cx + R + 20} y={cy + 28} textAnchor="end" className="fill-muted text-xs">
         теплота →
       </text>
       <circle cx={px} cy={py} r={8} className="fill-accent stroke-surface" strokeWidth={3} />
-    </svg>
+    </svg></div>
   );
 }

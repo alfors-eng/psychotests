@@ -50,7 +50,7 @@ export default function OverlayRadar({
   return (
     <figure className="space-y-3">
       <figcaption className="font-semibold">{title}</figcaption>
-      <svg viewBox="-70 0 560 380" role="img" aria-label={`${title}. Итог: ${summary}.`} className="mx-auto h-auto w-full max-w-md">
+      <div className="overflow-x-auto" tabIndex={0} role="group" aria-label="Диаграмма, при необходимости прокручивается"><svg viewBox="-70 0 560 380" role="img" aria-label={`${title}. Итог: ${summary}.`} className="mx-auto h-auto w-full max-w-xl min-w-[30rem]">
         {[0.25, 0.5, 0.75, 1].map((f) => (
           <polygon key={f} points={ring(f)} className="fill-none stroke-line" strokeWidth={1} />
         ))}
@@ -75,12 +75,12 @@ export default function OverlayRadar({
           const ly = cy + ((y - cy) / (R || 1)) * (R + 22);
           const anchor = dx < -8 ? 'end' : dx > 8 ? 'start' : 'middle';
           return (
-            <text key={label} x={lx} y={ly} textAnchor={anchor} dominantBaseline="middle" className="fill-ink text-[12px]">
+            <text key={label} x={lx} y={ly} textAnchor={anchor} dominantBaseline="middle" className="fill-ink text-xs">
               {short(label)}
             </text>
           );
         })}
-      </svg>
+      </svg></div>
       <div className="flex flex-wrap items-center justify-center gap-2 text-sm">
         <span className="inline-flex items-center gap-2 rounded-full bg-accent-soft px-3 py-1">
           <span aria-hidden="true" className="inline-block h-1.5 w-5 rounded-full bg-accent" />

@@ -29,7 +29,7 @@ function Evidence({ list, title, empty }: { list: ItemEvidence[]; title: string;
       ) : (
         <ul className="space-y-2">
           {list.map((e) => (
-            <li key={`${e.testId}:${e.qid}`} className="rounded-xl border border-line bg-surface p-3 text-sm">
+            <li key={`${e.testId}:${e.qid}`} className="rounded-control border border-line-strong bg-surface p-3 text-sm">
               <p>{e.text || `Пункт ${e.index}`}</p>
               <p className="mt-1 text-xs text-muted">
                 {e.short}, пункт {e.index} · ответ: {e.answerLabel} · вклад в направлении измерения {Math.round(e.o)} %
@@ -85,7 +85,7 @@ function DimCard({ d }: { d: DimEstimate }) {
             <span className="sr-only"> — {d.def.title}</span>
           </button>
           {open && (
-            <div className="space-y-4 rounded-xl bg-accent-soft/50 p-3">
+            <div className="space-y-4 rounded-control bg-accent-soft/50 p-3">
               <p className="text-sm">
                 <span className="font-medium">Низкий итог:</span> {d.def.low}. <span className="font-medium">Высокий:</span> {d.def.high}.
               </p>
@@ -135,14 +135,14 @@ export default function DeepView({
         <h3 id="deep-method" className="text-lg font-semibold">
           Как работает глубинный анализ
         </h3>
-        <p className="text-[15px]">
+        <p className="text-ui">
           Здесь учитываются <strong>все пункты всех пройденных тестов</strong>, а не только итоговые баллы. Каждая
           шкала связана с несколькими скрытыми характеристиками (например, «Эмоциональная устойчивость» оценивают
           нейротизм из трёх тестов и близкие по смыслу шкалы стресса и самооценки). Пункты разных тестов объединяются
           по этим связям, а между тестами итог считается по модели случайных эффектов (как в метаанализе). Мера
           расхождения тестов — I².
         </p>
-        <details className="rounded-xl2 border border-line bg-surface p-4 text-sm">
+        <details className="rounded-card border border-line bg-surface p-4 text-sm">
           <summary className="cursor-pointer font-medium">Ограничения метода</summary>
           <ul className="mt-2 list-disc space-y-1 pl-5 text-muted">
             <li>Связи шкал с характеристиками назначены по определениям, литературе и содержанию пунктов, а не оценены по вашим данным: по ответам одного человека факторный анализ невозможен.</li>
@@ -154,7 +154,7 @@ export default function DeepView({
       </section>
 
       {screeningsOff && (
-        <div className="flex flex-wrap items-center justify-between gap-3 rounded-xl2 bg-warm-soft p-4 text-[15px]">
+        <div className="flex flex-wrap items-center justify-between gap-3 rounded-control bg-warm-soft p-4 text-ui">
           <p>Скрининги (тревога, депрессия, стресс и т. п.) в анализ не включены, поэтому группа «Эмоциональные переживания» пуста или неполна.</p>
           <button type="button" className="btn btn-ghost !min-h-[40px] !px-4 text-sm" onClick={onEnableScreenings}>
             Включить скрининги
@@ -181,12 +181,12 @@ export default function DeepView({
           <h3 id="deep-ins" className="text-lg font-semibold">
             Что показывает совокупность ответов
           </h3>
-          <ul className="space-y-3">
+          <ul className="divide-y divide-line border-y border-line">
             {insights.map((i) => (
-              <li key={i.id} className="card space-y-1 p-4">
+              <li key={i.id} className="space-y-1 py-4">
                 <p className="flex items-center gap-2 text-xs font-medium text-muted"><span aria-hidden="true" className={`h-2 w-2 rounded-full ${TONE[i.tone]}`} />{TONE_LABEL[i.tone]}</p>
                 <h4 className="font-semibold">{i.title}</h4>
-                <p className="text-[15px]">{i.text}</p>
+                <p className="text-ui">{i.text}</p>
                 {i.refs.length > 0 && (
                   <p className="text-xs text-muted">
                     Основа:{' '}
@@ -259,7 +259,7 @@ export default function DeepView({
           return (
             <div key={g.id} className={`cat-${g.category} space-y-3`}>
               <h4 className="flex items-center gap-3 text-base font-semibold">
-                <span className="cat-bubble inline-flex h-8 w-8 items-center justify-center rounded-lg">
+                <span className="cat-bubble inline-flex h-8 w-8 items-center justify-center rounded-control">
                   <CategoryIcon id={g.category} className="h-5 w-5" />
                 </span>
                 {g.title}
@@ -287,7 +287,7 @@ export default function DeepView({
         </h3>
         <ol className="space-y-3 text-sm">
           {REFERENCES.map((x) => (
-            <li key={x.id} className="rounded-xl border border-line bg-surface p-3">
+            <li key={x.id} className="rounded-control border border-line-strong bg-surface p-3">
               <p>{x.cite}</p>
               <p className="mt-1 text-muted">Как используется: {x.use}</p>
             </li>

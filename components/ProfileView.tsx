@@ -72,7 +72,7 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
           <polygon points="60,26 90,48 80,84 40,84 30,48" className="stroke-accent" strokeWidth="3" strokeLinejoin="round" strokeDasharray="6 6" />
           <circle cx="60" cy="60" r="5" className="fill-accent" />
         </svg>
-        <h2 className="text-xl font-semibold">Профиль пока пуст</h2>
+        <h2 className="t-h3">Профиль пока пуст</h2>
         <p className="max-w-md text-muted">
           Пройдите хотя бы один тест — его шкалы появятся здесь. Чем больше тестов вы пройдёте, тем полнее
           будет диаграмма. Всё хранится только в вашем браузере.
@@ -143,13 +143,13 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
   return (
     <div className="space-y-10">
       <BackupReminder />
-      <p className="rounded-xl2 bg-accent-soft p-4 text-[15px]">
+      <p className="rounded-control bg-accent-soft p-4 text-ui">
         Профиль строится из <strong>последнего прохождения каждого теста</strong>. Значения — положение на шкале
         теста (0–100 %), а не норма. Шкалы разных тестов, которые измеряют одно и то же, объединяются в сводные
         показатели. Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.
       </p>
 
-      <div role="tablist" aria-label="Разделы профиля" className="flex flex-wrap gap-2 print:hidden">
+      <div role="tablist" aria-label="Разделы профиля" className="-mx-gutter flex gap-1 overflow-x-auto border-b border-line px-gutter print:hidden sm:mx-0 sm:px-0">
         {TABS.map((t) => (
           <button
             key={t.id}
@@ -159,8 +159,8 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
             aria-selected={tab === t.id}
             aria-controls={`panel-${t.id}`}
             onClick={() => setTab(t.id)}
-            className={`min-h-[44px] rounded-full border px-5 text-[15px] font-medium transition-colors ${
-              tab === t.id ? 'border-accent bg-accent text-accent-fg' : 'border-line bg-surface hover:bg-accent-soft'
+            className={`-mb-px min-h-[48px] shrink-0 whitespace-nowrap border-b-2 px-4 text-ui font-medium transition-colors ${
+              tab === t.id ? 'border-accent text-ink' : 'border-transparent text-muted hover:text-ink'
             }`}
           >
             {t.label}
@@ -168,11 +168,11 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
         ))}
       </div>
 
-      <div className={`grid gap-8 ${showPicker ? 'lg:grid-cols-[1.4fr_1fr]' : ''}`}>
-        <div className="space-y-8">
+      <div className={`grid grid-cols-1 gap-8 ${showPicker ? 'lg:grid-cols-[1.4fr_1fr]' : ''}`}>
+        <div className="min-w-0 space-y-8">
           <div id="panel-whole" role="tabpanel" aria-labelledby="tab-whole" hidden={tab !== 'whole'} className="space-y-6">
             <div className="flex flex-wrap items-center justify-between gap-3">
-              <h2 className="text-xl font-semibold">Целостная картина ({selected.length} шкал → {integrated.filter((i) => i.score !== null).length} показателей)</h2>
+              <h2 className="t-h3">Целостная картина ({selected.length} шкал → {integrated.filter((i) => i.score !== null).length} показателей)</h2>
               <div className="flex gap-2 print:hidden">
                 <button type="button" className="btn btn-primary !min-h-[40px] !px-4 text-sm disabled:opacity-40" disabled={!integrated.some((i) => i.score !== null)} onClick={exportIntegrated}>
                   Скачать PNG
@@ -186,22 +186,22 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
           </div>
 
           <div id="panel-trend" role="tabpanel" aria-labelledby="tab-trend" hidden={tab !== 'trend'} className="space-y-6">
-            <h2 className="text-xl font-semibold">Динамика результатов</h2>
+            <h2 className="t-h3">Динамика результатов</h2>
             {tab === 'trend' && <TrendView tests={tests} history={history} />}
           </div>
 
           <div id="panel-screen" role="tabpanel" aria-labelledby="tab-screen" hidden={tab !== 'screen'} className="space-y-6">
-            <h2 className="text-xl font-semibold">Скрининги и следующие шаги</h2>
+            <h2 className="t-h3">Скрининги и следующие шаги</h2>
             {tab === 'screen' && <ScreeningView tests={tests} history={history} />}
           </div>
 
           <div id="panel-report" role="tabpanel" aria-labelledby="tab-report" hidden={tab !== 'report'} className="space-y-6">
-            <h2 className="text-xl font-semibold">Отчёт и данные</h2>
+            <h2 className="t-h3">Отчёт и данные</h2>
             {tab === 'report' && <ReportView tests={tests} history={history} />}
           </div>
 
           <div id="panel-deep" role="tabpanel" aria-labelledby="tab-deep" hidden={tab !== 'deep'} className="space-y-6">
-            <h2 className="text-xl font-semibold">Глубинный анализ ответов</h2>
+            <h2 className="t-h3">Глубинный анализ ответов</h2>
             {tab === 'deep' && (
               <DeepView
                 tests={tests}
@@ -214,7 +214,7 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
           </div>
 
           <div id="panel-tables" role="tabpanel" aria-labelledby="tab-tables" hidden={tab !== 'tables'} className="space-y-10">
-            <h2 className="text-xl font-semibold">Сводные таблицы</h2>
+            <h2 className="t-h3">Сводные таблицы</h2>
             <ConstructTable items={integrated} testTitles={testTitles} />
             <MatrixTable items={integrated} testTitles={testTitles} />
             <CharacteristicsTable chars={selected} />
@@ -224,7 +224,7 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
           <div id="panel-charts" role="tabpanel" aria-labelledby="tab-charts" hidden={tab !== 'charts'}>
         <section aria-labelledby="chart-title" className="space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h2 id="chart-title" className="text-xl font-semibold">
+            <h2 id="chart-title" className="t-h3">
               Диаграмма ({selected.length})
             </h2>
             <div role="group" aria-label="Вид диаграммы" className="inline-flex overflow-hidden rounded-full border border-line">
@@ -243,7 +243,7 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
           </div>
 
           {view === 'radar' && !radarOk && (
-            <p role="status" className="rounded-xl bg-warm-soft p-3 text-sm">
+            <p role="status" className="rounded-control bg-warm-soft p-3 text-sm">
               {selected.length < MIN_RADAR
                 ? `Для радара выберите минимум ${MIN_RADAR} характеристики (сейчас ${selected.length}). Пока показаны полосы.`
                 : `Для радара слишком много осей (${selected.length}, максимум ${MAX_RADAR}). Пока показана круговая карта: уберите лишнее, чтобы вернуться к радару.`}
@@ -271,7 +271,7 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
                 .map((g) => (
                   <div key={g.cat.id} className={`cat-${g.cat.id} card space-y-3`}>
                     <h3 className="flex items-center gap-2 font-semibold">
-                      <span className="cat-bubble inline-flex h-8 w-8 items-center justify-center rounded-lg">
+                      <span className="cat-bubble inline-flex h-8 w-8 items-center justify-center rounded-control">
                         <CategoryIcon id={g.cat.id} className="h-5 w-5" />
                       </span>
                       {g.cat.title}
@@ -318,8 +318,8 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
           </div>
         </div>
 
-        <section aria-labelledby="pick-title" hidden={!showPicker} className="space-y-4 print:hidden lg:sticky lg:top-4 lg:self-start">
-          <h2 id="pick-title" className="text-xl font-semibold">
+        <section aria-labelledby="pick-title" hidden={!showPicker} className="min-w-0 space-y-4 print:hidden lg:sticky lg:top-24 lg:self-start">
+          <h2 id="pick-title" className="t-h3">
             Что показывать
           </h2>
           <div className="flex flex-wrap gap-2">
@@ -342,9 +342,9 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
           </p>
 
           {groups.map((g) => (
-            <details key={g.cat.id} open className={`cat-${g.cat.id} rounded-xl2 border border-line bg-surface`}>
+            <details key={g.cat.id} open className={`cat-${g.cat.id} rounded-card border border-line bg-surface`}>
               <summary className="flex cursor-pointer items-center gap-3 p-3 font-semibold">
-                <span className="cat-bubble inline-flex h-8 w-8 items-center justify-center rounded-lg">
+                <span className="cat-bubble inline-flex h-8 w-8 items-center justify-center rounded-control">
                   <CategoryIcon id={g.cat.id} className="h-5 w-5" />
                 </span>
                 {g.cat.title}
@@ -355,14 +355,14 @@ export default function ProfileView({ tests }: { tests: TestDef[] }) {
               <ul className="space-y-1 border-t border-line p-3">
                 {g.all.map((c) => (
                   <li key={c.key}>
-                    <label className="flex cursor-pointer items-start gap-3 rounded-lg p-2 hover:bg-accent-soft">
+                    <label className="flex cursor-pointer items-start gap-3 rounded-control p-2 hover:bg-accent-soft">
                       <input
                         type="checkbox"
                         className="mt-1 h-5 w-5 shrink-0 accent-[rgb(var(--accent))]"
                         checked={isOn(c)}
                         onChange={(e) => update({ ...over, [c.key]: e.target.checked })}
                       />
-                      <span className="text-[15px]">
+                      <span className="text-ui">
                         <span className="font-medium">{c.title}</span>
                         <span className="block text-sm text-muted">
                           {c.short} · {formatValue(c.value)} из {formatValue(c.max)}

@@ -47,7 +47,7 @@ function Qr({ text }: { text: string }) {
     <div
       role="img"
       aria-label="QR-код со ссылкой для переноса данных"
-      className="w-56 max-w-full rounded-xl bg-white p-3 [&>svg]:h-auto [&>svg]:w-full"
+      className="w-56 max-w-full rounded-control bg-white p-3 [&>svg]:h-auto [&>svg]:w-full"
       dangerouslySetInnerHTML={{ __html: svg }}
     />
   );
@@ -100,7 +100,7 @@ function Receive({ initialToken, onDone }: { initialToken: string; onDone: () =>
           value={input}
           onChange={(e) => setInput(e.target.value)}
           rows={3}
-          className="w-full rounded-xl border border-line bg-surface p-3 font-mono text-xs"
+          className="w-full rounded-control border border-line-strong bg-surface p-3 font-mono text-xs"
           spellCheck={false}
         />
       </label>
@@ -111,7 +111,7 @@ function Receive({ initialToken, onDone }: { initialToken: string; onDone: () =>
           value={pass}
           onChange={(e) => setPass(e.target.value)}
           autoComplete="off"
-          className="min-h-[44px] w-full max-w-sm rounded-xl border border-line bg-surface px-3 text-base"
+          className="min-h-[44px] w-full max-w-sm rounded-control border border-line-strong bg-surface px-3 text-base"
         />
       </label>
       <button type="submit" className="btn btn-primary" disabled={busy || !input.trim() || !pass}>
@@ -121,7 +121,7 @@ function Receive({ initialToken, onDone }: { initialToken: string; onDone: () =>
         {done}
       </p>
       {error && (
-        <p role="alert" className="rounded-xl bg-warm-soft p-3 text-[15px]">
+        <p role="alert" className="rounded-control bg-warm-soft p-3 text-ui">
           {error}
         </p>
       )}
@@ -177,11 +177,11 @@ function CreateLink({ disabled, onCreated }: { disabled: boolean; onCreated: () 
         <div className="flex flex-wrap gap-4">
           <label className="space-y-1 text-sm">
             <span className="block text-muted">Придумайте пароль (от {MIN_PASSPHRASE} символов)</span>
-            <input type="password" value={pass} onChange={(e) => setPass(e.target.value)} autoComplete="new-password" className="min-h-[44px] w-64 max-w-full rounded-xl border border-line bg-surface px-3 text-base" />
+            <input type="password" value={pass} onChange={(e) => setPass(e.target.value)} autoComplete="new-password" className="min-h-[44px] w-64 max-w-full rounded-control border border-line-strong bg-surface px-3 text-base" />
           </label>
           <label className="space-y-1 text-sm">
             <span className="block text-muted">Повторите пароль</span>
-            <input type="password" value={again} onChange={(e) => setAgain(e.target.value)} autoComplete="new-password" className="min-h-[44px] w-64 max-w-full rounded-xl border border-line bg-surface px-3 text-base" />
+            <input type="password" value={again} onChange={(e) => setAgain(e.target.value)} autoComplete="new-password" className="min-h-[44px] w-64 max-w-full rounded-control border border-line-strong bg-surface px-3 text-base" />
           </label>
         </div>
         <button type="submit" className="btn btn-primary" disabled={busy || disabled}>
@@ -190,7 +190,7 @@ function CreateLink({ disabled, onCreated }: { disabled: boolean; onCreated: () 
         {disabled && <p className="text-sm text-muted">Пока нечего переносить: пройдите хотя бы один тест.</p>}
       </form>
       {error && (
-        <p role="alert" className="rounded-xl bg-warm-soft p-3 text-[15px]">
+        <p role="alert" className="rounded-control bg-warm-soft p-3 text-ui">
           {error}
         </p>
       )}
@@ -198,10 +198,10 @@ function CreateLink({ disabled, onCreated }: { disabled: boolean; onCreated: () 
         <div className="space-y-4">
           <label className="block space-y-1 text-sm">
             <span className="text-muted">Ссылка для переноса ({link.length.toLocaleString('ru-RU')} символов)</span>
-            <textarea readOnly value={link} rows={4} aria-label="Ссылка для переноса" className="w-full rounded-xl border border-line bg-surface p-3 font-mono text-xs" onFocus={(e) => e.currentTarget.select()} />
+            <textarea readOnly value={link} rows={4} aria-label="Ссылка для переноса" className="w-full rounded-control border border-line-strong bg-surface p-3 font-mono text-xs" onFocus={(e) => e.currentTarget.select()} />
           </label>
           {link.length > 8000 && (
-            <p className="rounded-xl bg-warm-soft p-3 text-sm">
+            <p className="rounded-control bg-warm-soft p-3 text-sm">
               Ссылка длинная: некоторые мессенджеры могут её обрезать. Надёжнее перенести данные файлом.
             </p>
           )}
@@ -232,7 +232,7 @@ function CreateLink({ disabled, onCreated }: { disabled: boolean; onCreated: () 
 function Box({ title, children, id }: { title: string; children: React.ReactNode; id: string }) {
   return (
     <section aria-labelledby={id} className="card space-y-4">
-      <h2 id={id} className="text-xl font-semibold">
+      <h2 id={id} className="t-h3">
         {title}
       </h2>
       {children}
@@ -312,7 +312,7 @@ export default function DataCenter() {
 
   return (
     <div className="space-y-8">
-      <p className="rounded-xl2 bg-accent-soft p-4 text-[15px]">
+      <p className="rounded-control bg-accent-soft p-4 text-ui">
         Ваши результаты хранятся только в этом браузере: на сайте нет аккаунтов, и сервер их не получает. Поэтому важно
         подстраховаться на случай, если браузер очистит данные сайта. Здесь собраны все способы, от самого простого до самого
         надёжного.
@@ -361,13 +361,13 @@ export default function DataCenter() {
       </Box>
 
       <Box id="link-title" title="Перенос на другое устройство: зашифрованная ссылка или QR-код">
-        <p className="text-[15px] text-muted">
+        <p className="text-ui text-muted">
           Данные шифруются в вашем браузере вашим паролем. Ссылку можно отправить себе в мессенджер или показать QR-код телефону.
           Результаты при этом остаются и на этом устройстве.
         </p>
         <CreateLink disabled={counts.results === 0 && counts.notes === 0} onCreated={() => void refresh()} />
         {!token && (
-          <details className="rounded-xl border border-line p-4">
+          <details className="rounded-control border border-line p-4">
             <summary className="cursor-pointer font-medium">У меня есть ссылка или код переноса</summary>
             <div className="mt-4">
               <Receive initialToken="" onDone={() => void refresh()} />
@@ -378,13 +378,13 @@ export default function DataCenter() {
 
       {canFile && (
         <Box id="auto-title" title="Автокопия в файл (Chrome, Edge, Яндекс Браузер)">
-          <p className="text-[15px] text-muted">
+          <p className="text-ui text-muted">
             Выберите файл на компьютере (лучше в папке, которую вы синхронизируете с облаком). Копия будет обновляться после каждого
             пройденного теста. Эти данные переживут очистку браузера.
           </p>
           {fileName ? (
             <div className="space-y-3">
-              <p className="text-[15px]">
+              <p className="text-ui">
                 Файл: <span className="font-medium">{fileName}</span>
               </p>
               <div className="flex flex-wrap gap-2">
@@ -425,11 +425,11 @@ export default function DataCenter() {
       </Box>
 
       <Box id="install-title" title="Установить сайт как приложение">
-        <p className="text-[15px] text-muted">
+        <p className="text-ui text-muted">
           Установленное приложение браузеры считают более «своим» и реже удаляют его данные; на iPhone это защищает от очистки,
           которую Safari делает для сайтов, которые давно не открывали.
         </p>
-        <ul className="list-disc space-y-1 pl-5 text-[15px]">
+        <ul className="list-disc space-y-1 pl-5 text-ui">
           <li>iPhone и iPad (Safari): «Поделиться» → «На экран “Домой”».</li>
           <li>Android (Chrome, Яндекс Браузер): меню → «Установить приложение» или «Добавить на главный экран».</li>
           <li>Компьютер (Chrome, Edge): значок установки в адресной строке или меню → «Установить Психотесты».</li>

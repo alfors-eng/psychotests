@@ -16,7 +16,7 @@ export default function ReportView({ tests, history }: { tests: TestDef[]; histo
   useEffect(() => setNotes(loadNotes()), []);
 
   if (!series.length) {
-    return <p className="card text-[15px] text-muted">Отчёт появится, когда вы пройдёте хотя бы один тест.</p>;
+    return <p className="card text-ui text-muted">Отчёт появится, когда вы пройдёте хотя бы один тест.</p>;
   }
 
   const flaggedIds = new Set(screenings.filter((s) => s.flagged).map((s) => s.test.id));
@@ -68,8 +68,8 @@ export default function ReportView({ tests, history }: { tests: TestDef[]; histo
           </p>
         </header>
 
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[40rem] border-collapse text-left text-[15px]">
+        <div className="overflow-x-auto" tabIndex={0} role="group" aria-label="Таблица, при необходимости прокручивается">
+          <table className="w-full min-w-[40rem] border-collapse text-left text-ui">
             <caption className="sr-only">Последние результаты по каждому тесту</caption>
             <thead>
               <tr className="border-b border-line text-sm text-muted">
@@ -117,7 +117,7 @@ export default function ReportView({ tests, history }: { tests: TestDef[]; histo
         {notes.length > 0 && (
           <section aria-labelledby="rep-notes">
             <h4 id="rep-notes" className="font-semibold">Заметки о событиях</h4>
-            <ul className="mt-2 space-y-1 text-[15px]">
+            <ul className="mt-2 space-y-1 text-ui">
               {notes.map((n) => (
                 <li key={n.id}>
                   <span className="font-medium">{formatDay(n.date)}</span> — {n.text}
@@ -128,7 +128,7 @@ export default function ReportView({ tests, history }: { tests: TestDef[]; histo
         )}
 
         {slowTests.length > 0 && (
-          <section aria-labelledby="rep-quality" className="rounded-xl bg-warm-soft p-4 text-[15px]">
+          <section aria-labelledby="rep-quality" className="rounded-control bg-warm-soft p-4 text-ui">
             <h4 id="rep-quality" className="font-semibold">Качество ответов</h4>
             <p className="mt-1">
               В тестах {slowTests.map((x) => x.s.test.title.split(' — ')[0]).join(', ')} ответы были даны очень быстро (меньше

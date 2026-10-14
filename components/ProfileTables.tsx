@@ -104,7 +104,7 @@ export function ConstructTable({ items, testTitles }: { items: Integrated[]; tes
         </div>
         <label className="flex min-h-[40px] items-center gap-2">
           Сортировка
-          <select value={sort} onChange={(e) => setSort(e.target.value as typeof sort)} className="rounded-lg border border-line bg-surface px-2 py-1">
+          <select value={sort} onChange={(e) => setSort(e.target.value as typeof sort)} className="rounded-control border border-line-strong bg-surface px-2 py-1">
             <option value="domain">По областям</option>
             <option value="score">По итогу (убывание)</option>
             <option value="spread">По разбросу (убывание)</option>
@@ -120,7 +120,7 @@ export function ConstructTable({ items, testTitles }: { items: Integrated[]; tes
         </label>
       </div>
 
-      <div className="overflow-x-auto rounded-xl2 border border-line bg-surface">
+      <div className="overflow-x-auto rounded-card border border-line bg-surface" tabIndex={0} role="group" aria-label="Таблица, при необходимости прокручивается">
         <table className="w-full min-w-[820px] text-left text-sm">
           <caption className="sr-only">
             Сводные показатели: итог по всем тестам, разброс между тестами, источники, согласованность и уверенность
@@ -272,7 +272,7 @@ export function MatrixTable({ items, testTitles }: { items: Integrated[]; testTi
       <h3 id="mx-title" className="text-lg font-semibold">
         Матрица «тест × характеристика»
       </h3>
-      <div className="overflow-x-auto rounded-xl2 border border-line bg-surface">
+      <div className="overflow-x-auto rounded-card border border-line bg-surface" tabIndex={0} role="group" aria-label="Таблица, при необходимости прокручивается">
         <table className="w-full min-w-[640px] border-collapse text-center text-xs">
           <caption className="sr-only">
             Положение на шкале (в процентах) по каждой характеристике в каждом пройденном тесте, с учётом направления шкалы
@@ -360,7 +360,7 @@ export function CharacteristicsTable({ chars }: { chars: Characteristic[] }) {
       <h3 id="all-title" className="text-lg font-semibold">
         Все выбранные характеристики
       </h3>
-      <div className="overflow-x-auto rounded-xl2 border border-line bg-surface">
+      <div className="overflow-x-auto rounded-card border border-line bg-surface" tabIndex={0} role="group" aria-label="Таблица, при необходимости прокручивается">
         <table className="w-full min-w-[720px] text-left text-sm">
           <caption className="sr-only">Все выбранные характеристики с возможностью сортировки по столбцам</caption>
           <thead className="border-b border-line text-muted">

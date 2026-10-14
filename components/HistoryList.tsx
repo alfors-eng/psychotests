@@ -10,6 +10,7 @@ import type { HistoryEntry } from '@/lib/types';
 export default function HistoryList() {
   const [items, setItems] = useState<HistoryEntry[] | null>(null);
   const [message, setMessage] = useState('');
+  const [undo, setUndo] = useState<HistoryEntry | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => setItems(loadHistory()), []);
@@ -37,6 +38,23 @@ export default function HistoryList() {
   };
 
   if (items === null) return <p className="text-muted" role="status">Загрузка…</p>;
+
+  const undoBar = undo && (
+    <p role="status" className="flex flex-wrap items-center gap-3 rounded-control bg-accent-soft p-3 text-ui">
+      Результат удалён.
+      <button
+        type="button"
+        className="inline-flex min-h-[44px] items-center font-medium underline underline-offset-4"
+        onClick={() => {
+          importHistory({ entries: [undo] });
+          setUndo(null);
+          setItems(loadHistory());
+        }}
+      >
+        Вернуть
+      </button>
+    </p>
+  );
 
   const transfer = (
     <div className="space-y-2 border-t border-line pt-4">
@@ -73,13 +91,7 @@ export default function HistoryList() {
   if (!items.length)
     return (
       <div className="space-y-4">
-        <svg viewBox="0 0 160 110" className="h-28 w-40" fill="none" aria-hidden="true" focusable="false">
-          <rect x="22" y="14" width="116" height="82" rx="14" className="fill-accent-soft" />
-          <rect x="38" y="34" width="52" height="8" rx="4" className="fill-accent" opacity="0.6" />
-          <rect x="38" y="52" width="84" height="8" rx="4" className="fill-accent" opacity="0.3" />
-          <rect x="38" y="70" width="64" height="8" rx="4" className="fill-accent" opacity="0.3" />
-          <circle cx="132" cy="22" r="10" className="fill-bg stroke-accent" strokeWidth="3" />
-        </svg>
+        {undoBar}
         <p className="text-muted">Пока нет сохранённых результатов.</p>
         <Link href="/" className="btn btn-primary">
           Выбрать тест
@@ -91,23 +103,24 @@ export default function HistoryList() {
   return (
     <div className="space-y-4">
       <BackupReminder />
-      <ul className="space-y-3">
+      <ul className="divide-y divide-line border-y border-line">
         {items.map((h) => (
-          <li key={h.id} className="card flex flex-wrap items-center justify-between gap-3">
-            <div>
+          <li key={h.id} className="flex flex-wrap items-center justify-between gap-x-4 gap-y-2 py-3">
+            <div className="min-w-0">
               <p className="font-medium">{h.testTitle}</p>
-              <p className="text-sm text-muted">{formatDate(h.completedAt)}</p>
+              <p className="text-ui text-muted">{formatDate(h.completedAt)}</p>
             </div>
-            <div className="flex gap-2">
+            <div className="flex items-center gap-1">
               <Link href={`/tests/${h.testId}/result?r=${h.id}`} className="btn btn-ghost">
                 Открыть
               </Link>
               <button
                 type="button"
-                className="btn btn-ghost"
+                className="inline-flex min-h-[44px] items-center rounded-control px-3 text-ui text-muted underline-offset-4 transition-colors hover:text-warm hover:underline"
                 aria-label={`Удалить результат: ${h.testTitle}, ${formatDate(h.completedAt)}`}
                 onClick={() => {
                   deleteHistory(h.id);
+                  setUndo(h);
                   setItems(loadHistory());
                 }}
               >
@@ -117,6 +130,7 @@ export default function HistoryList() {
           </li>
         ))}
       </ul>
+      {undoBar}
       <button
         type="button"
         className="btn btn-ghost"

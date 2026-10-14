@@ -53,7 +53,7 @@ function Sequence({ test, seq }: { test: TestDef; seq: { index: number; raw: num
       {opts.map((o) => (
         <g key={o.value}>
           <line x1={left} x2={W - right} y1={y(o.value)} y2={y(o.value)} className="stroke-line" strokeDasharray="3 5" />
-          <text x={left - 8} y={y(o.value) + 4} textAnchor="end" className="fill-muted text-[11px]">
+          <text x={left - 8} y={y(o.value) + 4} textAnchor="end" className="fill-muted text-xs">
             {o.value}
           </text>
         </g>
@@ -65,7 +65,7 @@ function Sequence({ test, seq }: { test: TestDef; seq: { index: number; raw: num
       {Array.from({ length: n }, (_, i) => i + 1)
         .filter((i) => i === 1 || i === n || i % step === 0)
         .map((i) => (
-          <text key={i} x={x(i)} y={H - 10} textAnchor="middle" className="fill-muted text-[11px]">
+          <text key={i} x={x(i)} y={H - 10} textAnchor="middle" className="fill-muted text-xs">
             {i}
           </text>
         ))}
@@ -113,7 +113,7 @@ function ItemMatrix({ items }: { items: ItemStat[] }) {
             key={it.id}
             title={`Пункт ${it.index}: ${it.answerLabel} — вклад ${Math.round(it.percent)} %`}
             aria-label={`Пункт ${it.index}: ${it.answerLabel}, вклад ${Math.round(it.percent)} %`}
-            className="h-6 w-6 rounded-md border border-line"
+            className="h-6 w-6 rounded-control border border-line"
             style={{ background: `rgb(var(--cat) / ${(0.08 + (it.percent / 100) * 0.82).toFixed(2)})` }}
           />
         ))}
@@ -139,7 +139,7 @@ export default function AnswerAnalytics({ test, answers, scales, durationSec }: 
   return (
     <section aria-labelledby="analytics-title" className="space-y-6">
       <div className="space-y-1">
-        <h2 id="analytics-title" className="text-xl font-semibold">
+        <h2 id="analytics-title" className="t-h3">
           Аналитика ваших ответов
         </h2>
         <p className="text-sm text-muted">
@@ -150,7 +150,7 @@ export default function AnswerAnalytics({ test, answers, scales, durationSec }: 
 
       <ul className="space-y-2">
         {a.insights.map((t) => (
-          <li key={t} className="flex gap-3 rounded-xl bg-accent-soft p-3 text-[15px]">
+          <li key={t} className="flex gap-3 rounded-control bg-accent-soft p-3 text-ui">
             <span aria-hidden="true" className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[rgb(var(--cat))]" />
             {t}
           </li>
@@ -158,7 +158,7 @@ export default function AnswerAnalytics({ test, answers, scales, durationSec }: 
       </ul>
 
       {time && (
-        <p role={time.tooFast ? 'note' : undefined} className={`rounded-xl p-3 text-[15px] ${time.tooFast ? 'bg-warm-soft font-medium' : 'bg-accent-soft'}`}>
+        <p role={time.tooFast ? 'note' : undefined} className={`rounded-control p-3 text-ui ${time.tooFast ? 'bg-warm-soft font-medium' : 'bg-accent-soft'}`}>
           {time.text}
         </p>
       )}

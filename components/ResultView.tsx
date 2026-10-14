@@ -32,7 +32,7 @@ export default function ResultView({ test }: { test: TestDef }) {
   if (!entry || !computed) {
     return (
       <div className="mx-auto max-w-xl space-y-4">
-        <h1 className="text-2xl font-semibold">Результат не найден</h1>
+        <h1 className="t-h1">Результат не найден</h1>
         <p className="text-muted">
           Результаты хранятся только в этом браузере. Возможно, он был удалён или открыт на другом устройстве.
         </p>
@@ -56,20 +56,18 @@ export default function ResultView({ test }: { test: TestDef }) {
 
   return (
     <div className={`cat-${test.category} mx-auto max-w-2xl space-y-8`}>
-      <header className="relative overflow-hidden rounded-xl2 border border-line bg-[rgb(var(--cat)/0.10)] p-6">
-        <div className="relative flex items-start gap-4">
-          <span className="cat-bubble inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-surface">
-            <CategoryIcon id={test.category} className="h-7 w-7" />
+      <header className="space-y-3 border-b border-line pb-6">
+        <p className="flex items-center gap-3 text-ui text-muted">
+          <span className="cat-bubble inline-flex h-10 w-10 items-center justify-center rounded-control">
+            <CategoryIcon id={test.category} className="h-5 w-5" />
           </span>
-          <div className="space-y-1">
-            <p className="text-sm text-muted">{date}</p>
-            <h1 className="text-2xl font-semibold tracking-tight sm:text-3xl">{test.title}</h1>
-          </div>
-        </div>
+          {date}
+        </p>
+        <h1 className="t-h2">{test.title}</h1>
       </header>
 
       {/* Дисклеймер — обязательно на каждой странице результата. */}
-      <p role="note" className="rounded-xl2 bg-accent-soft p-4 text-[15px] font-medium">
+      <p role="note" className="rounded-control bg-accent-soft p-4 text-ui font-medium">
         Тест не является диагнозом. Для оценки состояния обратитесь к специалисту.
       </p>
 
@@ -84,16 +82,16 @@ export default function ResultView({ test }: { test: TestDef }) {
 
       {plane && px && py && quadrant && (
         <section className="card space-y-3" aria-labelledby="plane-title">
-          <h2 id="plane-title" className="text-xl font-semibold">
+          <h2 id="plane-title" className="t-h3">
             {quadrant.name}
           </h2>
           <PlaneChart plane={plane} xValue={px.value} yValue={py.value} min={px.min} max={px.max} />
-          <p className="text-[15px]">{quadrant.description}</p>
+          <p className="text-ui">{quadrant.description}</p>
         </section>
       )}
 
       <section aria-labelledby="scores" className="space-y-6">
-        <h2 id="scores" className="text-xl font-semibold">
+        <h2 id="scores" className="t-h3">
           Ваши баллы
         </h2>
         {multi && <RadarChart scales={result.scales} />}
@@ -106,14 +104,14 @@ export default function ResultView({ test }: { test: TestDef }) {
       </section>
 
       <section aria-labelledby="interp" className="space-y-4">
-        <h2 id="interp" className="text-xl font-semibold">
+        <h2 id="interp" className="t-h3">
           Что это значит
         </h2>
         {result.scales.map((s) => (
           <article key={s.id} className="card">
             {result.scales.length > 1 && <p className="text-sm text-muted">{s.title}</p>}
             <h3 className="text-lg font-semibold">{s.range?.title ?? 'Без интерпретации'}</h3>
-            {s.range && <p className="mt-1 text-[15px]">{s.range.description}</p>}
+            {s.range && <p className="mt-1 text-ui">{s.range.description}</p>}
           </article>
         ))}
         {test.disclaimer && <p className="text-sm text-muted">{test.disclaimer}</p>}
@@ -121,7 +119,7 @@ export default function ResultView({ test }: { test: TestDef }) {
 
       {safety.crisis ? (
         <details className="card">
-          <summary className="cursor-pointer text-[15px] font-medium">Подробная аналитика ответов</summary>
+          <summary className="cursor-pointer text-ui font-medium">Подробная аналитика ответов</summary>
           <div className="mt-6">
             <AnswerAnalytics test={test} answers={entry.answers} scales={result.scales} durationSec={entry.durationSec} />
           </div>

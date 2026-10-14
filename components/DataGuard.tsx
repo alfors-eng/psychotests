@@ -35,7 +35,7 @@ export default function DataGuard() {
 
   if (!message) return null;
   return (
-    <div role="status" className="fixed inset-x-4 bottom-4 z-40 mx-auto flex max-w-xl items-start gap-3 rounded-2xl border border-line bg-surface p-4 text-[15px] shadow-lg print:hidden">
+    <div role="status" className="fixed inset-x-4 bottom-4 z-40 mx-auto flex max-w-xl items-start gap-3 rounded-card border border-line bg-surface p-4 text-ui shadow-float print:hidden">
       <p className="flex-1">{message}</p>
       <button type="button" className="shrink-0 underline underline-offset-4" onClick={() => setMessage('')}>
         Закрыть

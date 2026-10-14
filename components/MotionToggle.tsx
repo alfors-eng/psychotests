@@ -27,7 +27,7 @@ export default function MotionToggle() {
       aria-pressed={off}
       aria-label={off ? 'Включить анимации' : 'Остановить анимации'}
       title={off ? 'Включить анимации' : 'Остановить анимации'}
-      className="inline-flex h-11 w-11 items-center justify-center rounded-full hover:bg-accent-soft"
+      className="inline-flex h-11 w-11 items-center justify-center rounded-control hover:bg-accent-soft"
     >
       <svg viewBox="0 0 24 24" className="h-5 w-5" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
         {off ? <path d="M8 5v14l11-7z" /> : <path d="M9 5v14M15 5v14" />}

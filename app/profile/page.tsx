@@ -12,8 +12,8 @@ export default function ProfilePage() {
   const tests = getAllTests().filter(isReady).map((t) => toScoringDef(t, true));
   return (
     <div className="space-y-8">
-      <header className="space-y-2">
-        <h1 className="text-3xl font-semibold tracking-tight">Мой профиль</h1>
+      <header className="space-y-3">
+        <h1 className="t-h1">Мой профиль</h1>
         <p className="max-w-2xl text-lg text-muted">
           Результаты всех ваших тестов в одном месте: целостная картина и диаграммы, динамика с оценкой значимости
           изменений, сводка по скринингам со следующими шагами и отчёт для специалиста.

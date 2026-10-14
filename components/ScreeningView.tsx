@@ -24,7 +24,7 @@ export default function ScreeningView({ tests, history }: { tests: TestDef[]; hi
 
   if (!rows.length) {
     return (
-      <div className="card space-y-3 text-[15px]">
+      <div className="card space-y-3 text-ui">
         <p>Скринингов пока нет. Пройдите, например, PHQ-4 (минута), WHO-5 или GAD-7: здесь появится сводка по порогам и следующие шаги.</p>
         <div className="flex flex-wrap gap-2">
           {['phq-4', 'who-5', 'gad-7'].map((id) => (
@@ -62,7 +62,7 @@ export default function ScreeningView({ tests, history }: { tests: TestDef[]; hi
 
   return (
     <div className="space-y-10">
-      <p className="rounded-xl2 bg-accent-soft p-4 text-[15px]">
+      <p className="rounded-control bg-accent-soft p-4 text-ui">
         Здесь собраны скрининговые тесты (депрессия, тревога, травма, зависимость и др.). Достижение порога — повод подробнее
         разобраться и поговорить со специалистом, а не диагноз. Рекомендации ниже строятся по правилам авторов тестов:
         короткий скрининг, подробный тест, специалист.
@@ -71,7 +71,7 @@ export default function ScreeningView({ tests, history }: { tests: TestDef[]; hi
       {crisis.length > 0 && (
         <section role="alert" className="card space-y-2 border-warm bg-warm-soft">
           <h3 className="font-semibold">Вам может быть тяжело</h3>
-          <p className="text-[15px]">
+          <p className="text-ui">
             В тесте «{crisis[0].test.title}» вы отметили ответ, на который стоит обратить внимание. Вы не должны справляться с этим в одиночку. Откройте результат: там собраны контакты помощи. Если опасность близко, звоните по единому номеру экстренной помощи 112.
           </p>
           <Link href={`/tests/${crisis[0].test.id}/result?r=${crisis[0].entry.id}`} className="btn btn-ghost">
@@ -87,7 +87,7 @@ export default function ScreeningView({ tests, history }: { tests: TestDef[]; hi
         {flagged.length ? (
           <ul className="space-y-4">{flagged.map((r) => <Row key={r.test.id} r={r} />)}</ul>
         ) : (
-          <p className="text-[15px] text-muted">Ни один пройденный скрининг не достиг порога. Если вас что-то беспокоит, это можно обсудить со специалистом и без тестов.</p>
+          <p className="text-ui text-muted">Ни один пройденный скрининг не достиг порога. Если вас что-то беспокоит, это можно обсудить со специалистом и без тестов.</p>
         )}
       </section>
 
@@ -101,7 +101,7 @@ export default function ScreeningView({ tests, history }: { tests: TestDef[]; hi
               <li key={r.id} className="card space-y-3">
                 <div>
                   <p className="font-semibold">{r.title}</p>
-                  <p className="mt-1 text-[15px]">{r.text}</p>
+                  <p className="mt-1 text-ui">{r.text}</p>
                 </div>
                 <div className="flex flex-wrap gap-2">
                   {r.tests.map((id) => {
@@ -118,10 +118,10 @@ export default function ScreeningView({ tests, history }: { tests: TestDef[]; hi
             ))}
           </ul>
         ) : (
-          <p className="text-[15px] text-muted">Дополнительных тестов по вашим результатам не требуется. Если появятся новые, они будут показаны здесь.</p>
+          <p className="text-ui text-muted">Дополнительных тестов по вашим результатам не требуется. Если появятся новые, они будут показаны здесь.</p>
         )}
         {flagged.length > 0 && (
-          <p className="rounded-xl bg-accent-soft p-3 text-[15px]">
+          <p className="rounded-control bg-accent-soft p-3 text-ui">
             Если порог достигнут в нескольких тестах или состояние держится больше двух недель, запишитесь к врачу или
             психотерапевту и возьмите с собой сводку из вкладки «Отчёт».
           </p>
@@ -146,8 +146,8 @@ export default function ScreeningView({ tests, history }: { tests: TestDef[]; hi
           сменится, нет смысла: вы отвечаете про те же дни.
         </p>
         {plan.length ? (
-          <div className="overflow-x-auto">
-            <table className="w-full min-w-[32rem] border-collapse text-left text-[15px]">
+          <div className="overflow-x-auto" tabIndex={0} role="group" aria-label="Таблица, при необходимости прокручивается">
+            <table className="w-full min-w-[32rem] border-collapse text-left text-ui">
               <caption className="sr-only">План повторных прохождений</caption>
               <thead>
                 <tr className="border-b border-line text-sm text-muted">
@@ -174,11 +174,11 @@ export default function ScreeningView({ tests, history }: { tests: TestDef[]; hi
             </table>
           </div>
         ) : (
-          <p className="text-[15px] text-muted">Для пройденных тестов повторять нужно только по желанию: черты личности меняются медленно.</p>
+          <p className="text-ui text-muted">Для пройденных тестов повторять нужно только по желанию: черты личности меняются медленно.</p>
         )}
       </section>
 
-      <details className="rounded-xl2 border border-line bg-surface p-4 text-sm text-muted">
+      <details className="rounded-card border border-line bg-surface p-4 text-sm text-muted">
         <summary className="cursor-pointer font-medium text-ink">На чём основаны правила</summary>
         <ul className="mt-3 list-disc space-y-1 pl-5">
           <li>Kroenke, K., Spitzer, R. L., Williams, J. B. W., & Löwe, B. (2009). An ultra-brief screening scale for anxiety and depression: The PHQ-4. Psychosomatics, 50, 613–621.</li>

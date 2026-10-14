@@ -17,11 +17,11 @@ export function RadarChart({ scales }: { scales: ScaleResult[] }) {
   const short = (s: string) => s.replace(/\s*\(.*\)$/, '');
 
   return (
-    <svg
+    <div className="overflow-x-auto" tabIndex={0} role="group" aria-label="Диаграмма, при необходимости прокручивается"><svg
       viewBox="-70 0 560 380"
       role="img"
       aria-label={`Радарная диаграмма: ${scales.map((s) => `${short(s.title)} ${Math.round(s.percent)}%`).join(', ')}`}
-      className="mx-auto h-auto w-full max-w-md"
+      className="mx-auto h-auto w-full max-w-xl min-w-[30rem]"
     >
       {[0.25, 0.5, 0.75, 1].map((f) => (
         <polygon key={f} points={poly(() => f)} className="fill-none stroke-line" strokeWidth={1} />
@@ -44,12 +44,12 @@ export function RadarChart({ scales }: { scales: ScaleResult[] }) {
         const [x, y] = point(i, R + 22);
         const anchor = x < cx - 8 ? 'end' : x > cx + 8 ? 'start' : 'middle';
         return (
-          <text key={s.id} x={x} y={y} textAnchor={anchor} dominantBaseline="middle" className="fill-ink text-[12px]">
-            {short(s.title).length > 20 ? short(s.title).slice(0, 19) + "…" : short(s.title)}
+          <text key={s.id} x={x} y={y} textAnchor={anchor} dominantBaseline="middle" className="fill-ink text-xs">
+            {short(s.title).length > 28 ? short(s.title).slice(0, 27) + "…" : short(s.title)}
           </text>
         );
       })}
-    </svg>
+    </svg></div>
   );
 }
 
@@ -105,7 +105,7 @@ export function ScoreRing({ s }: { s: ScaleResult }) {
       <text x="70" y="68" textAnchor="middle" className="fill-ink text-[30px] font-semibold">
         {formatValue(s.value)}
       </text>
-      <text x="70" y="90" textAnchor="middle" className="fill-muted text-[13px]">
+      <text x="70" y="90" textAnchor="middle" className="fill-muted text-meta">
         из {formatValue(s.max)}
       </text>
     </svg>

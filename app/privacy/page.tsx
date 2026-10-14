@@ -8,7 +8,7 @@ export const metadata: Metadata = {
 
 const Section = ({ title, children }: { title: string; children: React.ReactNode }) => (
   <section className="space-y-2">
-    <h2 className="text-2xl font-medium">{title}</h2>
+    <h2 className="t-h2">{title}</h2>
     {children}
   </section>
 );
@@ -16,8 +16,8 @@ const Section = ({ title, children }: { title: string; children: React.ReactNode
 export default function PrivacyPage() {
   return (
     <article className="mx-auto max-w-2xl space-y-8 leading-relaxed">
-      <header className="space-y-2">
-        <h1 className="text-3xl font-medium sm:text-5xl">Конфиденциальность и данные</h1>
+      <header className="space-y-3">
+        <h1 className="t-h1">Конфиденциальность и данные</h1>
         <p className="text-lg text-muted">Коротко: сайт не просит о вас ничего, а результаты остаются на вашем устройстве.</p>
       </header>
 

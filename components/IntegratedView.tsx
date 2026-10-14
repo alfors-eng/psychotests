@@ -49,12 +49,12 @@ export default function IntegratedView({
           <h3 id="ins-title" className="text-lg font-semibold">
             Что показывает сочетание тестов
           </h3>
-          <ul className="space-y-3">
+          <ul className="divide-y divide-line border-y border-line">
             {insights.map((i) => (
-              <li key={i.id} className="card space-y-1 p-4">
+              <li key={i.id} className="space-y-1 py-4">
                 <p className="flex items-center gap-2 text-xs font-medium text-muted"><span aria-hidden="true" className={`h-2 w-2 rounded-full ${TONE[i.tone]}`} />{TONE_LABEL[i.tone]}</p>
                 <h4 className="font-semibold">{i.title}</h4>
-                <p className="text-[15px]">{i.text}</p>
+                <p className="text-ui">{i.text}</p>
               </li>
             ))}
           </ul>

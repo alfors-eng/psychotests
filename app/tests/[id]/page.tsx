@@ -42,45 +42,55 @@ export default async function TestPage({ params }: Props) {
 
   return (
     <article className={`cat-${t.category} mx-auto max-w-2xl space-y-8`}>
-      <Link href="/" className="text-sm text-accent underline-offset-4 hover:underline">
+      <Link href="/" className="inline-flex min-h-[44px] items-center text-ui text-accent underline-offset-4 hover:underline">
         ← Все тесты
       </Link>
-      <header className="relative overflow-hidden rounded-xl2 border border-line bg-[rgb(var(--cat)/0.10)] p-6 sm:p-8">
-        <div className="relative space-y-4">
-          <span className="cat-bubble inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-surface">
-            <CategoryIcon id={t.category} className="h-8 w-8" />
+      <header className="space-y-5 border-b border-line pb-8">
+        <p className="flex items-center gap-3 text-ui text-muted">
+          <span className="cat-bubble inline-flex h-10 w-10 items-center justify-center rounded-control">
+            <CategoryIcon id={t.category} className="h-5 w-5" />
           </span>
-          <p className="text-sm font-medium">{categoryTitle(t.category)}</p>
-          <h1 className="text-3xl font-semibold tracking-tight">{t.title}</h1>
-          <p className="text-lg text-muted">{t.shortDescription}</p>
-        </div>
+          {categoryTitle(t.category)}
+        </p>
+        <h1 className="t-h1">{t.title}</h1>
+        <p className="max-w-[60ch] text-lg text-muted">{t.shortDescription}</p>
       </header>
 
-      <dl className="grid grid-cols-2 gap-4 rounded-xl2 border border-line bg-surface p-5 text-sm sm:grid-cols-4">
-        {facts.map(([k, v]) => (
-          <div key={k}>
-            <dt className="text-muted">{k}</dt>
-            <dd className="font-medium">{v}</dd>
-          </div>
-        ))}
+      <dl className="grid grid-cols-3 gap-x-6 gap-y-4 text-ui">
+        {facts
+          .filter(([k]) => k !== 'Автор')
+          .map(([k, v]) => (
+            <div key={k}>
+              <dt className="text-muted">{k}</dt>
+              <dd className="font-medium">{v}</dd>
+            </div>
+          ))}
+        {facts
+          .filter(([k]) => k === 'Автор')
+          .map(([k, v]) => (
+            <div key={k} className="col-span-3 border-t border-line pt-4">
+              <dt className="text-muted">{k}</dt>
+              <dd className="font-medium">{v}</dd>
+            </div>
+          ))}
       </dl>
 
       <section className="space-y-3">
-        <h2 className="text-xl font-semibold">О тесте</h2>
+        <h2 className="t-h2">О тесте</h2>
         <p>{t.fullDescription}</p>
         {ready && <p className="text-muted">{t.instructions}</p>}
       </section>
 
       {t.isClinical && !ref && (
-        <p className="rounded-xl2 bg-accent-soft p-4 text-[15px]">
+        <p className="rounded-control bg-accent-soft p-4 text-ui">
           Это скрининговый опросник. Он не ставит диагноз и не заменяет консультацию специалиста.
         </p>
       )}
 
       {ready && t.mode === 'external' ? (
         <section className="card space-y-3">
-          <h2 className="text-lg font-semibold">Как это работает</h2>
-          <ol className="list-decimal space-y-1 pl-5 text-[15px]">
+          <h2 className="t-h3">Как это работает</h2>
+          <ol className="list-decimal space-y-1 pl-5 text-ui">
             <li>Пройдите тест на сайте оригинала (мы не воспроизводим его вопросы).</li>
             <li>Вернитесь и введите номера своих ответов.</li>
             <li>Получите баллы и объяснение: подсчёт идёт в вашем браузере.</li>
@@ -93,10 +103,10 @@ export default async function TestPage({ params }: Props) {
         <StartButtons testId={t.id} />
       ) : ref ? (
         <section className="card space-y-4 border-warm bg-warm-soft" aria-labelledby="ref-title">
-          <h2 id="ref-title" className="text-lg font-semibold">
+          <h2 id="ref-title" className="t-h3">
             Справочная карточка: методика недоступна для прохождения на сайте
           </h2>
-          <p className="text-[15px]">{t.restriction}</p>
+          <p className="text-ui">{t.restriction}</p>
           <a href={t.officialUrl} target="_blank" rel="noopener noreferrer" className="btn btn-primary">
             Официальный источник ↗
           </a>
@@ -104,7 +114,7 @@ export default async function TestPage({ params }: Props) {
       ) : (
         <div className="card border-warm bg-warm-soft" role="note">
           <p className="font-medium">Этот тест ещё в подготовке</p>
-          <p className="mt-1 text-[15px]">
+          <p className="mt-1 text-ui">
             Формулировки вопросов и ключи подсчёта проверяются по первоисточнику — мы не публикуем их по
             памяти или в непроверенном переводе.
           </p>
@@ -113,7 +123,7 @@ export default async function TestPage({ params }: Props) {
 
       {analogs.length > 0 && (
         <section className="space-y-3" aria-labelledby="analogs-title">
-          <h2 id="analogs-title" className="text-xl font-semibold">
+          <h2 id="analogs-title" className="t-h3">
             {ref ? 'Открытые аналоги на сайте' : 'Другие открытые тесты по теме'}
           </h2>
           <ul className="grid gap-3 sm:grid-cols-2">
@@ -133,7 +143,7 @@ export default async function TestPage({ params }: Props) {
       )}
 
       {ref && analogs.length === 0 && (
-        <p className="rounded-xl2 bg-accent-soft p-4 text-[15px]">
+        <p className="rounded-control bg-accent-soft p-4 text-ui">
           Открытого аналога на сайте пока нет. Для такой методики лучше обратиться к специалисту, который имеет
           право её проводить.
         </p>
